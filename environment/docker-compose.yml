@@ -1,3 +1,6 @@
+# TODO
+# - Mail server?
+
 #Admin Tool
 ###########
 
@@ -63,3 +66,4 @@ kibana:
     log_driver: syslog
     links:
         - "elasticsearch:elasticsearch"
+
