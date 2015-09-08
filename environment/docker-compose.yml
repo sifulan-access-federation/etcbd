@@ -8,10 +8,10 @@
 apache:
     restart: always
     build: ./apache/
-    log_driver: syslog
-    ports:
-        - "80:80"
-        - "443:443"
+    #log_driver: syslog
+    #ports:
+    #    - "80:80"
+    #    - "443:443"
     volumes:
         - /etc/ssl:/etc/ssl:ro
     volumes_from:
@@ -26,7 +26,7 @@ apache:
 djnro:
     restart: always
     build: ./djnro/
-    log_driver: syslog
+    #log_driver: syslog
     expose:
         - "3031"
     volumes:
@@ -37,7 +37,7 @@ djnro:
 postgres:
     restart: always
     build: ./postgres/
-    log_driver: syslog
+    #log_driver: syslog
     expose:
         - "5432"
     volumes:
@@ -49,21 +49,21 @@ postgres:
 elasticsearch:
     restart: always
     build: ./elasticsearch/
-    log_driver: syslog
+    #log_driver: syslog
     volumes:
         - /var/lib/docker-host-volumes/elasticsearch-data:/usr/share/elasticsearch/data
 
 logstash:
     restart: always
     build: ./logstash/
-    log_driver: syslog
+    #log_driver: syslog
     volumes:
         - /var/lib/docker-host-volumes/logstash-data:/usr/share/logstash/data
 
 kibana:
     restart: always
     build: ./kibana/
-    log_driver: syslog
+    #log_driver: syslog
     links:
         - "elasticsearch:elasticsearch"
 
