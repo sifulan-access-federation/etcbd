@@ -1,0 +1,24 @@
+elasticsearch:
+    restart: always
+    build: ./elasticsearch/
+    #log_driver: syslog
+    volumes:
+        - /var/lib/docker-host-volumes/elasticsearch-data:/usr/share/elasticsearch/data
+
+logstash:
+    restart: always
+    build: ./logstash/
+    #log_driver: syslog
+    volumes:
+        - /var/lib/docker-host-volumes/logstash-data:/usr/share/logstash/data
+    links:
+        - "kibana:kibana"
+
+kibana:
+    restart: always
+    build: ./kibana/
+    #log_driver: syslog
+    ports:
+        - "5601:5601"
+    links:
+        - "elasticsearch:elasticsearch"
