@@ -18,7 +18,7 @@ apache:
     #links to reverse proxy the admin tool and kibana
     links:
         - "djnro:djnro"
-        - "kibana:kibana"
+        #- "kibana:kibana"
 
 djnro:
     restart: always
