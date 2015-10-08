@@ -11,4 +11,5 @@ RUN git clone https://github.com/grnet/djnro.git ./
 COPY requirements-additional.txt ./
 RUN pip install -r requirements-additional.txt -r requirements.txt
 COPY uwsgi.ini ./
+COPY local_settings.py djnro/
 CMD exec uwsgi /djnro/uwsgi.ini

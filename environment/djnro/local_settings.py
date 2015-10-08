@@ -1,0 +1,175 @@
+import os
+from django.utils.translation import ugettext as _
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+PROJECT_DIR = os.path.join(BASE_DIR, 'djnro')
+
+# This should be always False
+DEBUG = False
+TEMPLATE_DEBUG = DEBUG
+
+ADMINS = (
+    ('admin', 'admin@example.org'),
+)
+
+MANAGERS = ADMINS
+
+# Hosts/domain names that are valid for this site; required if DEBUG is False
+# See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = []
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = '<put something really random here, eg. %$#%@#$^2312351345#$%3452345@#$%@#$234#@$hhzdavfsdcFDGVFSDGhn>'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': '',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'STORAGE_ENGINE': 'INNODB',
+    }
+}
+
+STATIC_URL = '/static/'
+
+##### LDAP BACKEND ######
+EXTRA_AUTHENTICATION_BACKENDS = (
+    # 'django_auth_ldap.backend.LDAPBackend',
+)
+
+# LDAP CONFIG
+
+# import ldap
+# from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
+
+# AUTH_LDAP_BIND_DN = ""
+# AUTH_LDAP_BIND_PASSWORD = ""
+# AUTH_LDAP_SERVER_URI = "ldap://foo.bar.org"
+# AUTH_LDAP_START_TLS = True
+# AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=People, dc=bar, dc=foo", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
+
+# AUTH_LDAP_USER_ATTR_MAP = {
+#       "first_name":"givenName",
+#       "last_name": "sn",
+#       "email": "mail
+#       }
+
+# Set up the basic group parameters.
+
+# AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
+#     "ou=Groups,dc=foo,dc=bar,dc=org",ldap.SCOPE_SUBTREE, objectClass=groupOfNames"
+# )
+
+# AUTH_LDAP_GROUP_TYPE = GroupOfNamesType()
+
+# AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+#     "is_active": "cn=NOC, ou=Groups, dc=foo, dc=bar, dc=org",
+#     "is_staff": "cn=staff, ou=Groups, dc=foo, dc=bar, dc=org",
+#     "is_superuser": "cn=NOC, ou=Groups,dc=foo, dc=bar, dc=org"
+# }
+
+
+SHIB_AUTH_ENTITLEMENT = 'urn:mace:example.com:pki:user'
+SHIB_LOGOUT_URL = 'https://example.com/Shibboleth.sso/Logout'
+
+SERVER_EMAIL = "Example domain eduroam Service <noreply@example.com>"
+EMAIL_SUBJECT_PREFIX = "[eduroam] "
+ACCOUNT_ACTIVATION_DAYS = 7
+NOTIFY_ADMIN_MAILS = ["mail1@example.com", "mail2@example.com"]
+
+#### CACHE BACKEND ####
+# For development instances you can deploy the provided dummy cache backend
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        'TIMEOUT': 60,
+    }
+}
+
+# For production instances enable memcache
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'TIMEOUT': 60, # default is 300
+#         'LOCATION': '127.0.0.1:11211',
+#     }
+# }
+
+# Local time zone for this installation. Choices can be found here:
+# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+# although not all choices may be available on all operating systems.
+# In a Windows environment this must be set to your system time zone.
+TIME_ZONE = 'Europe/Athens'
+
+
+# map center (lat, lng)
+MAP_CENTER = (36.97, 23.71)
+
+# Frontend country specific vars, eg. Greece
+NRO_COUNTRY_NAME = _('My Country')
+# Variable used by context_processor to display the "eduroam | <country_code>" in base.html
+NRO_COUNTRY_CODE = 'tld'
+# main domain url used in right top icon, eg. http://www.grnet.gr
+NRO_DOMAIN_MAIN_URL = "http://www.example.com"
+# developer info for footer
+NRO_PROV_BY_DICT = {"name": "GRNET NOC", "url": "//noc.grnet.gr"}
+#provider social media contact (Use: // to preserve https)
+NRO_PROV_SOCIAL_MEDIA_CONTACT = [
+    {"url": "//facebook.com/noc.grnet.gr", "icon":"/static/img/facebook_img.png", "name":"Facebook"},
+    {"url": "//twitter.com/grnetnoc", "icon":"/static/img/twitter_img.png", "name":"Twitter"},
+]
+
+#Helpdesk, used in base.html:
+NRO_DOMAIN_HELPDESK_DICT = {"name": _("Domain Helpdesk"), 'email':'helpdesk@example.com', 'phone': '12324567890', 'uri': 'helpdesk.example.com'}
+
+#Countries for Realm model:
+REALM_COUNTRIES = (
+    ('country_2letters', 'Country' ),
+)
+
+#Shibboleth attribute map
+SHIB_USERNAME = ['HTTP_EPPN']
+SHIB_MAIL = ['mail', 'HTTP_MAIL', 'HTTP_SHIB_INETORGPERSON_MAIL']
+SHIB_FIRSTNAME = ['HTTP_SHIB_INETORGPERSON_GIVENNAME']
+SHIB_LASTNAME = ['HTTP_SHIB_PERSON_SURNAME']
+SHIB_ENTITLEMENT = ['HTTP_SHIB_EP_ENTITLEMENT']
+
+# DJANGO SOCIAL AUTH PLUGIN SETTINGS
+SOCIAL_AUTH_TWITTER_KEY = ''
+SOCIAL_AUTH_TWITTER_SECRET = ''
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = []
+
+###### eduroam CAT integration ###########
+# In order to enable provisioning to CAT, you must list at least one instance and the
+# corresponding description in CAT_INSTANCES. Beware that pages accessible by end users
+# currently only show CAT information for the instance named 'production'.
+# You must also set the following parameters for each CAT instance in CAT_AUTH:
+# CAT_API_KEY: API key for authentication to CAT
+# CAT_API_URL: API endpoint URL
+# CAT_PROFILES_URL: Base URL for Intitution Download Area pages
+# CAT_IDPMGMT_URL: URL For IdP Overview page
+
+# CAT_INSTANCES = (
+#     ('production', 'cat.eduroam.org'),
+#     ('testing', 'cat-test.eduroam.org'),
+# )
+
+# CAT_AUTH = {
+#     'production': {
+#         "CAT_API_KEY": "<provided API key>",
+#         "CAT_API_URL": "https://cat.eduroam.org/admin/API.php",
+#         "CAT_PROFILES_URL": "https://cat.eduroam.org/",
+#         "CAT_IDPMGMT_URL": "https://cat.eduroam.org/admin/overview_federation.php"
+#     },
+#     'testing': {
+#         "CAT_API_KEY": "<provided API key>",
+#         "CAT_API_URL": "https://cat-test.eduroam.org/test/admin/API.php",
+#         "CAT_PROFILES_URL": "https://cat-test.eduroam.org/test",
+#         "CAT_IDPMGMT_URL": "https://cat-test.eduroam.org/test/admin/overview_federation.php"
+#     },
+# }
