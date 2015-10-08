@@ -25,8 +25,6 @@ djnro:
     build: ./djnro/
     #log_driver: syslog
     env_file: localdev_djnro.env
-    expose:
-        - "3031"
     volumes:
         - /code
     links:
@@ -36,7 +34,5 @@ postgres:
     restart: always
     build: ./postgres/
     #log_driver: syslog
-    expose:
-        - "5432"
     volumes:
         - /var/lib/docker-host-volumes/postgres-data:/var/lib/postgresql/data

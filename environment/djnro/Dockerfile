@@ -12,4 +12,5 @@ COPY requirements-additional.txt ./
 RUN pip install -r requirements-additional.txt -r requirements.txt
 COPY uwsgi.ini ./
 COPY local_settings.py djnro/
+EXPOSE 3031
 CMD exec uwsgi /djnro/uwsgi.ini
