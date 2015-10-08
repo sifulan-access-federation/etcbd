@@ -24,6 +24,7 @@ djnro:
     restart: always
     build: ./djnro/
     #log_driver: syslog
+    env_file: localdev_djnro.env
     expose:
         - "3031"
     volumes:

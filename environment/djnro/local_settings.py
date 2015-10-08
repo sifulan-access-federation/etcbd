@@ -7,8 +7,12 @@ PROJECT_DIR = os.path.join(BASE_DIR, 'djnro')
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+# set EMAIL_HOST if provided in the environment, otherwise defaults to none
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+
 ADMINS = (
-    ('admin', 'admin@example.org'),
+    # set administrator email address if defined in the environment, otherwise default to original default value
+    ('admin', os.getenv('ADMIN_EMAIL','admin@example.org')),
 )
 
 MANAGERS = ADMINS
