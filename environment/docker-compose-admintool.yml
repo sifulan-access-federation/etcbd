@@ -5,6 +5,7 @@
 apache:
     restart: always
     build: ./apache/
+    container_name: apache
     #log_driver: syslog
     ports:
         - "80:80"
@@ -23,6 +24,7 @@ apache:
 djnro:
     restart: always
     build: ./djnro/
+    container_name: djnro
     #log_driver: syslog
     env_file: localdev_djnro.env
     volumes:
@@ -32,6 +34,7 @@ djnro:
 
 postgres:
     restart: always
+    container_name: postgres
     build: ./postgres/
     #log_driver: syslog
     volumes:
