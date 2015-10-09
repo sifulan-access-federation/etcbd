@@ -12,7 +12,7 @@ EMAIL_HOST = os.environ.get('EMAIL_HOST')
 
 ADMINS = (
     # set administrator email address if defined in the environment, otherwise default to original default value
-    ('admin', os.getenv('ADMIN_EMAIL','admin@example.org')),
+    (os.getenv('ADMIN_USERNAME','admin'), os.getenv('ADMIN_EMAIL','admin@example.org')),
 )
 
 MANAGERS = ADMINS
@@ -132,7 +132,7 @@ NRO_DOMAIN_HELPDESK_DICT = {"name": _("Domain Helpdesk"), 'email':'helpdesk@exam
 
 #Countries for Realm model:
 REALM_COUNTRIES = (
-    ('country_2letters', 'Country' ),
+    (os.getenv('REALM_COUNTRY_CODE','country_2letters'), os.getenv('REALM_COUNTRY_NAME','Country') ),
 )
 
 #Shibboleth attribute map
