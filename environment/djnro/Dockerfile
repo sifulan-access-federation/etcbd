@@ -12,5 +12,6 @@ COPY requirements-additional.txt ./
 RUN pip install -r requirements-additional.txt -r requirements.txt
 COPY uwsgi.ini ./
 COPY local_settings.py djnro/
+COPY 0022_auto__chg_field_institutiondetails_number_id__del_field_instrealmmon_i.py edumanage/migrations/
 EXPOSE 3031
 CMD exec uwsgi /djnro/uwsgi.ini
