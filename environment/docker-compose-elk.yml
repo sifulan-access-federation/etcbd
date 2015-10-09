@@ -12,7 +12,7 @@ logstash:
     volumes:
         - /var/lib/docker-host-volumes/logstash-data:/usr/share/logstash/data
     links:
-        - "kibana:kibana"
+        - "elasticsearch:elasticsearch"
 
 kibana:
     restart: always
