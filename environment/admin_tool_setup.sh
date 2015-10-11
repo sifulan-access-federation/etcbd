@@ -30,3 +30,9 @@ docker exec djnro ./manage.py loaddata initial_data/fixtures_manual.xml
 # run fetch-kml one-off:
 docker exec djnro ./manage.py fetch_kml
 
+# create initial realm
+docker exec -i djnro ./manage.py shell <<-EOF
+	from edumanage.models import Realm
+	Realm(country="$REALM_COUNTRY_CODE").save()
+EOF
+
