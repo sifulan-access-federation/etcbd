@@ -1,8 +1,9 @@
 
 # Create databases in the Postgres Image
 
-# Get the database parameters
-. localdev_djnro.env
+# Load the local deployment environment variables
+# (and filtre the syntax to quote the values first)
+eval $( cat localdev_djnro.env | sed 's/=\(.*\)/="\1"/' )
 
 # Run a command in the Postgres database to create the role and database
 # Equivalant to:
