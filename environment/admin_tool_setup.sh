@@ -36,3 +36,10 @@ docker exec -i djnro ./manage.py shell <<-EOF
 	Realm(country="$REALM_COUNTRY_CODE").save()
 EOF
 
+# import initial data
+if [ -n "$REALM_EXISTING_DATA_URL" ] ; then
+    # NOTE: this exact spelling
+    docker exec djnro curl -o djnro/institution.xml "$REALM_EXISTING_DATA_URL"
+    docker exec djnro ./manage.py parse_instituion_xml
+fi
+
