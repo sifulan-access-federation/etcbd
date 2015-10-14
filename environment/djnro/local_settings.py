@@ -83,7 +83,7 @@ SHIB_LOGOUT_URL = 'https://example.com/Shibboleth.sso/Logout'
 SERVER_EMAIL = "Example domain eduroam Service <noreply@example.com>"
 EMAIL_SUBJECT_PREFIX = "[eduroam] "
 ACCOUNT_ACTIVATION_DAYS = 7
-NOTIFY_ADMIN_MAILS = ["mail1@example.com", "mail2@example.com"]
+NOTIFY_ADMIN_MAILS = [os.getenv('ADMIN_EMAIL','admin@example.org')]
 
 #### CACHE BACKEND ####
 # For development instances you can deploy the provided dummy cache backend
