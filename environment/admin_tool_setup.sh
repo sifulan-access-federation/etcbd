@@ -36,6 +36,15 @@ docker exec -i djnro ./manage.py shell <<-EOF
 	Realm(country="$REALM_COUNTRY_CODE").save()
 EOF
 
+# Configure the name of the Django site
+docker exec -i djnro ./manage.py shell <<-EOF
+	from django.contrib.sites.models import Site
+	site = Site.objects.get(name="example.com")
+	site.name="$SITE_PUBLIC_HOSTNAME"
+	site.domain="$SITE_PUBLIC_HOSTNAME"
+	site.save()
+EOF
+
 # import initial data
 if [ -n "$REALM_EXISTING_DATA_URL" ] ; then
     # NOTE: this exact spelling

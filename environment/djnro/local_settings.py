@@ -78,7 +78,7 @@ EXTRA_AUTHENTICATION_BACKENDS = (
 
 
 SHIB_AUTH_ENTITLEMENT = 'urn:mace:example.com:pki:user'
-SHIB_LOGOUT_URL = 'https://example.com/Shibboleth.sso/Logout'
+SHIB_LOGOUT_URL = 'https://' + os.getenv('SITE_PUBLIC_HOSTNAME','example.com') + '/Shibboleth.sso/Logout'
 
 SERVER_EMAIL = "Example domain eduroam Service <noreply@example.com>"
 EMAIL_SUBJECT_PREFIX = "[eduroam] "
