@@ -43,6 +43,7 @@ STATIC_URL = '/static/'
 ##### LDAP BACKEND ######
 EXTRA_AUTHENTICATION_BACKENDS = (
     # 'django_auth_ldap.backend.LDAPBackend',
+    'social.backends.google.GooglePlusAuth',
 )
 
 # LDAP CONFIG
@@ -146,9 +147,19 @@ SHIB_ENTITLEMENT = ['HTTP_SHIB_EP_ENTITLEMENT']
 SOCIAL_AUTH_TWITTER_KEY = ''
 SOCIAL_AUTH_TWITTER_SECRET = ''
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('GOOGLE_KEY','')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('GOOGLE_SECRET','')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = []
+
+# duplicate this for OpenIDConnect:
+SOCIAL_AUTH_GOOGLE_OPENIDCONNECT_KEY = os.getenv('GOOGLE_KEY','')
+SOCIAL_AUTH_GOOGLE_OPENIDCONNECT_SECRET = os.getenv('GOOGLE_SECRET','')
+SOCIAL_AUTH_GOOGLE_OPENIDCONNECT_SCOPE = []
+
+# and duplicate this again for GooglePlus:
+SOCIAL_AUTH_GOOGLE_PLUS_KEY = os.getenv('GOOGLE_KEY','')
+SOCIAL_AUTH_GOOGLE_PLUS_SECRET = os.getenv('GOOGLE_SECRET','')
+SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/userinfo.email']
 
 ###### eduroam CAT integration ###########
 # In order to enable provisioning to CAT, you must list at least one instance and the
