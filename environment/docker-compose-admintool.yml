@@ -11,7 +11,7 @@ apache:
         - "80:80"
         - "443:443"
     volumes:
-        - /etc/ssl:/etc/ssl:ro
+        - /var/lib/docker-host-volumes/apache-certs:/usr/local/apache2/conf/external
     volumes_from:
         #get access to the static files.
         - djnro
