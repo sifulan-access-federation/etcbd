@@ -1,0 +1,17 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: djnro-dev-postgres-pv
+  labels:
+    app: admintool
+    service: postgres
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: "djnro-dev-postgres"
+    fsType: "ext4"
+    partition: 0
+  persistentVolumeReclaimPolicy: Recycle

@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: admintool-rc
+spec:
+  replicas: 1
+  selector:
+    app: admintool
+  template:
+    metadata:
+      labels:
+        app: admintool
+    spec:
+      containers:
+        -
+          image: gcr.io/djnro-containers/admintool_apache
+          name: apache
+          env:
+           - name: DJNRO_ENV_SITE_PUBLIC_HOSTNAME
+             value: djnro.104.196.23.0.xip.io
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          volumeMounts:
+            - name: apache-certs
+              mountPath: /usr/local/apache2/conf/external
+        -
+          image: gcr.io/djnro-containers/admintool_djnro
+          name: djnro
+          env:
+           - name: DJNRO_ENV_SITE_PUBLIC_HOSTNAME
+             value: djnro.104.196.23.0.xip.io
+          ports:
+            - containerPort: 3031
+        -
+          image: gcr.io/djnro-containers/admintool_postgres
+          name: postgres
+          env:
+           - name: DJNRO_ENV_SITE_PUBLIC_HOSTNAME
+             value: djnro.104.196.23.0.xip.io
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgresql-data
+              mountPath: /vsr/lib/postgresql/data
+      volumes:
+      - name: apache-certs
+        emptyDir:
+      - name: postgresql-data
+        persistentVolumeClaim:
+          claimName: djnro-dev-postgres-pv-claim
