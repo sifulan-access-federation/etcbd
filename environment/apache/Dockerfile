@@ -10,6 +10,8 @@ RUN apt-get update && apt-get -y install apt-utils && apt-get -y install openssl
 # override httpd-foreground with our version looking into /usr/local/apache2/conf/startup.d
 COPY httpd-foreground /usr/local/bin/
 
+COPY envwrap.sh /
+
 RUN mkdir /usr/local/apache2/conf/startup.d
 COPY make-selfsigned-certs-if-none-present.sh /usr/local/apache2/conf/startup.d/
 
@@ -17,3 +19,6 @@ COPY ./*-httpd.conf /usr/local/apache2/conf/extra/
 RUN echo 'Include conf/extra/modules-httpd.conf' >> /usr/local/apache2/conf/httpd.conf && \
     echo 'Include conf/extra/djnro-httpd.conf' >> /usr/local/apache2/conf/httpd.conf && \
     echo 'Include conf/extra/djnro-ssl-httpd.conf' >> /usr/local/apache2/conf/httpd.conf
+
+# override CMD to wrap httpd-foreground
+CMD ["/envwrap.sh", "httpd-foreground"]

@@ -10,7 +10,7 @@ WORKDIR /djnro
 RUN git clone https://github.com/REANNZ/djnro.git ./
 COPY requirements-additional.txt ./
 RUN pip install -r requirements-additional.txt -r requirements.txt
-COPY uwsgi.ini ./
+COPY envwrap.sh uwsgi.ini ./
 COPY local_settings.py djnro/
 EXPOSE 3031
-CMD exec uwsgi /djnro/uwsgi.ini
+CMD exec ./envwrap.sh uwsgi /djnro/uwsgi.ini
