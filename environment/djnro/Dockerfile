@@ -7,7 +7,7 @@ RUN mkdir /djnro
 WORKDIR /djnro
 
 #pull in the djnro code, install it's dependencies
-RUN git clone https://github.com/grnet/djnro.git ./
+RUN git clone https://github.com/REANNZ/djnro.git ./
 COPY requirements-additional.txt ./
 RUN pip install -r requirements-additional.txt -r requirements.txt
 COPY uwsgi.ini ./
