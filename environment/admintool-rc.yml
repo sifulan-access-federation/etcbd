@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         -
-          image: gcr.io/djnro-containers/admintool_apache
+          image: gcr.io/djnro-containers/admintool_apache:latest
           name: apache
           env:
            - name: DJNRO_HOST
@@ -27,7 +27,7 @@ spec:
             - name: apache-certs
               mountPath: /usr/local/apache2/conf/external
         -
-          image: gcr.io/djnro-containers/admintool_djnro
+          image: gcr.io/djnro-containers/admintool_djnro:latest
           name: djnro
           env:
            - name: DJNRO_ENV_SITE_PUBLIC_HOSTNAME
@@ -37,7 +37,7 @@ spec:
           ports:
             - containerPort: 3031
         -
-          image: gcr.io/djnro-containers/admintool_postgres
+          image: gcr.io/djnro-containers/admintool_postgres:latest
           name: postgres
           env:
            - name: DJNRO_ENV_SITE_PUBLIC_HOSTNAME
