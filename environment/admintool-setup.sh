@@ -50,6 +50,6 @@ EOF
 if [ -n "$REALM_EXISTING_DATA_URL" ] ; then
     # NOTE: this exact spelling
     docker exec djnro curl -o djnro/institution.xml "$REALM_EXISTING_DATA_URL"
-    docker exec djnro ./manage.py parse_institution_xml
+    docker exec djnro ./manage.py parse_institution_xml djnro/institution.xml
 fi
 
