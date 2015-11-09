@@ -28,11 +28,11 @@ SECRET_KEY = '<put something really random here, eg. %$#%@#$^2312351345#$%345234
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.getenv('DB_NAME',''),                      # Or path to database file if using sqlite3.
-        'USER': os.getenv('DB_USER',''),                      # Not used with sqlite3.
-        'PASSWORD': os.getenv('DB_PASSWORD',''),                  # Not used with sqlite3.
+        'NAME': os.getenv('DB_NAME',''),                    # Or path to database file if using sqlite3.
+        'USER': os.getenv('DB_USER',''),                    # Not used with sqlite3.
+        'PASSWORD': os.getenv('DB_PASSWORD',''),            # Not used with sqlite3.
 	# use Docker linking: we get a link to host "postgres"
-        'HOST': 'postgres',                      # Set to empty string for localhost. Not used with sqlite3.
+        'HOST': os.getenv('DB_HOST','postgres'),            # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
         #'STORAGE_ENGINE': 'INNODB',
     }

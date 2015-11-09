@@ -7,6 +7,8 @@ apache:
     build: ./apache/
     container_name: apache
     #log_driver: syslog
+    environment:
+        DJNRO_HOST: djnro
     ports:
         - "80:80"
         - "443:443"
@@ -26,6 +28,8 @@ djnro:
     build: ./djnro/
     container_name: djnro
     #log_driver: syslog
+    environment:
+        DB_HOST: postgres
     env_file: localdev_djnro.env
     volumes:
         - /code

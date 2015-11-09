@@ -16,6 +16,8 @@ spec:
           image: gcr.io/djnro-containers/admintool_apache
           name: apache
           env:
+           - name: DJNRO_HOST
+             value: localhost
            - name: DJNRO_ENV_SITE_PUBLIC_HOSTNAME
              value: djnro.104.196.23.0.xip.io
           ports:
@@ -30,6 +32,8 @@ spec:
           env:
            - name: DJNRO_ENV_SITE_PUBLIC_HOSTNAME
              value: djnro.104.196.23.0.xip.io
+           - name: DB_HOST
+             value: localhost
           ports:
             - containerPort: 3031
         -
