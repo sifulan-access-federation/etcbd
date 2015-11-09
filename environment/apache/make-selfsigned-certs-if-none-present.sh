@@ -13,7 +13,7 @@ if [ ! -e "$CERT" -a ! -e "$KEY" ] ; then
 	
 	.
 	
-	$DJNRO_ENV_SITE_PUBLIC_HOSTNAME
+	$SITE_PUBLIC_HOSTNAME
 	
 	EOF
 	# Country

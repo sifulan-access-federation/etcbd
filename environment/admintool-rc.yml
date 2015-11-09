@@ -16,38 +16,48 @@ spec:
           image: gcr.io/djnro-containers/admintool_apache:latest
           name: apache
           env:
+           - name: ENVVARS_FILE
+             value: /srv/secrets/envvars
            - name: DJNRO_HOST
              value: localhost
-           - name: DJNRO_ENV_SITE_PUBLIC_HOSTNAME
-             value: djnro.104.196.23.0.xip.io
           ports:
             - containerPort: 80
             - containerPort: 443
           volumeMounts:
             - name: apache-certs
               mountPath: /usr/local/apache2/conf/external
+            - name: admintool-secrets-volume
+              mountPath: /srv/secrets
         -
           image: gcr.io/djnro-containers/admintool_djnro:latest
           name: djnro
           env:
-           - name: DJNRO_ENV_SITE_PUBLIC_HOSTNAME
-             value: djnro.104.196.23.0.xip.io
+           - name: ENVVARS_FILE
+             value: /srv/secrets/envvars
            - name: DB_HOST
              value: localhost
           ports:
             - containerPort: 3031
+          volumeMounts:
+            - name: admintool-secrets-volume
+              mountPath: /srv/secrets
         -
           image: gcr.io/djnro-containers/admintool_postgres:latest
           name: postgres
           env:
-           - name: DJNRO_ENV_SITE_PUBLIC_HOSTNAME
-             value: djnro.104.196.23.0.xip.io
+           - name: ENVVARS_FILE
+             value: /srv/secrets/envvars
           ports:
             - containerPort: 5432
           volumeMounts:
             - name: postgresql-data
               mountPath: /vsr/lib/postgresql/data
+            - name: admintool-secrets-volume
+              mountPath: /srv/secrets
       volumes:
+      - name: admintool-secrets-volume
+        secret:
+          secretName: admintool-secrets
       - name: apache-certs
         emptyDir:
       - name: postgresql-data
