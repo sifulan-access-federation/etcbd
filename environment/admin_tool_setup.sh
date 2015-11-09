@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # Create databases in the Postgres Image
 
