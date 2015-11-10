@@ -62,7 +62,7 @@ exec_func "" postgres gosu postgres psql --command="create database $DB_NAME wit
 # Initialize database on the Django side - and create super user
 exec_func -i djnro ./envwrap.sh ./manage.py syncdb <<-EOF
 	yes
-	admin
+	$ADMIN_USERNAME
 	$ADMIN_EMAIL
 	$ADMIN_PASSWORD
 	$ADMIN_PASSWORD
