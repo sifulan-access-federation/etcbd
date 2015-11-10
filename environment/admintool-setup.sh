@@ -11,8 +11,8 @@ eval $( cat localdev_djnro.env | sed 's/=\(.*\)/="\1"/' )
 #   create role djnrodev with login encrypted password 'djnrodev';
 #   create database djnrodev with owner djnrodev;
 
-docker exec -u postgres postgres psql --command="create role $DB_USER with login encrypted password '$DB_PASSWORD' ;"
-docker exec -u postgres postgres psql --command="create database $DB_NAME with owner $DB_USER;"
+docker exec postgres gosu postgres psql --command="create role $DB_USER with login encrypted password '$DB_PASSWORD' ;"
+docker exec postgres gosu postgres psql --command="create database $DB_NAME with owner $DB_USER;"
 
 # Initialize database on the Django side - and create super user
 docker exec -i djnro ./envwrap.sh ./manage.py syncdb <<-EOF
