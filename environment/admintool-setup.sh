@@ -35,6 +35,7 @@ docker exec djnro ./manage.py fetch_kml
 docker exec -i djnro ./manage.py shell <<-EOF
 	from edumanage.models import Realm
 	Realm(country="$REALM_COUNTRY_CODE").save()
+	exit()
 EOF
 
 # Configure the name of the Django site
@@ -44,6 +45,7 @@ docker exec -i djnro ./manage.py shell <<-EOF
 	site.name="$SITE_PUBLIC_HOSTNAME"
 	site.domain="$SITE_PUBLIC_HOSTNAME"
 	site.save()
+	exit()
 EOF
 
 # import initial data
