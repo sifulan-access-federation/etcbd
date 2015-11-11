@@ -123,9 +123,9 @@ TIME_ZONE = 'Europe/Athens'
 MAP_CENTER = (36.97, 23.71)
 
 # Frontend country specific vars, eg. Greece
-NRO_COUNTRY_NAME = _('My Country')
+NRO_COUNTRY_NAME = _(os.getenv('REALM_COUNTRY_NAME', 'My Country'))
 # Variable used by context_processor to display the "eduroam | <country_code>" in base.html
-NRO_COUNTRY_CODE = 'tld'
+NRO_COUNTRY_CODE = os.getenv('REALM_COUNTRY_CODE', 'tld')
 # main domain url used in right top icon, eg. http://www.grnet.gr
 NRO_DOMAIN_MAIN_URL = "http://www.example.com"
 # developer info for footer
