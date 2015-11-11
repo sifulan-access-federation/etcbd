@@ -7,11 +7,15 @@ PROJECT_DIR = os.path.join(BASE_DIR, 'djnro')
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-# set EMAIL_HOST if provided in the environment, otherwise defaults to none
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
-EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+# Set EMAIL_* settings if provided in the environment.
+# Note: EMAIL_HOST_USER and EMAIL_HOST_PASSWORD default to empty string, having
+# blank values in env file works well here.
+# EMAIL_PORT should default to 25 ... but '' gets interpreted correctly - and we set in the default file.
+# No need to have overriding logic in a config file
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'localhost')
+EMAIL_PORT = os.getenv('EMAIL_PORT', 25)
+EMAIL_HOST_USER = os.getenv('EMAIL_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD', '')
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'False').upper() == 'TRUE'
 
 ADMINS = (
