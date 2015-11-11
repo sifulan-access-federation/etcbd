@@ -116,11 +116,11 @@ CACHES = {
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'Europe/Athens'
+TIME_ZONE = os.getenv('TIME_ZONE', 'Pacific/Auckland')
 
 
 # map center (lat, lng)
-MAP_CENTER = (36.97, 23.71)
+MAP_CENTER = (os.getenv('MAP_CENTER_LAT', 0.00), os.getenv('MAP_CENTER_LONG', 0.00) )
 
 # Frontend country specific vars, eg. Greece
 NRO_COUNTRY_NAME = _(os.getenv('REALM_COUNTRY_NAME', 'My Country'))
