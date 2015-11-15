@@ -27,7 +27,8 @@ MANAGERS = ADMINS
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = [os.getenv('SITE_PUBLIC_HOSTNAME','*')]
+#ALLOWED_HOSTS = [os.getenv('SITE_PUBLIC_HOSTNAME','*')]
+ALLOWED_HOSTS = ['*']
 # Restrict to SITE_PUBLIC_HOSTNAME - or permit any if this variable is not set
 
 # Make this unique, and don't share it with anybody.
