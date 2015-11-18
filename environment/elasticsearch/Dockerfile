@@ -1,1 +1,1 @@
-FROM elasticsearch:2
+FROM elasticsearch:2.0
