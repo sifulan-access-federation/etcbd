@@ -1,6 +1,7 @@
 elasticsearch:
     restart: always
     build: ./elasticsearch/
+    container_name: elasticsearch
     #log_driver: syslog
     volumes:
         - /var/lib/docker-host-volumes/elasticsearch-data:/usr/share/elasticsearch/data
@@ -8,6 +9,7 @@ elasticsearch:
 logstash:
     restart: always
     build: ./logstash/
+    container_name: logstash
     #log_driver: syslog
     volumes:
         - /var/lib/docker-host-volumes/logstash-data:/usr/share/logstash/data
@@ -17,6 +19,7 @@ logstash:
 kibana:
     restart: always
     build: ./kibana/
+    container_name: kibana
     #log_driver: syslog
     ports:
         - "5601:5601"
