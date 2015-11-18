@@ -6,7 +6,7 @@ KEY=$CERT_DIR/server.key
 
 if [ ! -e "$CERT" -a ! -e "$KEY" ] ; then
     OLD_UMASK=$( umask )
-    umask 0055
+    umask 0077
     openssl req -new -x509 -sha256 -days 3650 -set_serial $RANDOM -extensions v3_req -out $CERT -keyout $KEY -nodes <<-EOF
 	.
 	.
