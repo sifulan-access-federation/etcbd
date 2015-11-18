@@ -1,1 +1,2 @@
 FROM elasticsearch:2.0
+ENV ES_JAVA_OPTS="-Des.network.host=_non_loopback:ipv4_"
