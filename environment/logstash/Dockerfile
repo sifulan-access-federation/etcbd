@@ -1,4 +1,5 @@
 FROM logstash:2.0
-COPY logstash.conf /
+COPY logstash-conf-* /etc/logstash/conf.d/
+EXPOSE 5043
 
-CMD ["logstash", "-f", "/logstash.conf"]
+CMD ["logstash", "agent", "-f", "/etc/logstash/conf.d/"]
