@@ -5,12 +5,17 @@ elasticsearch:
     #log_driver: syslog
     volumes:
         - /var/lib/docker-host-volumes/elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+        - "9200:9200"
+        - "9300:9300"
 
 logstash:
     restart: always
     build: ./logstash/
     container_name: logstash
     #log_driver: syslog
+    ports:
+        - "5043:5043"
     links:
         - "elasticsearch:elasticsearch"
 
