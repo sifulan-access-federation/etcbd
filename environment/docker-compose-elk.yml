@@ -11,8 +11,6 @@ logstash:
     build: ./logstash/
     container_name: logstash
     #log_driver: syslog
-    volumes:
-        - /var/lib/docker-host-volumes/logstash-data:/usr/share/logstash/data
     links:
         - "elasticsearch:elasticsearch"
 
