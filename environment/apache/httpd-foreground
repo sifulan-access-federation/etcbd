@@ -14,5 +14,5 @@ if [ -d "$STARTUP_DIR" ] ; then
     done
 fi
 
-exec httpd -DFOREGROUND
+exec httpd -DFOREGROUND $HTTPD_ARGS
 

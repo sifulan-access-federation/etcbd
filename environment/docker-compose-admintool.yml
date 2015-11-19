@@ -9,6 +9,7 @@ apache:
     #log_driver: syslog
     environment:
         DJNRO_HOST: djnro
+        HTTPD_ARGS: -DDJNRO_STATIC
     # import DjNRO env to have SITE_PUBLIC_HOSTNAME
     env_file: localdev_djnro.env
     ports:
@@ -34,7 +35,7 @@ djnro:
         DB_HOST: postgres
     env_file: localdev_djnro.env
     volumes:
-        - /code
+        - /djnro/static
     links:
         - "postgres:postgres"
 

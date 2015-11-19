@@ -17,6 +17,7 @@ COPY make-selfsigned-certs-if-none-present.sh /usr/local/apache2/conf/startup.d/
 
 COPY ./*-httpd.conf /usr/local/apache2/conf/extra/
 RUN echo 'Include conf/extra/modules-httpd.conf' >> /usr/local/apache2/conf/httpd.conf && \
+    echo 'Include conf/extra/djnro-static-httpd.conf' >> /usr/local/apache2/conf/httpd.conf && \
     echo 'Include conf/extra/djnro-httpd.conf' >> /usr/local/apache2/conf/httpd.conf && \
     echo 'Include conf/extra/djnro-ssl-httpd.conf' >> /usr/local/apache2/conf/httpd.conf
 
