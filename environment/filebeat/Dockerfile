@@ -16,5 +16,5 @@ RUN curl -L -O https://download.elastic.co/beats/filebeat/filebeat_${FILEBEAT_VE
 
 COPY filebeat.yml /etc/filebeat/filebeat.yml
 
-CMD ["filebeat", "-c", "/etc/filebeat/filebeat.yml"]
+CMD ["filebeat", "-e", "-v", "-c", "/etc/filebeat/filebeat.yml"]
 
