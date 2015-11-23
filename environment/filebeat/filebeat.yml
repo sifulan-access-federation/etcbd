@@ -11,6 +11,8 @@ filebeat:
       paths:
         - /usr/local/apache2/logs/*_log
       input_type: log
+      # ignore files only after 1 week
+      ignore_older: 168h
       fields:
         system: admintool
         server: apache
