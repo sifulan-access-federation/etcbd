@@ -17,7 +17,7 @@ RUN echo 'deb http://http.debian.net/debian jessie-backports main' > /etc/apt/so
 RUN echo "deb http://packages.icinga.org/debian icinga-jessie main" > /etc/apt/sources.list.d/icinga.list && \
     wget -O - -q https://packages.icinga.org/icinga.key | apt-key add - && \
     apt-get update && \
-    apt-get -y install --no-install-recommends icingaweb2 && \
+    apt-get -y install --no-install-recommends icingaweb2 icingaweb2-module-monitoring && \
     apt-get -y install --no-install-recommends php5-pgsql php5-imagick php5-intl
 
 # temporary: install utils
