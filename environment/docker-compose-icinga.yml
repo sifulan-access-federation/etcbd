@@ -1,0 +1,16 @@
+icingaweb:
+    restart: always
+    build: ./icingaweb/
+    container_name: icingaweb
+    ports:
+        # temporarily use alt ports to avoid clash with admintool
+        - "8080:80"
+        - "8443:443"
+    links:
+        - "icinga:icinga"
+
+icinga:
+    restart: always
+    build: ./icinga/
+    container_name: icinga
+
