@@ -17,8 +17,7 @@ apache:
         - "443:443"
     volumes:
         - /var/lib/docker-host-volumes/apache-certs:/usr/local/apache2/conf/external
-        # declare a volume for logs - TODO: persitent in PROD
-        - /usr/local/apache2/logs
+        - /var/lib/docker-host-volumes/apache-logs:/usr/local/apache2/logs
     volumes_from:
         #get access to the static files.
         - djnro
