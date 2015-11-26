@@ -24,9 +24,10 @@ RUN echo "deb http://packages.icinga.org/debian icinga-jessie main" > /etc/apt/s
 # temporary: install utils
 RUN apt-get -y install --no-install-recommends strace lsof vim less file
 
-# copy configuration customized for our DB connection
-# TODO: parameterize this
-COPY content/ido-pgsql.conf content/command.conf /etc/icinga2/features-available/
+# copy configuration files in
+#   etc/icinga2/features-available/ido-pgsql.conf, command.conf
+#       TODO??: accept custom DB connection parameters in ido-pgsql.conf
+COPY content /
 
 # prepare Icinga environment
   # /run/icinga2 must exist and be writable by nagios - the daemon stores the pid here
