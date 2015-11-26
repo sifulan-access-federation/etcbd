@@ -12,7 +12,7 @@ RUN echo 'deb http://http.debian.net/debian jessie-backports main' > /etc/apt/so
 # This will pull in Apache as a dependency
 # Therefore, we are building from Jessie, not from httpd:2.4
     #add & trust Icinga repository & fetch packages
-    # install incingaweb2
+    # install incingaweb2 and the monitoring module communicating with icinga
     # install PHP modules (DB, Intl)
 RUN echo "deb http://packages.icinga.org/debian icinga-jessie main" > /etc/apt/sources.list.d/icinga.list && \
     wget -O - -q https://packages.icinga.org/icinga.key | apt-key add - && \
@@ -23,6 +23,18 @@ RUN echo "deb http://packages.icinga.org/debian icinga-jessie main" > /etc/apt/s
 # temporary: install utils
 RUN apt-get -y install --no-install-recommends strace lsof vim less file
 
+# copy in icingaweb2 configuration - pointing to separate icinga and postgres containers
+COPY content /
+
+# tweak Apache configuration for Icinga
+#  TODO: make the timezone configurable at container deploy time
+#  fix permissions on files just copied in
+#  create logs directory with the right permission
+RUN sed -i -e "s:;date.timezone =:date.timezone = 'Pacific/Auckland':" /etc/php5/apache2/php.ini && \
+    chgrp -R icingaweb2 /etc/icingaweb2 && \
+    chmod -R g+rwxs /etc/icingaweb2 && \
+    #chmod -R a+r /etc/icingaweb2 && \
+    mkdir /var/log/icingaweb2 && chgrp icingaweb2 /var/log/icingaweb2 && chmod g+rwxs /var/log/icingaweb2
 
 # tweak apache2ctl to run httpd in the foreground as pid 1
 ENV APACHE_ARGUMENTS="-DFOREGROUND" APACHE_HTTPD="exec apache2"
