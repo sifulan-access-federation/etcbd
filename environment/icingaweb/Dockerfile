@@ -24,6 +24,7 @@ RUN echo "deb http://packages.icinga.org/debian icinga-jessie main" > /etc/apt/s
 RUN apt-get -y install --no-install-recommends strace lsof vim less file
 
 # copy in icingaweb2 configuration - pointing to separate icinga and postgres containers
+# also copy in startup.sh + etc/startup.d files
 COPY content /
 
 # tweak Apache configuration for Icinga
@@ -39,5 +40,5 @@ RUN sed -i -e "s:;date.timezone =:date.timezone = 'Pacific/Auckland':" /etc/php5
 # tweak apache2ctl to run httpd in the foreground as pid 1
 ENV APACHE_ARGUMENTS="-DFOREGROUND" APACHE_HTTPD="exec apache2"
 
-CMD ["apache2ctl", "start"]
+CMD ["/startup.sh", "apache2ctl", "start"]
 
