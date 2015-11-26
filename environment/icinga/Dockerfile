@@ -38,5 +38,5 @@ RUN mkdir /run/icinga2 && chown nagios.nagios /run/icinga2 && \
     icinga2 feature enable ido-pgsql && \
     icinga2 feature enable command
 
-CMD ["/usr/sbin/icinga2", "daemon"]
+CMD ["/startup.sh", "/usr/sbin/icinga2", "daemon"]
 
