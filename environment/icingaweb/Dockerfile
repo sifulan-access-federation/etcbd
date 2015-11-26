@@ -40,5 +40,7 @@ RUN sed -i -e "s:;date.timezone =:date.timezone = 'Pacific/Auckland':" /etc/php5
 # tweak apache2ctl to run httpd in the foreground as pid 1
 ENV APACHE_ARGUMENTS="-DFOREGROUND" APACHE_HTTPD="exec apache2"
 
+VOLUME ["/var/log/apache2", "/var/log/icingaweb2"]
+
 CMD ["/startup.sh", "apache2ctl", "start"]
 
