@@ -23,6 +23,12 @@ RUN echo "deb http://packages.icinga.org/debian icinga-jessie main" > /etc/apt/s
 # temporary: install utils
 RUN apt-get -y install --no-install-recommends strace lsof vim less file
 
+# Enable SSL in Apache
+# Temporary workaround: install make-ssl-certs
+RUN a2enmod ssl && \
+    a2ensite default-ssl && \
+    apt-get install -y ssl-cert
+
 # copy in icingaweb2 configuration - pointing to separate icinga and postgres containers
 # also copy in startup.sh + etc/startup.d files
 COPY content /
@@ -39,6 +45,8 @@ RUN sed -i -e "s:;date.timezone =:date.timezone = 'Pacific/Auckland':" /etc/php5
 
 # tweak apache2ctl to run httpd in the foreground as pid 1
 ENV APACHE_ARGUMENTS="-DFOREGROUND" APACHE_HTTPD="exec apache2"
+
+EXPOSE 80 443
 
 VOLUME ["/var/log/apache2", "/var/log/icingaweb2"]
 
