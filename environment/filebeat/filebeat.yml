@@ -6,16 +6,57 @@ filebeat:
   prospectors:
     # Each - is a prospector. Below are the prospector specific configurations
 
-    # Prospector for Admintool Apache
+    # Prospector for Admintool Apache SSL logs
     -
       paths:
-        - /usr/local/apache2/logs/*_log
+        - /usr/local/apache2/logs/ssl_request_log
       input_type: log
       # ignore files only after 1 week
       ignore_older: 168h
       fields:
         system: admintool
         server: apache
+        protocol: https
+        logtype: ssl
+
+    # Prospector for Admintool Apache non-SSL logs
+    -
+      paths:
+        - /usr/local/apache2/logs/access_log
+      input_type: log
+      # ignore files only after 1 week
+      ignore_older: 168h
+      fields:
+        system: admintool
+        server: apache
+        protocol: http
+        logtype: combined
+
+    # Prospector for Admintool Apache non-SSL error logs
+    -
+      paths:
+        - /usr/local/apache2/logs/error_log
+      input_type: log
+      # ignore files only after 1 week
+      ignore_older: 168h
+      fields:
+        system: admintool
+        server: apache
+        protocol: http
+        logtype: error
+
+    # Prospector for Admintool Apache SSL error logs
+    -
+      paths:
+        - /usr/local/apache2/logs/ssl_error_log
+      input_type: log
+      # ignore files only after 1 week
+      ignore_older: 168h
+      fields:
+        system: admintool
+        server: apache
+        protocol: https
+        logtype: error
 
     # Original (commented out) prospector with full set of options
     #-
