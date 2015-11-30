@@ -43,7 +43,7 @@ filebeat:
         system: admintool
         server: apache
         protocol: http
-        logtype: error
+        logtype: errorlog
 
     # Prospector for Admintool Apache SSL error logs
     -
@@ -56,7 +56,7 @@ filebeat:
         system: admintool
         server: apache
         protocol: https
-        logtype: error
+        logtype: errorlog
 
     # Original (commented out) prospector with full set of options
     #-
