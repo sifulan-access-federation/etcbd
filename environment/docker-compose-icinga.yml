@@ -13,7 +13,7 @@ icingaweb:
         # we need to see the Command Transport file
         - icinga
     links:
-        - "icinga:icinga"
+        - "postgres-icinga:postgres-icinga"
 
 icinga:
     restart: always
@@ -23,4 +23,15 @@ icinga:
         - /var/lib/docker-host-volumes/icinga-cmd:/var/run/icinga2
         - /var/lib/docker-host-volumes/icinga-lib:/var/lib/icinga2
         - /var/lib/docker-host-volumes/icinga-logs:/var/log/icinga2
+    links:
+        - "postgres-icinga:postgres-icinga"
 
+
+postgres-icinga:
+    restart: always
+    container_name: postgres-icinga
+    build: ./postgres/
+    #log_driver: syslog
+    env_file: localdev_postgres.env
+    volumes:
+        - /var/lib/docker-host-volumes/postgres-icinga-data:/var/lib/postgresql/data
