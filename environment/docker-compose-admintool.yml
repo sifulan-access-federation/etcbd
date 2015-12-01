@@ -1,5 +1,3 @@
-# TODO
-# - Mail transport
 
 #reverse proxy / ssl termination / static file handling
 apache:
@@ -36,6 +34,8 @@ djnro:
         DB_HOST: postgres
     env_file: localdev_djnro.env
     volumes:
+        # NOTE: this is a transient volume (for sharing) - needs to be deleted at shutdown with
+        # docker-compose rm -v
         - /djnro/static
     links:
         - "postgres:postgres"
@@ -54,7 +54,6 @@ filebeat:
     container_name: filebeat
     build: ./filebeat
     volumes:
-        # declare a volume for logs - TODO: persitent in PROD
-        - /var/lib/filebeat
+        - /var/lib/docker-host-volumes/admintool-filebeat-registry:/var/lib/filebeat
     volumes_from:
         - apache
