@@ -34,8 +34,8 @@ RUN apt-get -y install --no-install-recommends strace lsof vim less file
 #  * Clean up: remove build directories
 ENV RAD_EAP_TEST_VERSION=0.23 WPA_SUPPLICANT_VERSION=2.5
 RUN apt-get install -y --no-install-recommends dnsutils bzip2 && \
-    wget --quiet -O - http://www.eduroam.cz/rad_eap_test/rad_eap_test-${RAD_EAP_TEST_VERSION}.tar.bz2 | \
-        tar xjf - --strip-components=1 -C /usr/local/bin/ rad_eap_test-${RAD_EAP_TEST_VERSION}/rad_eap_test && \
+#    wget --quiet -O - http://www.eduroam.cz/rad_eap_test/rad_eap_test-${RAD_EAP_TEST_VERSION}.tar.bz2 | \
+#        tar xjf - --strip-components=1 -C /usr/local/bin/ rad_eap_test-${RAD_EAP_TEST_VERSION}/rad_eap_test && \
     apt-get install -y --no-install-recommends make gcc libc-dev libssl-dev && \
     ( cd /tmp && \
       wget --quiet -O - http://w1.fi/releases/wpa_supplicant-${WPA_SUPPLICANT_VERSION}.tar.gz | tar xzf - && \
@@ -43,7 +43,8 @@ RUN apt-get install -y --no-install-recommends dnsutils bzip2 && \
       { grep '^[^#].*EAP' defconfig ; echo 'CONFIG_EAPOL_TEST=y' ; } > .config && \
       make eapol_test && \
       cp eapol_test /usr/local/bin/ && \
-      sed --in-place -e 's/^EAPOL_PROG.*$/EAPOL_PROG=eapol_test/' /usr/local/bin/rad_eap_test \
+#      sed --in-place -e 's/^EAPOL_PROG.*$/EAPOL_PROG=eapol_test/' /usr/local/bin/rad_eap_test \
+true \
     ) && \
     apt-get remove -y make gcc libc6-dev libssl-dev && \
     apt-get autoremove -y && \
