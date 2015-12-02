@@ -37,6 +37,7 @@ djnro:
         # NOTE: this is a transient volume (for sharing) - needs to be deleted at shutdown with
         # docker-compose rm -v
         - /djnro/static
+        - /var/lib/docker-host-volumes/djnro-data:/djnro/data
     links:
         - "postgres:postgres"
 
