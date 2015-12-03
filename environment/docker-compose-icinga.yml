@@ -2,6 +2,7 @@ icingaweb:
     restart: always
     build: ./icingaweb/
     container_name: icingaweb
+    #log_driver: syslog
     ports:
         # temporarily use alt ports to avoid clash with admintool
         - "8080:80"
@@ -19,6 +20,7 @@ icinga:
     restart: always
     build: ./icinga/
     container_name: icinga
+    #log_driver: syslog
     volumes:
         - /var/lib/docker-host-volumes/icinga-external-conf:/etc/icinga2/conf.d/external
         - /var/lib/docker-host-volumes/icinga-cmd:/var/run/icinga2
