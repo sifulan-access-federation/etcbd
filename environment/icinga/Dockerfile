@@ -66,7 +66,7 @@ RUN mkdir /run/icinga2 && chown nagios.nagios /run/icinga2 && \
     icinga2 feature enable ido-pgsql && \
     icinga2 feature enable command
 
-VOLUME ["/var/run/icinga2", "/var/lib/icinga2", "/var/log/icinga2"]
+VOLUME ["/var/run/icinga2", "/var/lib/icinga2", "/var/log/icinga2", "/etc/icinga2/conf.d/external"]
 
 CMD ["/startup.sh", "/usr/sbin/icinga2", "daemon"]
 

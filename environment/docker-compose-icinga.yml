@@ -20,6 +20,7 @@ icinga:
     build: ./icinga/
     container_name: icinga
     volumes:
+        - /var/lib/docker-host-volumes/icinga-external-conf:/etc/icinga2/conf.d/external
         - /var/lib/docker-host-volumes/icinga-cmd:/var/run/icinga2
         - /var/lib/docker-host-volumes/icinga-lib:/var/lib/icinga2
         - /var/lib/docker-host-volumes/icinga-logs:/var/log/icinga2
