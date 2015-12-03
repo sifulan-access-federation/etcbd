@@ -49,7 +49,7 @@ djnro-scheduler:
     #log_driver: syslog
     environment:
         DB_HOST: postgres
-        KML_REFRESH_INTERVAL: 10
+        KML_REFRESH_INTERVAL: 3600
     env_file: localdev_djnro.env
     volumes:
         # NOTE: this is a transient volume (for sharing) - needs to be deleted at shutdown with
