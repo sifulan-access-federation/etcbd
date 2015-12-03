@@ -41,6 +41,29 @@ djnro:
     links:
         - "postgres:postgres"
 
+# djnro-cron depending opn djnro....
+djnro-scheduler:
+    restart: always
+    build: ./djnro/
+    container_name: djnro-scheduler
+    #log_driver: syslog
+    environment:
+        DB_HOST: postgres
+        KML_REFRESH_INTERVAL: 10
+    env_file: localdev_djnro.env
+    volumes:
+        # NOTE: this is a transient volume (for sharing) - needs to be deleted at shutdown with
+        # docker-compose rm -v
+        - /djnro/static
+        - /var/lib/docker-host-volumes/djnro-data:/djnro/data
+    volumes_from:
+        #get access to the shared data directory
+        - djnro
+    links:
+        - "postgres:postgres"
+        - "djnro:djnro"
+    command: bash -c 'while true ; do ./manage.py fetch_kml ; sleep $KML_REFRESH_INTERVAL ; done'
+
 postgres:
     restart: always
     container_name: postgres
