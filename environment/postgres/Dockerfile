@@ -4,7 +4,7 @@ ENV LANG en_NZ.utf8
 COPY content /
 
 # Override entrypoint
-ENTRYPOINT ["/envwrap.sh", "/docker-entrypoint.sh"]
+ENTRYPOINT ["/envwrap.sh", "/startup.sh", "/docker-entrypoint.sh"]
 
 # Reiterate the command - gets dropped when overriding ENTRYPOINT
 CMD ["postgres"]
