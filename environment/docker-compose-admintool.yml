@@ -9,7 +9,9 @@ apache:
         DJNRO_HOST: djnro
         HTTPD_ARGS: -DDJNRO_STATIC -DAPACHE_LOGS_STDOUT
     # import DjNRO env to have SITE_PUBLIC_HOSTNAME
-    env_file: localdev_djnro.env
+    env_file:
+        - localdev_djnro.env
+        - global-env.env
     ports:
         - "80:80"
         - "443:443"
@@ -32,7 +34,9 @@ djnro:
     #log_driver: syslog
     environment:
         DB_HOST: postgres
-    env_file: localdev_djnro.env
+    env_file:
+        - localdev_djnro.env
+        - global-env.env
     volumes:
         # NOTE: this is a transient volume (for sharing) - needs to be deleted at shutdown with
         # docker-compose rm -v
@@ -50,7 +54,9 @@ djnro-scheduler:
     environment:
         DB_HOST: postgres
         KML_REFRESH_INTERVAL: 3600
-    env_file: localdev_djnro.env
+    env_file:
+        - localdev_djnro.env
+        - global-env.env
     volumes:
         # NOTE: this is a transient volume (for sharing) - needs to be deleted at shutdown with
         # docker-compose rm -v
@@ -79,6 +85,8 @@ filebeat:
     restart: always
     container_name: filebeat
     build: ./filebeat
+    env_file:
+        - global-env.env
     volumes:
         - /var/lib/docker-host-volumes/admintool-filebeat-registry:/var/lib/filebeat
     volumes_from:

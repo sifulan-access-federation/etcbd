@@ -3,6 +3,8 @@ elasticsearch:
     build: ./elasticsearch/
     container_name: elasticsearch
     #log_driver: syslog
+    env_file:
+        - global-env.env
     volumes:
         - /var/lib/docker-host-volumes/elasticsearch-data:/usr/share/elasticsearch/data
     ports:
@@ -14,6 +16,8 @@ logstash:
     build: ./logstash/
     container_name: logstash
     #log_driver: syslog
+    env_file:
+        - global-env.env
     ports:
         - "5043:5043"
     links:
@@ -24,6 +28,8 @@ kibana:
     build: ./kibana/
     container_name: kibana
     #log_driver: syslog
+    env_file:
+        - global-env.env
     ports:
         - "5601:5601"
     links:

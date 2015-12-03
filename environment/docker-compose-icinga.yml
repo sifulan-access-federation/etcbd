@@ -3,6 +3,12 @@ icingaweb:
     build: ./icingaweb/
     container_name: icingaweb
     #log_driver: syslog
+    #environment:
+        #DJNRO_HOST: djnro
+        #HTTPD_ARGS: -DDJNRO_STATIC
+    # import DjNRO env to have SITE_PUBLIC_HOSTNAME
+    env_file:
+        - global-env.env
     ports:
         # temporarily use alt ports to avoid clash with admintool
         - "8080:80"
@@ -21,6 +27,10 @@ icinga:
     build: ./icinga/
     container_name: icinga
     #log_driver: syslog
+    #environment:
+    #    DB_HOST: postgres
+    env_file:
+        - global-env.env
     volumes:
         - /var/lib/docker-host-volumes/icinga-external-conf:/etc/icinga2/conf.d/external
         - /var/lib/docker-host-volumes/icinga-cmd:/var/run/icinga2
@@ -35,6 +45,8 @@ postgres-icinga:
     container_name: postgres-icinga
     build: ./postgres/
     #log_driver: syslog
-    env_file: localdev_postgres.env
+    env_file:
+        - localdev_postgres.env
+        - global-env.env
     volumes:
         - /var/lib/docker-host-volumes/postgres-icinga-data:/var/lib/postgresql/data
