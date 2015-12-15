@@ -6,7 +6,7 @@ elasticsearch:
     env_file:
         - global-env.env
     volumes:
-        - /var/lib/docker-host-volumes/elasticsearch-data:/usr/share/elasticsearch/data
+        - /var/lib/docker/host-volumes/elasticsearch-data:/usr/share/elasticsearch/data
     ports:
         - "9200:9200"
         - "9300:9300"

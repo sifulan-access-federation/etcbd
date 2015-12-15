@@ -14,8 +14,8 @@ icingaweb:
         - "8080:80"
         - "8443:443"
     volumes:
-        - /var/lib/docker-host-volumes/icingaweb-apache-logs:/var/log/apache2
-        - /var/lib/docker-host-volumes/icingaweb-logs:/var/log/icingaweb2
+        - /var/lib/docker/host-volumes/icingaweb-apache-logs:/var/log/apache2
+        - /var/lib/docker/host-volumes/icingaweb-logs:/var/log/icingaweb2
     volumes_from:
         # we need to see the Command Transport file
         - icinga
@@ -32,10 +32,10 @@ icinga:
     env_file:
         - global-env.env
     volumes:
-        - /var/lib/docker-host-volumes/icinga-external-conf:/etc/icinga2/conf.d/external
-        - /var/lib/docker-host-volumes/icinga-cmd:/var/run/icinga2
-        - /var/lib/docker-host-volumes/icinga-lib:/var/lib/icinga2
-        - /var/lib/docker-host-volumes/icinga-logs:/var/log/icinga2
+        - /var/lib/docker/host-volumes/icinga-external-conf:/etc/icinga2/conf.d/external
+        - /var/lib/docker/host-volumes/icinga-cmd:/var/run/icinga2
+        - /var/lib/docker/host-volumes/icinga-lib:/var/lib/icinga2
+        - /var/lib/docker/host-volumes/icinga-logs:/var/log/icinga2
     links:
         - "postgres-icinga:postgres-icinga"
 
@@ -49,4 +49,4 @@ postgres-icinga:
         - localdev_postgres.env
         - global-env.env
     volumes:
-        - /var/lib/docker-host-volumes/postgres-icinga-data:/var/lib/postgresql/data
+        - /var/lib/docker/host-volumes/postgres-icinga-data:/var/lib/postgresql/data
