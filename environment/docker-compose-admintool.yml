@@ -68,7 +68,7 @@ djnro-scheduler:
     links:
         - "postgres:postgres"
         - "djnro:djnro"
-    command: bash -c 'while true ; do ./manage.py fetch_kml ; sleep $KML_REFRESH_INTERVAL ; done'
+    command: bash -c 'while true ; do ./manage.py fetch_kml ; sleep $$KML_REFRESH_INTERVAL ; done'
 
 postgres:
     restart: always
