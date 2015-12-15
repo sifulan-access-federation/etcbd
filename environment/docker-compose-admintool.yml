@@ -86,6 +86,7 @@ filebeat:
     container_name: filebeat
     build: ./filebeat
     env_file:
+        - localdev_djnro.env
         - global-env.env
     volumes:
         - /var/lib/docker/host-volumes/admintool-filebeat-registry:/var/lib/filebeat
