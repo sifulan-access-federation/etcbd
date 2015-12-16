@@ -5,8 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Add backports (as later requested by Icinga instructions)
 # Install wget as dependency - pulls in openssl + ca-certificates
+# Install locales needed to run localedef later
 RUN echo 'deb http://http.debian.net/debian jessie-backports main' > /etc/apt/sources.list.d/backports.list && \
-    apt-get update && apt-get -y install apt-utils && apt-get -y install wget
+    apt-get update && apt-get -y install apt-utils && apt-get -y install wget && \
+    apt-get -y install --no-install-recommends locales
 
 # install Icingaweb - release build for Jessie
 # This will pull in Apache as a dependency
