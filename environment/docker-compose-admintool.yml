@@ -57,11 +57,6 @@ djnro-scheduler:
     env_file:
         - localdev_djnro.env
         - global-env.env
-    volumes:
-        # NOTE: this is a transient volume (for sharing) - needs to be deleted at shutdown with
-        # docker-compose rm -v
-        - /djnro/static
-        - /var/lib/docker/host-volumes/djnro-data:/djnro/data
     volumes_from:
         #get access to the shared data directory
         - djnro
