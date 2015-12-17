@@ -5,9 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Add backports (as later requested by Icinga instructions)
 # Install wget as dependency - pulls in openssl + ca-certificates
+# Install also curl - used by some install commands
 # Install locales needed to run localedef later
 RUN echo 'deb http://http.debian.net/debian jessie-backports main' > /etc/apt/sources.list.d/backports.list && \
-    apt-get update && apt-get -y install apt-utils && apt-get -y install wget && \
+    apt-get update && apt-get -y install apt-utils && apt-get -y install wget curl && \
     apt-get -y install --no-install-recommends locales
 
 # install Icingaweb - release build for Jessie
@@ -30,6 +31,9 @@ RUN apt-get -y install --no-install-recommends strace lsof vim less file
 RUN a2enmod ssl && \
     a2ensite default-ssl && \
     apt-get install -y ssl-cert
+
+# install envPlate
+RUN curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases/download/v0.0.8/ep-linux && chmod +x /usr/local/bin/ep
 
 # copy in icingaweb2 configuration - pointing to separate icinga and postgres containers
 # also copy in startup.sh + etc/startup.d files
