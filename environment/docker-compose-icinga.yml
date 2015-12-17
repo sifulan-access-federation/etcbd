@@ -12,8 +12,8 @@ icingaweb:
         - global-env.env
     ports:
         # temporarily use alt ports to avoid clash with admintool
-        - "8080:80"
-        - "8443:443"
+        - "80:80"
+        - "443:443"
     volumes:
         - /var/lib/docker/host-volumes/icingaweb-apache-certs:/etc/apache2/certs
         - /var/lib/docker/host-volumes/icingaweb-apache-logs:/var/log/apache2
