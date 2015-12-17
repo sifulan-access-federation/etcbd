@@ -15,6 +15,7 @@ icingaweb:
         - "8080:80"
         - "8443:443"
     volumes:
+        - /var/lib/docker/host-volumes/icingaweb-apache-certs:/etc/apache2/certs
         - /var/lib/docker/host-volumes/icingaweb-apache-logs:/var/log/apache2
         - /var/lib/docker/host-volumes/icingaweb-logs:/var/log/icingaweb2
     volumes_from:
