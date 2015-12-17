@@ -27,10 +27,7 @@ RUN echo "deb http://packages.icinga.org/debian icinga-jessie main" > /etc/apt/s
 RUN apt-get -y install --no-install-recommends strace lsof vim less file
 
 # Enable SSL in Apache
-# Temporary workaround: install make-ssl-certs
-RUN a2enmod ssl && \
-    a2ensite default-ssl && \
-    apt-get install -y ssl-cert
+RUN a2enmod ssl && a2ensite default-ssl
 
 # install envPlate
 RUN curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases/download/v0.0.8/ep-linux && chmod +x /usr/local/bin/ep
@@ -56,7 +53,7 @@ ENV APACHE_ARGUMENTS="-DFOREGROUND" APACHE_HTTPD="exec apache2"
 
 EXPOSE 80 443
 
-VOLUME ["/var/log/apache2", "/var/log/icingaweb2"]
+VOLUME ["/var/log/apache2", "/var/log/icingaweb2", "/etc/apache2/certs"]
 
 CMD ["/startup.sh", "apache2ctl", "start"]
 
