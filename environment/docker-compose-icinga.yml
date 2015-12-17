@@ -8,6 +8,7 @@ icingaweb:
         #HTTPD_ARGS: -DDJNRO_STATIC
     # import DjNRO env to have SITE_PUBLIC_HOSTNAME
     env_file:
+        - localdev_icinga.env
         - global-env.env
     ports:
         # temporarily use alt ports to avoid clash with admintool
@@ -30,6 +31,7 @@ icinga:
     #environment:
     #    DB_HOST: postgres
     env_file:
+        - localdev_icinga.env
         - global-env.env
     volumes:
         - /var/lib/docker/host-volumes/icinga-external-conf:/etc/icinga2/conf.d/external
@@ -46,7 +48,7 @@ postgres-icinga:
     build: ./postgres/
     #log_driver: syslog
     env_file:
-        - localdev_postgres.env
+        - localdev_icinga.env
         - global-env.env
     volumes:
         - /var/lib/docker/host-volumes/postgres-icinga-data:/var/lib/postgresql/data
