@@ -80,4 +80,19 @@ Use Docker-compose to build and start the containers:
     docker-compose build && docker-compose up -d
 
 
+# Appendix: Google Login
+
+To get the Google credential (key+secret) to use in the admintool, do the following in the Google Developer Console:
+
+* Start at http://console.developers.google.com/
+* Create a new project
+* From the main menu, select the API Manager
+* Select Credentials
+* Configure the OAuth consent screen with how the application shouldb be described to the user (at least, set Product name)
+* Create a new Credential as an OAuth Client ID for a web application
+* Add the Authorized redirect URI for your application - the form is (substitute your real hostname here):
+
+        https://admin.example.org/accounts/complete/google-oauth2/
+
+* After saving, this gives you the Client ID and secret (use these as the GOOGLE_KEY and GOOGLE_SECRET)
 
