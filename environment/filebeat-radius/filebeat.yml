@@ -5,14 +5,30 @@ filebeat:
   # List of prospectors to fetch data.
   prospectors:
     # Each - is a prospector. Below are the prospector specific configurations
+
+    # Prospector for Radius linelog
     -
+      paths:
+        - /var/log/radius/linelog
+      input_type: log
+      # ignore files only after 1 week
+      ignore_older: 168h
+      fields:
+        host: "${RADIUS_SERVER_HOSTNAME}"
+        system: radius
+        server: freeradius
+        protocol: radius
+        logtype: linelog
+
+    # Original (commented out) prospector with full set of options
+    #-
       # Paths that should be crawled and fetched. Glob based paths.
       # To fetch all ".log" files from a specific level of subdirectories
       # /var/log/*/*.log can be used.
       # For each file found under this path, a harvester is started.
       # Make sure not file is defined twice as this can lead to unexpected behaviour.
-      paths:
-        - /var/log/*.log
+      #paths:
+        #- /var/log/*.log
       # - c:\programdata\elasticsearch\logs\*
 
       # Configure the file encoding for reading files with international characters
@@ -28,7 +44,7 @@ filebeat:
       # Possible options are:
       # * log: Reads every line of the log file (default)
       # * stdin: Reads the standard in
-      input_type: log
+      #input_type: log
 
       # Optional additional fields. These field can be freely picked
       # to add additional information to the crawled log files for filtering
