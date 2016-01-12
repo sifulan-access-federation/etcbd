@@ -13,6 +13,7 @@ filebeat:
       input_type: log
       # ignore files only after 1 week
       ignore_older: 168h
+      tail_files: true
       fields:
         host: "${RADIUS_SERVER_HOSTNAME}"
         system: radius
