@@ -15,7 +15,8 @@ RUN apt-get update && \
 RUN curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases/download/v0.0.8/ep-linux && chmod +x /usr/local/bin/ep
 
 RUN curl -L -O https://download.elastic.co/beats/filebeat/filebeat_${FILEBEAT_VERSION}_amd64.deb && \
-    dpkg -i filebeat_${FILEBEAT_VERSION}_amd64.deb
+    dpkg -i filebeat_${FILEBEAT_VERSION}_amd64.deb && \
+    rm -f filebeat_${FILEBEAT_VERSION}_amd64.deb
 
 COPY filebeat.yml /etc/filebeat/filebeat.yml
 
