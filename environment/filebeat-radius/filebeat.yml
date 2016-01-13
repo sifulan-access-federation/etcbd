@@ -20,6 +20,7 @@ filebeat:
         server: freeradius
         protocol: radius
         logtype: linelog
+        timezone: "${TZ}"
 
     # Original (commented out) prospector with full set of options
     #-
