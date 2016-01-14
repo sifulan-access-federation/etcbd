@@ -37,7 +37,7 @@ IMAGES_icinga="icingaweb icinga postgres-icinga"
 
 for SERVICE in $SERVICES ; do
     # build the images - with a fresh upstream pull
-    #COMPOSE_FILE=docker-compose-$SERVICE.yml COMPOSE_PROJECT_NAME=$SERVICE docker-compose build --pull
+    COMPOSE_FILE=docker-compose-$SERVICE.yml COMPOSE_PROJECT_NAME=$SERVICE docker-compose build --pull
     for IMAGE in $( eval "echo \${IMAGES_${SERVICE}}" ) ; do
         docker tag $FORCE ${SERVICE}_${IMAGE} ${REPOBASE}/${SERVICE}_${IMAGE}:${TAG}
         docker push $REPOBASE/${SERVICE}_${IMAGE}:${TAG}
