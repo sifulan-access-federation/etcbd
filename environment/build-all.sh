@@ -32,6 +32,7 @@ SERVICES="admintool elk icinga"
 IMAGES_admintool="apache djnro postgres filebeat"
 IMAGES_elk="elasticsearch logstash kibana"
 IMAGES_icinga="icingaweb icinga postgres-icinga"
+EXTRA_IMAGES="filebeat-radius"
 
 #TAG="$(date +'%F')"
 
@@ -42,6 +43,11 @@ for SERVICE in $SERVICES ; do
         docker tag $FORCE ${SERVICE}_${IMAGE} ${REPOBASE}/${SERVICE}_${IMAGE}:${TAG}
         docker push $REPOBASE/${SERVICE}_${IMAGE}:${TAG}
     done
+done
+
+for IMAGE in $EXTRA_IMAGES ; do
+    docker build -t $REPOBASE/${IMAGE}:${TAG} ${IMAGE}/
+    docker push $REPOBASE/${IMAGE}:${TAG}
 done
 
 
