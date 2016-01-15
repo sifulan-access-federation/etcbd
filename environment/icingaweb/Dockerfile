@@ -37,11 +37,13 @@ RUN curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases
 COPY content /
 
 # tweak Apache configuration for Icinga
-#  TODO: make the timezone configurable at container deploy time
+#  make PHP timezone configurable at container deploy time via envPlate
+#  ... and stop envPlate from complaining about sample variable use in php.ini
 #  fix permissions on files just copied in
 #  create logs directory with the right permission
 #  enable additional Apache configuration
-RUN sed -i -e "s:;date.timezone =:date.timezone = 'Pacific/Auckland':" /etc/php5/apache2/php.ini && \
+RUN sed -i -e "s:;date.timezone =:date.timezone = '${TZ}':" /etc/php5/apache2/php.ini && \
+    sed -i -e 's:\${foo}:\\${foo}:' /etc/php5/apache2/php.ini && \
     chgrp -R icingaweb2 /etc/icingaweb2 && \
     chmod -R g+rwxs /etc/icingaweb2 && \
     #chmod -R a+r /etc/icingaweb2 && \
