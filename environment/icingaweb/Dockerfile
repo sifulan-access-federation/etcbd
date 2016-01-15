@@ -42,8 +42,8 @@ COPY content /
 #  fix permissions on files just copied in
 #  create logs directory with the right permission
 #  enable additional Apache configuration
-    sed -i -e 's:\${foo}:\\${foo}:' /etc/php5/apache2/php.ini && \
 RUN sed -i -e "s:;date.timezone =:date.timezone = '\${TZ}':" /etc/php5/apache2/php.ini && \
+    sed -i -e 's:\${foo}:<dollar>{foo}:' /etc/php5/apache2/php.ini && \
     chgrp -R icingaweb2 /etc/icingaweb2 && \
     chmod -R g+rwxs /etc/icingaweb2 && \
     #chmod -R a+r /etc/icingaweb2 && \
