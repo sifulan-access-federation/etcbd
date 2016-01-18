@@ -4,6 +4,9 @@
 TAG=latest
 REPOBASE="reannz"
 FORCE=""
+PULL=""
+NOCACHE=""
+SKIPBUILD=""
 
 # parse arguments
 
@@ -18,12 +21,24 @@ while [ $# -gt 0 ] ; do
     elif [ "$1" == "--force" ] ; then
         FORCE="$1"
         shift
+    elif [ "$1" == "--pull" ] ; then
+        PULL="$1"
+        shift
+    elif [ "$1" == "--no-cache" ] ; then
+        NOCACHE="$1"
+        shift
+    elif [ "$1" == "--skip-build" ] ; then
+        SKIPBUILD="$1"
+        shift
     else
         echo "Invalid argument $1"
         echo "Usage: $0 [--tag tag] [--repobase repobase] [--force]"
         echo "\t--tag tag: set the tag of the container image"
         echo "\t--repobase repobase: set the base name of the repositories to push into"
         echo "\t--force: pass --force to docker tag to overwrite existing images"
+        echo "\t--pull: pass --pull to docker-compose build to refresh base images"
+        echo "\t--no-cache: pass --no-cache to docker-compose build to do a fresh build"
+        echo "\t--skip-build: skip docker-compose build - only tag and push current build"
     fi
 done
 
@@ -37,8 +52,10 @@ EXTRA_IMAGES="filebeat-radius"
 #TAG="$(date +'%F')"
 
 for SERVICE in $SERVICES ; do
-    # build the images - with a fresh upstream pull
-    COMPOSE_FILE=docker-compose-$SERVICE.yml COMPOSE_PROJECT_NAME=$SERVICE docker-compose build --pull
+    # build the images
+    if [ -z "$SKIPBUILD" ] ; then
+        COMPOSE_FILE=docker-compose-$SERVICE.yml COMPOSE_PROJECT_NAME=$SERVICE docker-compose build $PULL $NOCACHE
+    fi
     for IMAGE in $( eval "echo \${IMAGES_${SERVICE}}" ) ; do
         docker tag $FORCE ${SERVICE}_${IMAGE} ${REPOBASE}/${SERVICE}_${IMAGE}:${TAG}
         docker push $REPOBASE/${SERVICE}_${IMAGE}:${TAG}
@@ -46,7 +63,9 @@ for SERVICE in $SERVICES ; do
 done
 
 for IMAGE in $EXTRA_IMAGES ; do
-    docker build -t $REPOBASE/${IMAGE}:${TAG} ${IMAGE}/
+    if [ -z "$SKIPBUILD" ] ; then
+        docker build $PULL $NOCACHE -t $REPOBASE/${IMAGE}:${TAG} ${IMAGE}/
+    fi
     docker push $REPOBASE/${IMAGE}:${TAG}
 done
 
