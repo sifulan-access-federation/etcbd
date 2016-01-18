@@ -76,7 +76,7 @@ postgres:
 filebeat:
     restart: always
     container_name: filebeat
-    build: ./filebeat
+    build: ./filebeat-admintool
     environment:
         #LOGSTASH_DISABLE: "#"
         LOGSTASH_DISABLE: ""
