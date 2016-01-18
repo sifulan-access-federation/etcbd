@@ -77,6 +77,9 @@ filebeat:
     restart: always
     container_name: filebeat
     build: ./filebeat
+    environment:
+        #LOGSTASH_DISABLE: "#"
+        LOGSTASH_DISABLE: ""
     env_file:
         - localdev_admintool.env
         - global-env.env

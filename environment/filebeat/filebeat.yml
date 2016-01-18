@@ -279,9 +279,9 @@ output:
 
 
   ### Logstash as output
-  logstash:
+  ${LOGSTASH_DISABLE:- }logstash:
     # The Logstash hosts
-    hosts: ["${LOGSTASH_HOST}:5043"]
+    ${LOGSTASH_DISABLE:- }hosts: ["${LOGSTASH_HOST}:5043"]
 
     # Number of workers per Logstash host.
     #worker: 1
