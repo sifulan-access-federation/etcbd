@@ -63,9 +63,8 @@ for SERVICE in $SERVICES ; do
 done
 
 for IMAGE in $EXTRA_IMAGES ; do
-    if [ -z "$SKIPBUILD" ] ; then
-        docker build $PULL $NOCACHE -t $REPOBASE/${IMAGE}:${TAG} ${IMAGE}/
-    fi
+    #cannot skip build as there would be no default local tag to refer to
+    docker build $PULL $NOCACHE -t $REPOBASE/${IMAGE}:${TAG} ${IMAGE}/
     docker push $REPOBASE/${IMAGE}:${TAG}
 done
 
