@@ -44,7 +44,7 @@ filebeat:
 
       # Ignore files which were modified more then the defined timespan in the past
       # Time strings like 2h (2 hours), 5m (5 minutes) can be used.
-      #ignore_older: 10m
+      #ignore_older: 24h
 
       # Type to be published in the 'type' field. For Elasticsearch output,
       # the type defines the document type these entries should be stored
@@ -127,7 +127,7 @@ filebeat:
   # Name of the registry file. Per default it is put in the current working
   # directory. In case the working directory is changed after when running
   # filebeat again, indexing starts from the beginning again.
-  registry_file: /var/lib/filebeat/registry
+  #registry_file: .filebeat
 
   # Full Path to directory with additional prospector configuration files. Each file must end with .yml
   # These config files must have the full filebeat config part inside, but only
