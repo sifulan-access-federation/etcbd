@@ -7,6 +7,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 # (and pull in dependencies needed for configuring packages)
 RUN apt-get update && apt-get -y install apt-utils && apt-get -y install openssl ca-certificates
 
+# temporary: install utils
+RUN apt-get -y install --no-install-recommends lsof vim less file
+
 # override httpd-foreground with our version looking into /usr/local/apache2/conf/startup.d
 COPY httpd-foreground /usr/local/bin/
 

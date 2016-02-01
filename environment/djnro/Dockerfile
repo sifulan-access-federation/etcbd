@@ -1,7 +1,11 @@
 FROM python:2.7
 
-#libpg-dev needed for psycopg2 compildation
-RUN apt-get -qq -y install libpq-dev
+#libpg-dev needed for psycopg2 compilation
+#this pkg is included in python:2.7, but make the statement explicit anyway
+RUN apt-get update -q && apt-get -qq -y install libpq-dev
+
+# temporary: install utils
+RUN apt-get -q -y install --no-install-recommends lsof vim less file
 
 RUN mkdir /djnro
 WORKDIR /djnro
