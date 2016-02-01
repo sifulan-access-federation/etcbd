@@ -25,7 +25,7 @@ RUN echo "deb http://packages.icinga.org/debian icinga-jessie main" > /etc/apt/s
 
 
 # temporary: install utils
-RUN apt-get -y install --no-install-recommends strace lsof vim less file
+RUN apt-get -y install --no-install-recommends lsof vim less file
 
 # Install rad_eap_test and eapol_test
 #  * First install prerequisites: bzip2, dnsutils

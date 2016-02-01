@@ -24,7 +24,7 @@ RUN echo "deb http://packages.icinga.org/debian icinga-jessie main" > /etc/apt/s
     apt-get -y install --no-install-recommends php5-pgsql php5-imagick php5-intl
 
 # temporary: install utils
-RUN apt-get -y install --no-install-recommends strace lsof vim less file
+RUN apt-get -y install --no-install-recommends lsof vim less file
 
 # Enable SSL in Apache
 RUN a2enmod ssl && a2ensite default-ssl
