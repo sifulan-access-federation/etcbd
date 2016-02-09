@@ -39,6 +39,7 @@ while [ $# -gt 0 ] ; do
         echo "\t--pull: pass --pull to docker-compose build to refresh base images"
         echo "\t--no-cache: pass --no-cache to docker-compose build to do a fresh build"
         echo "\t--skip-build: skip docker-compose build - only tag and push current build"
+        exit 1
     fi
 done
 
