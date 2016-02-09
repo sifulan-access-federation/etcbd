@@ -1,2 +1,2 @@
-FROM kibana:4.3
+FROM kibana:4.4
 COPY kibana.yml /opt/kibana/config/kibana.yml
