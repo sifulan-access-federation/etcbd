@@ -33,12 +33,12 @@ while [ $# -gt 0 ] ; do
     else
         echo "Invalid argument $1"
         echo "Usage: $0 [--tag tag] [--repobase repobase] [--force]"
-        echo "\t--tag tag: set the tag of the container image"
-        echo "\t--repobase repobase: set the base name of the repositories to push into"
-        echo "\t--force: pass --force to docker tag to overwrite existing images"
-        echo "\t--pull: pass --pull to docker-compose build to refresh base images"
-        echo "\t--no-cache: pass --no-cache to docker-compose build to do a fresh build"
-        echo "\t--skip-build: skip docker-compose build - only tag and push current build"
+        echo "    --tag tag: set the tag of the container image"
+        echo "    --repobase repobase: set the base name of the repositories to push into"
+        echo "    --force: pass --force to docker tag to overwrite existing images"
+        echo "    --pull: pass --pull to docker-compose build to refresh base images"
+        echo "    --no-cache: pass --no-cache to docker-compose build to do a fresh build"
+        echo "    --skip-build: skip docker-compose build - only tag and push current build"
         exit 1
     fi
 done
