@@ -8,7 +8,7 @@ DATA_DIR = os.path.join(BASE_DIR, 'data')
 KML_FILE = os.path.join(DATA_DIR, 'all.kml')
 
 # This should be always False
-DEBUG = False
+DEBUG = os.getenv('ADMINTOOL_DEBUG', 'False').upper() == 'TRUE'
 TEMPLATE_DEBUG = DEBUG
 
 # Set EMAIL_* settings if provided in the environment.
