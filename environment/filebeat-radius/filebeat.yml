@@ -31,7 +31,7 @@ filebeat:
       # Make sure not file is defined twice as this can lead to unexpected behaviour.
       #paths:
         #- /var/log/*.log
-      # - c:\programdata\elasticsearch\logs\*
+        #- c:\programdata\elasticsearch\logs\*
 
       # Configure the file encoding for reading files with international characters
       # following the W3C recommendation for HTML5 (http://www.w3.org/TR/encoding).
@@ -47,6 +47,20 @@ filebeat:
       # * log: Reads every line of the log file (default)
       # * stdin: Reads the standard in
       #input_type: log
+
+      # Exclude lines. A list of regular expressions to match. It drops the lines that are
+      # matching any regular expression from the list. The include_lines is called before
+      # exclude_lines. By default, no lines are dropped.
+      # exclude_lines: ["^DBG"]
+
+      # Include lines. A list of regular expressions to match. It exports the lines that are
+      # matching any regular expression from the list. The include_lines is called before
+      # exclude_lines. By default, all the lines are exported.
+      # include_lines: ["^ERR", "^WARN"]
+
+      # Exclude files. A list of regular expressions to match. Filebeat drops the files that
+      # are matching any regular expression from the list. By default, no files are dropped.
+      # exclude_files: [".gz$"]
 
       # Optional additional fields. These field can be freely picked
       # to add additional information to the crawled log files for filtering
@@ -77,6 +91,35 @@ filebeat:
       # Defines the buffer size every harvester uses when fetching the file
       #harvester_buffer_size: 16384
 
+      # Maximum number of bytes a single log event can have
+      # All bytes after max_bytes are discarded and not sent. The default is 10MB.
+      # This is especially useful for multiline log messages which can get large.
+      #max_bytes: 10485760
+
+      # Mutiline can be used for log messages spanning multiple lines. This is common
+      # for Java Stack Traces or C-Line Continuation
+      #multiline:
+
+        # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+        #pattern: ^\[
+
+        # Defines if the pattern set under pattern should be negated or not. Default is false.
+        #negate: false
+
+        # Match can be set to "after" or "before". It is used to define if lines should be append to a pattern
+        # that was (not) matched before or after or as long as a pattern is not matched based on negate.
+        # Note: After is the equivalent to previous and before is the equivalent to to next in Logstash
+        #match: after
+
+        # The maximum number of lines that are combined to one event.
+        # In case there are more the max_lines the additional lines are discarded.
+        # Default is 500
+        #max_lines: 500
+
+        # After the defined timeout, an multiline event is sent even if no new pattern was found to start a new event
+        # Default is 5s.
+        #timeout: 5s
+
       # Setting tail_files to true means filebeat starts readding new files at the end
       # instead of the beginning. If this is used in combination with log rotation
       # this can mean that the first entries of a new file are skipped.
@@ -100,12 +143,6 @@ filebeat:
       # The backoff value will be multiplied each time with the backoff_factor until max_backoff is reached
       #backoff_factor: 2
 
-      # Defines the time on how long the harvester will wait for a line to be completed.
-      # Sometimes a lines it not completely written when checked by filebeat. Filebeat
-      # will wait for the time defined below so the system can complete the line.
-      # In case the line is not completed in this time, the line will be skipped.
-      #partial_line_waiting: 5s
-
       # This option closes a file, as soon as the file name changes.
       # This config option is recommended on windows only. Filebeat keeps the files it's reading open. This can cause
       # issues when the file is removed, as the file will not be fully removed until also Filebeat closes
@@ -116,27 +153,15 @@ filebeat:
       # but lower the ignore_older value to release files faster.
       #force_close_files: false
 
+    # Additional prospector
     #-
-    #  paths:
-    #    - /var/log/apache/*.log
-    #  type: log
-    #
-    #  # Ignore files which are older then 24 hours
-    #  ignore_older: 24h
-    #
-    #  # Additional fields which can be freely defined
-    #  fields:
-    #    type: apache
-    #    server: localhost
-    #-
-    #  type: stdin
-    #  paths:
-    #    - "-"
+      # Configuration to use stdin input
+      #input_type: stdin
 
   # General filebeat configuration options
   #
   # Event count spool threshold - forces network flush if exceeded
-  #spool_size: 1024
+  #spool_size: 2048
 
   # Defines how often the spooler is flushed. After idle_timeout the spooler is
   # Flush even though spool_size is not reached.
@@ -152,7 +177,6 @@ filebeat:
   # the prospector part is processed. All global options like spool_size are ignored.
   # The config_dir MUST point to a different directory then where the main filebeat config file is in.
   #config_dir:
-
 
 ###############################################################################
 ############################# Libbeat Config ##################################
@@ -172,7 +196,7 @@ output:
     # IPv6 addresses should always be defined as: https://[2001:db8::1]:9200
     ##hosts: ["elasticsearch:9200"]
 
-    # Optional protocol and basic auth credentials. These are deprecated.
+    # Optional protocol and basic auth credentials.
     #protocol: "https"
     #username: "admin"
     #password: "s3cr3t"
@@ -186,6 +210,9 @@ output:
 
     # Optional HTTP Path
     #path: "/elasticsearch"
+
+    # Proxy server url
+    #proxy_url: http://proxy:3128
 
     # The number of times a particular Elasticsearch index operation is attempted. If
     # the indexing operation doesn't succeed after this many retries, the events are
@@ -249,6 +276,9 @@ output:
 
     # Number of workers per Logstash host.
     #worker: 1
+
+    # Set gzip compression level.
+    #compression_level: 3
 
     # Optional load balance the events between the Logstash hosts
     #loadbalance: true
@@ -332,6 +362,9 @@ shipper:
   # All the IPs will be deleted afterwards. Note, that the value must be higher than
   # refresh_topology_freq. The default is 15 seconds.
   #topology_expire: 15
+
+  # Internal queue size for single events in processing pipeline
+  #queue_size: 1000
 
   # Configure local GeoIP database support.
   # If no paths are not configured geoip is disabled.
