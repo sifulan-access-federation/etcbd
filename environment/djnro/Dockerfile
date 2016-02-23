@@ -15,7 +15,7 @@ WORKDIR /djnro
 RUN git clone https://github.com/REANNZ/djnro.git ./ \
  && git checkout develop
 COPY requirements-additional.txt ./
-RUN pip install -r requirements-additional.txt -r requirements.txt \
+RUN pip install -r requirements.txt -r requirements-optional.txt -r requirements-additional.txt \
     # leaner image: remove wheels cached by pip
     && rm -rf /root/.cache/pip
 COPY envwrap.sh run-kml-refresh.sh uwsgi.ini ./
