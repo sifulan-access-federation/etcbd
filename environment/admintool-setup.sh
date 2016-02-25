@@ -60,7 +60,7 @@ exec_func "" postgres gosu postgres psql --command="create role $DB_USER with lo
 exec_func "" postgres gosu postgres psql --command="create database $DB_NAME with owner $DB_USER;"
 
 # Initialize database on the Django side - and create super user
-exec_func -i djnro ./envwrap.sh ./manage.py syncdb <<-EOF
+exec_func -i djnro /envwrap.sh ./manage.py syncdb <<-EOF
 	yes
 	$ADMIN_USERNAME
 	$ADMIN_EMAIL
@@ -68,23 +68,23 @@ exec_func -i djnro ./envwrap.sh ./manage.py syncdb <<-EOF
 	$ADMIN_PASSWORD
 EOF
 
-exec_func "" djnro ./envwrap.sh ./manage.py migrate
+exec_func "" djnro /envwrap.sh ./manage.py migrate
 
 # load django fixtures - initial data
-exec_func "" djnro ./envwrap.sh ./manage.py loaddata initial_data/fixtures_manual.xml
+exec_func "" djnro /envwrap.sh ./manage.py loaddata initial_data/fixtures_manual.xml
 
 # run fetch-kml one-off:
-exec_func "" djnro ./envwrap.sh ./manage.py fetch_kml
+exec_func "" djnro /envwrap.sh ./manage.py fetch_kml
 
 # create initial realm
-exec_func -i djnro ./envwrap.sh ./manage.py shell <<-EOF
+exec_func -i djnro /envwrap.sh ./manage.py shell <<-EOF
 	from edumanage.models import Realm
 	Realm(country="$REALM_COUNTRY_CODE").save()
 	exit()
 EOF
 
 # Configure the name of the Django site
-exec_func -i djnro ./envwrap.sh ./manage.py shell <<-EOF
+exec_func -i djnro /envwrap.sh ./manage.py shell <<-EOF
 	from django.contrib.sites.models import Site
 	site = Site.objects.get(name="example.com")
 	site.name="$SITE_PUBLIC_HOSTNAME"
@@ -97,6 +97,6 @@ EOF
 if [ -n "$REALM_EXISTING_DATA_URL" ] ; then
     # NOTE: this exact spelling
     exec_func "" djnro curl -o djnro/institution.xml "$REALM_EXISTING_DATA_URL"
-    exec_func "" djnro ./envwrap.sh ./manage.py parse_institution_xml --verbosity=0 djnro/institution.xml
+    exec_func "" djnro /envwrap.sh ./manage.py parse_institution_xml --verbosity=0 djnro/institution.xml
 fi
 
