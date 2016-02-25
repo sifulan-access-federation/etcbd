@@ -14,11 +14,10 @@ WORKDIR /djnro
 #pull in the djnro code, install it's dependencies
 RUN git clone https://github.com/REANNZ/djnro.git ./ \
  && git checkout develop
-COPY requirements-additional.txt ./
+COPY requirements-additional.txt envwrap.sh run-kml-refresh.sh uwsgi.ini ./
 RUN pip install -r requirements.txt -r requirements-optional.txt -r requirements-additional.txt \
     # leaner image: remove wheels cached by pip
     && rm -rf /root/.cache/pip
-COPY envwrap.sh run-kml-refresh.sh uwsgi.ini ./
 COPY local_settings.py djnro/
 EXPOSE 3031
 CMD exec ./envwrap.sh uwsgi /djnro/uwsgi.ini
