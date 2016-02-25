@@ -36,7 +36,7 @@ ALLOWED_HOSTS = ['*']
 # Restrict to SITE_PUBLIC_HOSTNAME - or permit any if this variable is not set
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '<put something really random here, eg. %$#%@#$^2312351345#$%3452345@#$%@#$234#@$hhzdavfsdcFDGVFSDGhn>'
+SECRET_KEY = os.getenv('ADMINTOOL_SECRET_KEY', '<put something really random here, eg. %$#%@#$^2312351345#$%3452345@#$%@#$234#@$hhzdavfsdcFDGVFSDGhn>')
 
 # Check for headers indicating the request was received on a secure SSL connection
 # Uncomment this if you are running DjNRO behind an HTTP proxy that sets this
