@@ -3,6 +3,8 @@ FROM python:2.7
 #libpg-dev needed for psycopg2 compilation
 #this pkg is included in python:2.7, but make the statement explicit anyway
 RUN apt-get update -q && apt-get -qq -y install libpq-dev \
+# install locales
+  && apt-get -q -y install locales \
 # temporary: install utils
   && apt-get -q -y install --no-install-recommends lsof vim less file \
 # cleanup: remove apt-get temporary files
