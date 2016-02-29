@@ -11,7 +11,7 @@ DB_HAS_SOUTH_MIGRATIONS=
 if ./manage.py version | grep '^1\.8' > /dev/null ; then IS_DJ18='Y' ; fi
 
 if ./manage.py inspectdb |grep '^class DjangoMigrations' > /dev/null ; then DB_HAS_DJANGO_MIGRATIONS='Y' ; fi
-if ./manage.py inspectdb |grep '^class SouthMigrationHistory' > /dev/null ; then DB_HAS_SOUTH_MIGRATIONS='Y' ; fi
+if ./manage.py inspectdb |grep '^class SouthMigrationhistory' > /dev/null ; then DB_HAS_SOUTH_MIGRATIONS='Y' ; fi
 
 if [ -z "$IS_DJ18" ] ; then
     echo "Not running Django 1.8, not upgrading"
