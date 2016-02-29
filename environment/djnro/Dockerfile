@@ -19,6 +19,8 @@ RUN git clone https://github.com/REANNZ/djnro.git ./ \
 COPY requirements-additional.txt run-kml-refresh.sh uwsgi.ini ./
 COPY content /
 RUN pip install -r requirements.txt -r requirements-optional.txt -r requirements-additional.txt \
+    # pre-compile PYC files
+    && python -m compileall -q /djnro \
     # leaner image: remove wheels cached by pip
     && rm -rf /root/.cache/pip
 COPY local_settings.py djnro/
