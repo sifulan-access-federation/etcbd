@@ -60,15 +60,14 @@ exec_func "" postgres gosu postgres psql --command="create role $DB_USER with lo
 exec_func "" postgres gosu postgres psql --command="create database $DB_NAME with owner $DB_USER;"
 
 # Initialize database on the Django side - and create super user
-exec_func -i djnro /envwrap.sh ./manage.py syncdb <<-EOF
-	yes
-	$ADMIN_USERNAME
-	$ADMIN_EMAIL
+exec_func "" djnro /envwrap.sh ./manage.py syncdb --noinput
+exec_func "" djnro /envwrap.sh ./manage.py migrate
+exec_func "" djnro /envwrap.sh ./manage.py createsuperuser --noinput --username "$ADMIN_USERNAME" --email "$ADMIN_EMAIL"
+exec_func -i djnro /envwrap.sh ./manage.py changepassword "$ADMIN_USERNAME" <<-EOF
 	$ADMIN_PASSWORD
 	$ADMIN_PASSWORD
 EOF
 
-exec_func "" djnro /envwrap.sh ./manage.py migrate
 
 # load django fixtures - initial data
 exec_func "" djnro /envwrap.sh ./manage.py loaddata initial_data/fixtures_manual.xml
