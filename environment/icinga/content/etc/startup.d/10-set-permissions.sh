@@ -10,3 +10,7 @@ chown -R nagios.nagios /var/lib/icinga2
 mkdir -p /var/run/icinga2/cmd
 chown -R nagios.nagios /var/run/icinga2
 
+# make /var/run/icinga2/cmd group-writeable by Apache (www-data)
+chgrp -R www-data /var/run/icinga2/cmd
+chmod g+rwxs /var/run/icinga2/cmd
+
