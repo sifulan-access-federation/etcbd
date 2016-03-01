@@ -5,5 +5,6 @@
 LNG_COUNTRY=el_GR
 LNG_CTYPE=UTF-8
 CHARMAP_ARGS="-f $LNG_CTYPE"
-localedef -i "$LNG_COUNTRY" -c $CHARMAP_ARGS -A /usr/share/locale/locale.alias $LANG
+TARGET_LANG="$LNG_COUNTRY.$LNG_CTYPE"
+localedef -i "$LNG_COUNTRY" -c $CHARMAP_ARGS -A /usr/share/locale/locale.alias $TARGET_LANG
 
