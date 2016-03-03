@@ -28,7 +28,7 @@ while [ $# -gt 0 ] ; do
         shift
     else
         echo "Invalid argument $1"
-        echo "Usage: $0 [--tag tag] [--repobase repobase]"
+        echo "Usage: $0 [options...]"
         echo "    --tag tag: set the tag of the container image"
         echo "    --repobase repobase: set the base name of the repositories to push into"
         echo "    --pull: pass --pull to docker-compose build to refresh base images"
@@ -63,5 +63,4 @@ for IMAGE in $EXTRA_IMAGES ; do
     docker build $PULL $NOCACHE -t $REPOBASE/${IMAGE}:${TAG} ${IMAGE}/
     docker push $REPOBASE/${IMAGE}:${TAG}
 done
-
 
