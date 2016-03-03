@@ -47,9 +47,7 @@ RUN apt-get install -y --no-install-recommends dnsutils bzip2 && \
       cd wpa_supplicant-${WPA_SUPPLICANT_VERSION}/wpa_supplicant/ && \
       { grep '^[^#].*EAP' defconfig ; echo 'CONFIG_EAPOL_TEST=y' ; } > .config && \
       make eapol_test && \
-      cp eapol_test /usr/local/bin/ && \
-#      sed --in-place -e 's/^EAPOL_PROG.*$/EAPOL_PROG=eapol_test/' /usr/local/bin/rad_eap_test \
-true \
+      cp eapol_test /usr/local/bin/ \
     ) && \
     apt-get remove -y make gcc libc6-dev libssl-dev && \
     apt-get autoremove -y && \
@@ -70,7 +68,9 @@ COPY content /
 RUN mkdir /run/icinga2 && chown nagios.nagios /run/icinga2 && \
     #chown nagios.nagios /etc/icinga2/features-available/ido-pgsql.conf && \
     icinga2 feature enable ido-pgsql && \
-    icinga2 feature enable command
+    icinga2 feature enable command && \
+    # fix location of eapol_test in rad_eap_test - only available after copying in content/
+    sed --in-place -e 's/^EAPOL_PROG.*$/EAPOL_PROG=eapol_test/' /usr/local/bin/rad_eap_test
 
 VOLUME ["/var/run/icinga2", "/var/lib/icinga2", "/var/log/icinga2", "/etc/icinga2/conf.d/external"]
 
