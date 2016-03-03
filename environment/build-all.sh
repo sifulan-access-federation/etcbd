@@ -3,7 +3,6 @@
 # set defaults
 TAG=latest
 REPOBASE="reannz"
-FORCE=""
 PULL=""
 NOCACHE=""
 SKIPBUILD=""
@@ -18,9 +17,6 @@ while [ $# -gt 0 ] ; do
     elif [ "$1" == "--repobase" ] ; then
         REPOBASE="$2"
         shift ; shift
-    elif [ "$1" == "--force" ] ; then
-        FORCE="$1"
-        shift
     elif [ "$1" == "--pull" ] ; then
         PULL="$1"
         shift
@@ -32,10 +28,9 @@ while [ $# -gt 0 ] ; do
         shift
     else
         echo "Invalid argument $1"
-        echo "Usage: $0 [--tag tag] [--repobase repobase] [--force]"
+        echo "Usage: $0 [--tag tag] [--repobase repobase]"
         echo "    --tag tag: set the tag of the container image"
         echo "    --repobase repobase: set the base name of the repositories to push into"
-        echo "    --force: pass --force to docker tag to overwrite existing images"
         echo "    --pull: pass --pull to docker-compose build to refresh base images"
         echo "    --no-cache: pass --no-cache to docker-compose build to do a fresh build"
         echo "    --skip-build: skip docker-compose build - only tag and push current build"
@@ -58,7 +53,7 @@ for SERVICE in $SERVICES ; do
         COMPOSE_FILE=docker-compose-$SERVICE.yml COMPOSE_PROJECT_NAME=$SERVICE docker-compose build $PULL $NOCACHE
     fi
     for IMAGE in $( eval "echo \${IMAGES_${SERVICE}}" ) ; do
-        docker tag $FORCE ${SERVICE}_${IMAGE} ${REPOBASE}/${SERVICE}_${IMAGE}:${TAG}
+        docker tag ${SERVICE}_${IMAGE} ${REPOBASE}/${SERVICE}_${IMAGE}:${TAG}
         docker push $REPOBASE/${SERVICE}_${IMAGE}:${TAG}
     done
 done
