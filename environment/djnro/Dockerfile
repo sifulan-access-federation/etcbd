@@ -15,7 +15,7 @@ WORKDIR /djnro
 
 #pull in the djnro code, install it's dependencies
 RUN git clone https://github.com/REANNZ/djnro.git ./ \
- && git checkout django18
+ && git checkout develop
 COPY requirements-additional.txt run-kml-refresh.sh uwsgi.ini ./
 COPY content /
 RUN pip install -r requirements.txt -r requirements-optional.txt -r requirements-additional.txt \
