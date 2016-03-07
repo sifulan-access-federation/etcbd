@@ -61,7 +61,6 @@ STATIC_URL = '/static/'
 ##### LDAP BACKEND ######
 EXTRA_AUTHENTICATION_BACKENDS = (
     # 'django_auth_ldap.backend.LDAPBackend',
-    'social.backends.google.GooglePlusAuth',
 )
 
 # LDAP CONFIG
@@ -174,6 +173,7 @@ MANAGE_LOGIN_METHODS = (
   { 'backend': 'shibboleth', 'enabled': True, 'class': 'djangobackends.shibauthBackend.shibauthBackend', 'name': 'Shibboleth', 'local_image': 'img/image_shibboleth_logo_color.png' },
   { 'backend': 'locallogin', 'enabled': False, 'class': 'django.contrib.auth.backends.ModelBackend', 'name': 'Local login', 'local_image': 'img/right_logo_small.png' },
   { 'backend': 'google-oauth2', 'enabled': True, 'class': 'social.backends.google.GoogleOAuth2', 'name': 'Google', 'fa_style': 'fa fa-google fa-2x' },
+  { 'backend': 'google-plus', 'enabled': False, 'class': 'social.backends.google.GooglePlusAuth', 'name': 'Google Plus', 'fa_style': 'fa fa-google fa-2x' },
   { 'backend': 'yahoo', 'enabled': True, 'name': 'Yahoo', 'class': 'social.backends.yahoo.YahooOpenId', 'local_image': 'img/yahoo_img.png' },
   { 'backend': 'amazon', 'enabled': False, 'class': 'social.backends.amazon.AmazonOAuth2', 'name': 'Amazon', 'fa_style': 'fa fa-amazon fa-2x' },
   { 'backend': 'docker', 'enabled': False, 'class': 'social.backends.docker.DockerOAuth2', 'name': 'Docker', 'image_url': 'https://hub.docker.com/hub-static/img/nav/docker-logo-loggedin.png' },
