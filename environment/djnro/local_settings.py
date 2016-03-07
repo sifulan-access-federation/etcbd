@@ -1,4 +1,5 @@
 import os
+import warnings
 from django.utils.translation import ugettext_lazy as _
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_DIR = os.path.join(BASE_DIR, 'djnro')
@@ -224,6 +225,25 @@ SOCIAL_AUTH_GOOGLE_PLUS_KEY = os.getenv('GOOGLE_KEY','')
 SOCIAL_AUTH_GOOGLE_PLUS_SECRET = os.getenv('GOOGLE_SECRET','')
 SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = ['https://www.googleapis.com/auth/userinfo.email']
 SOCIAL_AUTH_GOOGLE_PLUS_IGNORE_DEFAULT_SCOPE = True
+
+for var in os.environ:
+    if var.startswith('ADMINTOOL_EXTRA_SETTINGS_'):
+        name = var[len('ADMINTOOL_EXTRA_SETTINGS_'):]
+        val = os.environ[var]
+        try:
+            # Special case: handle boolean variables
+            if val.upper() == 'TRUE':
+                val = True
+            elif val.upper() == 'FALSE':
+                val = False
+
+            # Note: anything else gets interpreted as string - no chance for data structures to be passed in
+
+            locals()[name] = val  # append list
+        except Exception:
+            # Not translating because translations not available yet.
+            # (And lazy translations are not really suitable for exceptions)
+            warnings.warn("Could not import environment variable %s as setting %s with value %s" % ( var, name, val ) )
 
 ###### eduroam CAT integration ###########
 # In order to enable provisioning to CAT, you must list at least one instance and the
