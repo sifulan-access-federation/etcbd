@@ -170,7 +170,7 @@ REALM_COUNTRIES = (
 # The first four elements (backend, enabled, class, name) are REQUIRED.
 # One of the logo elements (local_image, image_url, fa_style) SHOULD also be provided.
 MANAGE_LOGIN_METHODS = (
-  { 'backend': 'shibboleth', 'enabled': True, 'class': 'djangobackends.shibauthBackend.shibauthBackend', 'name': 'Shibboleth', 'local_image': 'img/image_shibboleth_logo_color.png' },
+  { 'backend': 'shibboleth', 'enabled': False, 'class': 'djangobackends.shibauthBackend.shibauthBackend', 'name': 'Shibboleth', 'local_image': 'img/image_shibboleth_logo_color.png' },
   { 'backend': 'locallogin', 'enabled': False, 'class': 'django.contrib.auth.backends.ModelBackend', 'name': 'Local login', 'local_image': 'img/right_logo_small.png' },
   { 'backend': 'google-oauth2', 'enabled': True, 'class': 'social.backends.google.GoogleOAuth2', 'name': 'Google', 'fa_style': 'fa fa-google fa-2x' },
   { 'backend': 'google-plus', 'enabled': False, 'class': 'social.backends.google.GooglePlusAuth', 'name': 'Google Plus', 'fa_style': 'fa fa-google fa-2x' },
@@ -179,12 +179,21 @@ MANAGE_LOGIN_METHODS = (
   { 'backend': 'docker', 'enabled': False, 'class': 'social.backends.docker.DockerOAuth2', 'name': 'Docker', 'image_url': 'https://hub.docker.com/hub-static/img/nav/docker-logo-loggedin.png' },
   { 'backend': 'dropbox-oauth2', 'enabled': False, 'class': 'social.backends.dropbox.DropboxOAuth2', 'name': 'Dropbox', 'fa_style': 'fa fa-dropbox fa-2x' },
   { 'backend': 'facebook', 'enabled': False, 'class': 'social.backends.facebook.FacebookOAuth2', 'name': 'Facebook', 'fa_style': 'fa fa-facebook fa-2x' },
-  { 'backend': 'launchpad', 'enabled': False, 'class': 'social.backends.launchpad.LaunchpadOpenId', 'name': 'Launchpad', 'image_url': 'https://login.launchpad.net/assets/identityprovider/img/favicon.ico' },
+  { 'backend': 'launchpad', 'enabled': True, 'class': 'social.backends.launchpad.LaunchpadOpenId', 'name': 'Launchpad', 'image_url': 'https://login.launchpad.net/assets/identityprovider/img/favicon.ico' },
   { 'backend': 'linkedin-oauth2', 'enabled': False, 'class': 'social.backends.linkedin.LinkedinOAuth2', 'name': 'LinkedIn', 'fa_style': 'fa fa-linkedin fa-2x' },
   { 'backend': 'meetup', 'enabled': False, 'name': 'MeetUp', 'class': 'social.backends.meetup.MeetupOAuth2', 'image_url': 'http://img1.meetupstatic.com/img/logo.svg' },
   { 'backend': 'twitter', 'enabled': False, 'class': 'social.backends.twitter.TwitterOAuth', 'name': 'Twitter', 'fa_style': 'fa fa-twitter fa-2x' },
   # add more here
 )
+
+selected_login_methods = os.getenv('ADMINTOOL_LOGIN_METHODS','')
+if selected_login_methods:
+    # Explicit selection has been made:
+    # so enable only methods explicitly listed
+    # and disable everything not listed
+    selected_login_method_list = selected_login_methods.split()
+    for m in MANAGE_LOGIN_METHODS:
+        m['enabled'] = ( m['backend'] in selected_login_method_list )
 
 # Add enabled backends to authentication backends
 EXTRA_AUTHENTICATION_BACKENDS += tuple([ m['class'] for m in  MANAGE_LOGIN_METHODS if m['enabled'] and m['class'] ])
