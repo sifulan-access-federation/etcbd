@@ -177,7 +177,8 @@ SOCIAL_AUTH_GOOGLE_OPENIDCONNECT_SCOPE = []
 # and duplicate this again for GooglePlus:
 SOCIAL_AUTH_GOOGLE_PLUS_KEY = os.getenv('GOOGLE_KEY','')
 SOCIAL_AUTH_GOOGLE_PLUS_SECRET = os.getenv('GOOGLE_SECRET','')
-SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/userinfo.email']
+SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = ['https://www.googleapis.com/auth/userinfo.email']
+SOCIAL_AUTH_GOOGLE_PLUS_IGNORE_DEFAULT_SCOPE = True
 
 ###### eduroam CAT integration ###########
 # In order to enable provisioning to CAT, you must list at least one instance and the
