@@ -36,7 +36,7 @@ RUN apt-get -y install --no-install-recommends lsof vim less file
 #  * Install rad_eap_test and eapol_test into /usr/local/bin
 #  * Clean up: remove compile dependencies
 #  * Clean up: remove build directories
-ENV RAD_EAP_TEST_VERSION=0.23 WPA_SUPPLICANT_VERSION=2.5
+ENV RAD_EAP_TEST_VERSION=0.26 WPA_SUPPLICANT_VERSION=2.5
 RUN apt-get install -y --no-install-recommends dnsutils bzip2 && \
 #    wget --quiet -O - http://www.eduroam.cz/rad_eap_test/rad_eap_test-${RAD_EAP_TEST_VERSION}.tar.bz2 | \
 #        tar xjf - --strip-components=1 -C /usr/local/bin/ rad_eap_test-${RAD_EAP_TEST_VERSION}/rad_eap_test && \
