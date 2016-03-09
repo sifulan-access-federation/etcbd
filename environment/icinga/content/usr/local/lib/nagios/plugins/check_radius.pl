@@ -94,12 +94,21 @@ sub check_options () {
 	}
 }
 
+sub shell_escape_single_quote {
+  my ($str) = @_;
+  $str =~ s/'/'"'"'/g;
+
+  return $str;
+}
+
 #
 # Main
 #
 check_options();
 
-my $cmd = "echo \"Message-Authenticator = 0x00\" | $radclient -q -c 1 -r 1 -t $t $host:$port status $secret 2>/dev/null";
+my $cmd = "echo \"Message-Authenticator = 0x00\" | $radclient -q -c 1 -r 1 " .
+    "-t '" . shell_escape_single_quote($t) . "' '" . shell_escape_single_quote($host . ":" . $port) . "' " .
+    "status '" . shell_escape_single_quote($secret) . "' 2>/dev/null";
 print "DEBUG: radclient command: $cmd\n" if $debug;
 
 my $t0 = [gettimeofday];

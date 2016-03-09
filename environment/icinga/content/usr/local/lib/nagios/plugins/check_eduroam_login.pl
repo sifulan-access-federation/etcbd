@@ -133,12 +133,27 @@ sub check_options () {
 	}
 }
 
+sub shell_escape_single_quote {
+  my ($str) = @_;
+  $str =~ s/'/'"'"'/g;
+
+  return $str;
+}
+
 #
 # Main
 #
 check_options();
 
-my $cmd = "$radtest -u $user -p $pass -H $host -P $port -S $secret -m $eduroam_method -e $eduroam_eap_method -2 $eduroam_phase2 -t $t ";
+my $cmd = "$radtest -u '" . shell_escape_single_quote($user) . "' " .
+    "-p '" . shell_escape_single_quote($pass) . "' " .
+    "-H '" . shell_escape_single_quote($host) . "' " .
+    "-P '" . shell_escape_single_quote($port) . "' " .
+    "-S '" . shell_escape_single_quote($secret) . "' " .
+    "-m '" . shell_escape_single_quote($eduroam_method) . "' " .
+    "-e '" . shell_escape_single_quote($eduroam_eap_method) . "' " .
+    "-2 '" . shell_escape_single_quote($eduroam_phase2) . "' " .
+    "-t '" . shell_escape_single_quote($t) . "'";
 $cmd .= " -O $eduroam_operator_name" if defined($eduroam_operator_name);
 $cmd .= " -I $nas_ip_address" if defined($nas_ip_address);
 $cmd .= " -C" if $eduroam_request_cui;
