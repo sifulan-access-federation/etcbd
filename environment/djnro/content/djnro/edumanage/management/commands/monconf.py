@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*- vim:encoding=utf-8:
 # vim: tabstop=4:shiftwidth=4:softtabstop=4:expandtab
 import warnings
+import re
 
 from optparse import make_option
 from django.core.management.base import BaseCommand
@@ -34,11 +35,14 @@ class Command(BaseCommand):
         ) 
     def handle(self, *args, **options):
         self.stdout.write(
+            re.sub("\n\n\n*","\n\n",
+              re.sub(" *$","",
                 render_to_string('exports/icinga2_nro.conf',
                     {
                      'instrealmmons': InstRealmMon.objects.all(),
                      'nroservers': self.nro_servers
                     }
-                )
+                ), flags=re.MULTILINE
+              ), flags=re.MULTILINE)
             )
 
