@@ -4,6 +4,9 @@ from django.utils.translation import ugettext_lazy as _
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_DIR = os.path.join(BASE_DIR, 'djnro')
 
+# override URL settings for XeAP DjNRO
+ROOT_URLCONF = 'djnro.urlsextra'
+
 # Override
 DATA_DIR = os.path.join(BASE_DIR, 'data')
 KML_FILE = os.path.join(DATA_DIR, 'all.kml')
