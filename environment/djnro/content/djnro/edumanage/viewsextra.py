@@ -26,11 +26,11 @@ from edumanage.models import (
     InstRealm,
     Contact,
 )
-from edumanage.decoratorsextra import require_ssl
+from edumanage.decoratorsextra import require_ssl, logged_in_or_basicauth
 
 
 @require_ssl
-@login_required
+@logged_in_or_basicauth(realm='eduroam management tools')
 def icingaconf(request):
     nro_servers = (
         { 'name': "nro1",
