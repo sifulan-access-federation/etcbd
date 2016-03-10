@@ -26,8 +26,10 @@ from edumanage.models import (
     InstRealm,
     Contact,
 )
+from edumanage.decoratorsextra import require_ssl
 
 
+@require_ssl
 @login_required
 def icingaconf(request):
     nro_servers = (
