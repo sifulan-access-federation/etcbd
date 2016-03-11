@@ -26,11 +26,11 @@ from edumanage.models import (
     InstRealm,
     Contact,
 )
-from edumanage.decoratorsextra import require_ssl, logged_in_or_basicauth
+from edumanage.decoratorsextra import require_ssl, logged_in_or_basicauth, has_perm_or_basicauth
 
 
 @require_ssl
-@logged_in_or_basicauth(realm='eduroam management tools')
+@has_perm_or_basicauth('edumanage.change_monlocalauthnparam',realm='eduroam management tools')
 def icingaconf(request):
     nro_servers = (
         { 'name': "nro1",
