@@ -61,7 +61,11 @@ def view_or_basicauth(view, request, test_func, realm = "", *args, **kwargs):
                     if user.is_active:
                         login(request, user)
                         request.user = user
-                        return view(request, *args, **kwargs)
+                        if test_func(request.user):
+                            return view(request, *args, **kwargs)
+                        else:
+                            # successfully authenticated but no permission
+                            return HttpResponse(status=403)
 
     # Either they did not provide an authorization header or
     # something in the authorization attempt failed. Send a 401
