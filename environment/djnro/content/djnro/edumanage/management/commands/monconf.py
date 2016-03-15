@@ -3,6 +3,7 @@
 import warnings
 import re
 
+from django.conf import settings
 from optparse import make_option
 from django.core.management.base import BaseCommand
 from edumanage.models import InstServer, InstRealmMon
