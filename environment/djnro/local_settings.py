@@ -181,6 +181,13 @@ for s in os.getenv('NRO_SERVERS','').split():
         'status_server': not os.getenv("NRO_SERVER_STATUS_%s" % (s),'False').upper() in ("FALSE", ""),
         }])
 
+ICINGA_CONF_PARAMS = {
+    # Should generated icinga configuration request Chargeable User Identity (CUI)?
+    # Set to True if yes, set to False or leave unset if not supported.
+    'request_cui': not os.getenv("ICINGA_CONF_REQUEST_CUI",'False').upper() in ("FALSE", ""),
+    'operator_name': os.getenv("ICINGA_CONF_OPERATOR_NAME",None),
+}
+
 # List the login methods to be offered to users here.
 # The fields to list for each method are:
 #   backend: backend name.  This has to match the backend name in the
