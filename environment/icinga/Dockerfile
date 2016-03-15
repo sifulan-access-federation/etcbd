@@ -72,7 +72,7 @@ RUN mkdir /run/icinga2 && chown nagios.nagios /run/icinga2 && \
     # fix location of eapol_test in rad_eap_test - only available after copying in content/
     sed --in-place -e 's/^EAPOL_PROG.*$/EAPOL_PROG=eapol_test/' /usr/local/bin/rad_eap_test
 
-VOLUME ["/var/run/icinga2", "/var/lib/icinga2", "/var/log/icinga2", "/etc/icinga2/conf.d/external"]
+VOLUME ["/var/run/icinga2", "/var/lib/icinga2", "/var/log/icinga2", "/etc/icinga2/externalconf"]
 
 CMD ["/startup.sh", "/usr/sbin/icinga2", "daemon"]
 
