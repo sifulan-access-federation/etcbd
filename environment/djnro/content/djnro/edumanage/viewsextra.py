@@ -32,25 +32,11 @@ from edumanage.decoratorsextra import require_ssl, logged_in_or_basicauth, has_p
 @require_ssl
 @has_perm_or_basicauth('edumanage.change_monlocalauthnparam',realm='eduroam management tools')
 def icingaconf(request):
-    nro_servers = (
-        { 'name': "nro1",
-          'host': "nro1.host",
-          'port': "1812",
-          'secret': "s3cr3t",
-          'status_server': True,
-        },
-        { 'name': "nro2",
-          'host': "nro2.host",
-          'port': "1812",
-          'secret': "s3cr3t",
-          'status_server': True,
-        },
-        )
 
     resp_body = render_to_string('exports/icinga2_nro.conf',
                     {
                      'instrealmmons': InstRealmMon.objects.all(),
-                     'nroservers': nro_servers
+                     'nroservers': settings.NRO_SERVERS
                     }
                 )
     resp_body = re.sub("\n\n\n*","\n\n",

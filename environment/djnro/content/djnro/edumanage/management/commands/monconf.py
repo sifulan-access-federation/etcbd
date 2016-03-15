@@ -40,7 +40,7 @@ class Command(BaseCommand):
                 render_to_string('exports/icinga2_nro.conf',
                     {
                      'instrealmmons': InstRealmMon.objects.all(),
-                     'nroservers': self.nro_servers
+                     'nroservers': settings.NRO_SERVERS
                     }
                 ), flags=re.MULTILINE
               ), flags=re.MULTILINE)

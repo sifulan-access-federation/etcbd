@@ -157,6 +157,30 @@ REALM_COUNTRIES = (
     (os.getenv('REALM_COUNTRY_CODE','country_2letters'), os.getenv('REALM_COUNTRY_NAME','Country') ),
 )
 
+#NRO servers (for Icinga configuration)
+# In configuration file, use:
+# NRO_SERVERS=server1 server2 ...
+# mandatory for each server in NRO_SERVERS:
+# NRO_SERVER_HOSTNAME_server1=eduroam1.nren.cc
+# NRO_SERVER_HOSTNAME_server2=eduroam1.nren.cc
+# NRO_SERVER_SECRET_server1=secret
+# NRO_SERVER_SECRET_server2=secret
+# optionally also:
+# NRO_SERVER_PORT_server1=1812
+# NRO_SERVER_PORT_server2=1812
+# Is status server enabled?  Set to True if yes, set to False or leave unset if not supported.
+# NRO_SERVER_STATUS_server1=True
+# NRO_SERVER_STATUS_server2=True
+NRO_SERVERS = ()
+for s in os.getenv('NRO_SERVERS','').split():
+    NRO_SERVERS += tuple([ {
+        'name': s,
+        'host': os.getenv("NRO_SERVER_HOSTNAME_%s" % (s),''),
+        'secret': os.getenv("NRO_SERVER_SECRET_%s" % (s),''),
+        'port': os.getenv("NRO_SERVER_PORT_%s" % (s),'1812'),
+        'status_server': not os.getenv("NRO_SERVER_STATUS_%s" % (s),'False').upper() in ("FALSE", ""),
+        }])
+
 # List the login methods to be offered to users here.
 # The fields to list for each method are:
 #   backend: backend name.  This has to match the backend name in the
