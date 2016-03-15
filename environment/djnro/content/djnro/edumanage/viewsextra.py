@@ -36,7 +36,8 @@ def icingaconf(request):
     resp_body = render_to_string('exports/icinga2_nro.conf',
                     {
                      'instrealmmons': InstRealmMon.objects.all(),
-                     'nroservers': settings.NRO_SERVERS
+                     'nroservers': settings.NRO_SERVERS,
+                     'confparams': settings.ICINGA_CONF_PARAMS,
                     }
                 )
     resp_body = re.sub("\n\n\n*","\n\n",
