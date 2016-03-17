@@ -186,6 +186,7 @@ ICINGA_CONF_PARAMS = {
     # Set to True if yes, set to False or leave unset if not supported.
     'request_cui': not os.getenv("ICINGA_CONF_REQUEST_CUI",'False').upper() in ("FALSE", ""),
     'operator_name': os.getenv("ICINGA_CONF_OPERATOR_NAME",None),
+    'verbosity': os.getenv("ICINGA_CONF_VERBOSITY", "1"),
 }
 
 # List the login methods to be offered to users here.
