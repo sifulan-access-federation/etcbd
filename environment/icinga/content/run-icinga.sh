@@ -41,6 +41,9 @@ fi
 ICINGA_PID_FILE="/var/run/icinga2/icinga2.pid"
 EMAIL_PROG="/usr/local/bin/send_notification.py"
 
+# override locale to disable special characters in WGET output
+LANG=C
+
 #internal variable
 LOOP_RUNNING="yes"
 
@@ -66,11 +69,12 @@ function cleanup() {
 }
 
 # auxilliary functions
-# create temp dir - populate DIR, IS_ERROR as needed
+# create temp dir and log file - populate DIR, ERR_LOG, IS_ERROR as needed
 function setup_temp_dir() {
+    ERR_LOG=$( mktemp )
     DIR=$( mktemp -d ${CONF_TARGET_DIR}/conf.XXXXX )
     if [ $? -ne 0 -o -z "$DIR" -o ! -d "$DIR" ] ; then
-        IS_ERROR="Could not create temporary directory"
+        IS_ERROR="Could not create temporary directory."
     else
         # make the new directory readable
         chmod a+rx $DIR
@@ -79,16 +83,15 @@ function setup_temp_dir() {
 
 # fetch conf files - expect DIR, populate IS_ERROR as needed
 function fetch_conf_files() {
-    wget -P "$DIR" $WGET_EXTRA_OPTS --user "$CONF_URL_USER" --password "$CONF_URL_PASSWORD" $CONF_URL_LIST
-    #WGET WITH ALL OPTIONS (EXTRA_OPTS_NO_CHECK_CERT, USER, --ask-password, CONF_URL_LIST
+    wget -P "$DIR" $WGET_EXTRA_OPTS --user "$CONF_URL_USER" --password "$CONF_URL_PASSWORD" $CONF_URL_LIST 2> $ERR_LOG
     if [ $? -ne 0 ] ; then
-       IS_ERROR="Fetching remote URL failed"
+       IS_ERROR="Fetching configuration from remote URL failed."
     fi
 }
 
 # report error - expect IS_ERROR + other email settings from this container
 function report_error() {
-    echo "$IS_ERROR" | $EMAIL_PROG -s "ERROR: Icinga config refresh" $ICINGA_ADMIN_EMAIL
+    { echo "$IS_ERROR" ; echo ; cat $ERR_LOG ; } | $EMAIL_PROG -s "ERROR: Could not refresh Icinga configuration" $ICINGA_ADMIN_EMAIL
 }
 
 # Set up to respond to Docker signals
@@ -117,6 +120,8 @@ if [ ! -d $CONF_CURRENT_DIR ] ; then
     if [ -n "$IS_ERROR" ] ; then
         report_error
     fi
+    # remove error log file
+    rm $ERR_LOG
 fi
 
 # start Icinga
@@ -136,12 +141,12 @@ while [ -n "$LOOP_RUNNING" ] ; do
         fetch_conf_files
         if [ -z "$IS_ERROR" ] ; then
            # did anything change
-           diff -r $CONF_CURRENT_DIR $DIR > /dev/null
+           diff -r $CONF_CURRENT_DIR $DIR > /dev/null 2> $ERR_LOG
            DIFF_RES=$?
            if [ $DIFF_RES -eq 0 ] ; then
-               IS_NO_CHANGE="No change in Icinga configuration, ignoring and removing old files"
+               IS_NO_CHANGE="No change in Icinga configuration, ignoring and removing new configuration."
            elif [ $DIFF_RES -eq 2 ] ; then
-               IS_ERROR="Error comparing old and new configuration"
+               IS_ERROR="Error comparing old and new configuration."
            fi
         fi
     fi
@@ -173,7 +178,8 @@ while [ -n "$LOOP_RUNNING" ] ; do
     if [ -n "$IS_ERROR" ] ; then
         report_error
     fi
-
+    # remove error log file
+    rm $ERR_LOG
 
     # go to sleep until next refresh
     sleep $CONF_REFRESH_INTERVAL &
