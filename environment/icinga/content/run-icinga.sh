@@ -98,7 +98,7 @@ function report_error() {
 # HUP should propagate just to Icinga
 # INT and TERM should go also to other side processes (our sleep process)
 
-trap "echo SIGHUP ; nudge_icinga SIGHUP" SIGINT
+trap "echo SIGHUP ; nudge_icinga SIGHUP" SIGHUP
 trap "echo SIGINT ; cleanup SIGINT" SIGINT
 trap "echo SIGTERM ; cleanup SIGTERM" SIGTERM
 
