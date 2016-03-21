@@ -187,6 +187,11 @@ while [ -n "$LOOP_RUNNING" ] ; do
     # Only wait for the sleep to complete if we are not shutting down yet
     if [ -n "$LOOP_RUNNING" ] ; then
         wait
+        if [ $? -ne 0 ] ; then
+            # Waiting failed - maybe we received the signal.
+            # Kill the sleep process.
+            kill $SLEEP_PID
+        fi
     else
         kill $SLEEP_PID
     fi
