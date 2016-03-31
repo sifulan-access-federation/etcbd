@@ -42,6 +42,7 @@ class Command(BaseCommand):
                     {
                      'allinstrealmmons': InstRealmMon.objects.all(),
                      'nroservers': settings.NRO_SERVERS,
+                     'instservers': InstServer.objects.all(),
                      'confparams': settings.ICINGA_CONF_PARAMS,
                     }
                 ), flags=re.MULTILINE
