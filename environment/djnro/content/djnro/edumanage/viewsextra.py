@@ -31,7 +31,11 @@ from edumanage.models import (
 from edumanage.decoratorsextra import require_ssl, logged_in_or_basicauth, has_perm_or_basicauth
 
 
-def all_instrealmmon_contacts():
+def all_monitoring_contacts():
+    """"Return all contacts used in monitoring.  This now means all contacts associated with institutions that are either:
+        * Associated with InstRealms that have a monitored realm (InstRealmMon) instance.
+        * Have a server associated with the institution
+    """
 
     contacts = Set()
     for irm in InstRealmMon.objects.all():
@@ -42,6 +46,16 @@ def all_instrealmmon_contacts():
           # If the Institution has no InstitutionDetails, we cannot find any
           # contacts - and in that case, OK to ignore here
           pass
+
+    for server in InstServer.objects.all():
+      for inst in server.instid.all():
+        try:
+          for c in inst.institutiondetails.contact.all():
+            contacts.add(c)
+        except InstitutionDetails.DoesNotExist:
+            # If the Institution has no InstitutionDetails, it is not associated
+            # with any contacts - and in that case, OK to ignore here
+            pass
 
     return contacts
 
@@ -55,7 +69,7 @@ def icingaconf(request):
                      'nroservers': settings.NRO_SERVERS,
                      'instservers': InstServer.objects.all(),
                      'confparams': settings.ICINGA_CONF_PARAMS,
-                     'allcontacts': all_instrealmmon_contacts(),
+                     'allcontacts': all_monitoring_contacts(),
                     }
                 )
     resp_body = re.sub("\n\n\n*","\n\n",
