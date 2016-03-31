@@ -1,4 +1,5 @@
 import re
+from sets import Set
 
 from django.shortcuts import render_to_response, redirect, render
 from django.http import (
@@ -22,12 +23,27 @@ from edumanage.models import (
     InstServer,
     MonLocalAuthnParam,
     Institution,
+    InstitutionDetails,
     InstitutionContactPool,
     InstRealm,
     Contact,
 )
 from edumanage.decoratorsextra import require_ssl, logged_in_or_basicauth, has_perm_or_basicauth
 
+
+def all_instrealmmon_contacts():
+
+    contacts = Set()
+    for irm in InstRealmMon.objects.all():
+      try:
+        for c in irm.realm.instid.institutiondetails.contact.all():
+          contacts.add(c)
+      except InstitutionDetails.DoesNotExist:
+          # If the Institution has no InstitutionDetails, we cannot find any
+          # contacts - and in that case, OK to ignore here
+          pass
+
+    return contacts
 
 @require_ssl
 @has_perm_or_basicauth('edumanage.change_monlocalauthnparam',realm='eduroam management tools')
@@ -39,7 +55,7 @@ def icingaconf(request):
                      'nroservers': settings.NRO_SERVERS,
                      'instservers': InstServer.objects.all(),
                      'confparams': settings.ICINGA_CONF_PARAMS,
-                     'allcontacts': Contact.objects.all(),
+                     'allcontacts': all_instrealmmon_contacts(),
                     }
                 )
     resp_body = re.sub("\n\n\n*","\n\n",
