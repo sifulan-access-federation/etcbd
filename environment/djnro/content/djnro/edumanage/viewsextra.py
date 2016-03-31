@@ -35,7 +35,7 @@ def icingaconf(request):
 
     resp_body = render_to_string('exports/icinga2.conf',
                     {
-                     'instrealmmons': InstRealmMon.objects.all(),
+                     'allinstrealmmons': InstRealmMon.objects.all(),
                      'nroservers': settings.NRO_SERVERS,
                      'confparams': settings.ICINGA_CONF_PARAMS,
                     }
