@@ -6,7 +6,7 @@ import re
 from django.conf import settings
 from optparse import make_option
 from django.core.management.base import BaseCommand
-from edumanage.models import InstServer, InstRealmMon
+from edumanage.models import InstServer, InstRealmMon, Contact
 from django.template.loader import render_to_string
 
 class Command(BaseCommand):
@@ -44,6 +44,7 @@ class Command(BaseCommand):
                      'nroservers': settings.NRO_SERVERS,
                      'instservers': InstServer.objects.all(),
                      'confparams': settings.ICINGA_CONF_PARAMS,
+                     'allcontacts': Contact.objects.all(),
                     }
                 ), flags=re.MULTILINE
               ), flags=re.MULTILINE)

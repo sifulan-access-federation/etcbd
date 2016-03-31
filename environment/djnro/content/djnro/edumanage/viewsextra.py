@@ -39,6 +39,7 @@ def icingaconf(request):
                      'nroservers': settings.NRO_SERVERS,
                      'instservers': InstServer.objects.all(),
                      'confparams': settings.ICINGA_CONF_PARAMS,
+                     'allcontacts': Contact.objects.all(),
                     }
                 )
     resp_body = re.sub("\n\n\n*","\n\n",
