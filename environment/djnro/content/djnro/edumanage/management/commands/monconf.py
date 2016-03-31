@@ -38,7 +38,7 @@ class Command(BaseCommand):
         self.stdout.write(
             re.sub("\n\n\n*","\n\n",
               re.sub(" *$","",
-                render_to_string('exports/icinga2_nro.conf',
+                render_to_string('exports/icinga2.conf',
                     {
                      'instrealmmons': InstRealmMon.objects.all(),
                      'nroservers': settings.NRO_SERVERS,
