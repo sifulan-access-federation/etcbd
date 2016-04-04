@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+
+# Apache gets grumpy about PID files pre-existing
+rm -f /usr/local/apache2/logs/httpd.pid
+
+# Exec all scripts from /usr/local/apache2/conf/startup.d
+STARTUP_DIR=/usr/local/apache2/conf/startup.d
+if [ -d "$STARTUP_DIR" ] ; then
+    for STARTUP_FILE in $STARTUP_DIR/*.sh ; do
+        if [ -x "$STARTUP_FILE" ]; then
+            $STARTUP_FILE
+        fi
+    done
+fi
+
+exec httpd -DFOREGROUND $HTTPD_ARGS
+
