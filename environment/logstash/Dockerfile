@@ -1,4 +1,4 @@
-FROM logstash:2.2
+FROM logstash:2.3
 EXPOSE 5043
 
 COPY logstash-conf-* /etc/logstash/conf.d/
