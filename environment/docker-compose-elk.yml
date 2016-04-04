@@ -43,6 +43,7 @@ services:
     #log_driver: syslog
     environment:
         KIBANA_URL: http://kibana:5601/
+        HTTPS_PORT: 443
         HTTPD_ARGS: -DAPACHE_LOGS_STDOUT
     env_file:
         - localdev_elk.env

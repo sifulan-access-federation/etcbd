@@ -9,6 +9,7 @@ services:
     #log_driver: syslog
     environment:
         DJNRO_HOST: djnro
+        HTTPS_PORT: 443
         HTTPD_ARGS: -DAPACHE_LOGS_STDOUT
     # import DjNRO env to have SITE_PUBLIC_HOSTNAME
     env_file:

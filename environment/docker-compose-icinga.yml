@@ -6,6 +6,8 @@ services:
     build: ./icingaweb/
     container_name: icingaweb
     #log_driver: syslog
+    environment:
+        HTTPS_PORT: 443
     env_file:
         - localdev_icinga.env
         - global-env.env
