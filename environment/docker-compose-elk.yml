@@ -32,11 +32,33 @@ services:
     #log_driver: syslog
     env_file:
         - global-env.env
-    ports:
-        - "80:5601"
     links:
         - "elasticsearch:elasticsearch"
+
+  #reverse proxy / ssl termination / authentication
+  apache:
+    restart: always
+    build: ./apache-elk/
+    container_name: apache-elk
+    #log_driver: syslog
+    environment:
+        KIBANA_URL: http://kibana:5601/
+        HTTPD_ARGS: -DAPACHE_LOGS_STDOUT
+    env_file:
+        - localdev_elk.env
+        - global-env.env
+    ports:
+        - "80:80"
+        - "443:443"
+    volumes:
+        - apache-certs:/usr/local/apache2/conf/external
+        - apache-logs:/usr/local/apache2/logs
+    #links to reverse proxy and control access to Kibana
+    links:
+        - "kibana:kibana"
 
 volumes:
   # all volume names will get prefixed with the project name - "elk_"
   elasticsearch-data: {}
+  apache-certs: {}
+  apache-logs: {}
