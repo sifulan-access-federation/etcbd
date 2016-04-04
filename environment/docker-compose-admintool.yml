@@ -1,6 +1,8 @@
+version: '2'
+services:
 
-#reverse proxy / ssl termination / static file handling
-apache:
+  #reverse proxy / ssl termination / static file handling
+  apache:
     restart: always
     build: ./apache/
     container_name: apache
@@ -22,7 +24,7 @@ apache:
     links:
         - "djnro:djnro"
 
-djnro:
+  djnro:
     restart: always
     build: ./djnro/
     container_name: djnro
@@ -37,8 +39,8 @@ djnro:
     links:
         - "postgres:postgres"
 
-# djnro-cron depending opn djnro....
-djnro-scheduler:
+  # djnro-cron depending on djnro....
+  djnro-scheduler:
     restart: always
     build: ./djnro/
     container_name: djnro-scheduler
@@ -54,7 +56,7 @@ djnro-scheduler:
         - djnro
     command: ./run-kml-refresh.sh
 
-postgres:
+  postgres:
     restart: always
     container_name: postgres
     build: ./postgres/
@@ -65,7 +67,7 @@ postgres:
     volumes:
         - /var/lib/docker/host-volumes/admintool-postgres-data:/var/lib/postgresql/data
 
-filebeat:
+  filebeat:
     restart: always
     container_name: filebeat
     build: ./filebeat-admintool

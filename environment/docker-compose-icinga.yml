@@ -1,4 +1,7 @@
-icingaweb:
+version: '2'
+services:
+
+  icingaweb:
     restart: always
     build: ./icingaweb/
     container_name: icingaweb
@@ -20,7 +23,7 @@ icingaweb:
     links:
         - "postgres-icinga:postgres-icinga"
 
-icinga:
+  icinga:
     restart: always
     build: ./icinga/
     container_name: icinga
@@ -37,7 +40,7 @@ icinga:
         - "postgres-icinga:postgres-icinga"
 
 
-postgres-icinga:
+  postgres-icinga:
     restart: always
     container_name: postgres-icinga
     build: ./postgres/
