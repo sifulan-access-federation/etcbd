@@ -16,7 +16,7 @@ COPY httpd-foreground /usr/local/bin/
 COPY envwrap.sh /
 
 RUN mkdir /usr/local/apache2/conf/startup.d
-COPY make-selfsigned-certs-if-none-present.sh /usr/local/apache2/conf/startup.d/
+COPY make-selfsigned-certs-if-none-present.sh create-htauth-file.sh /usr/local/apache2/conf/startup.d/
 
 COPY ./*-httpd.conf /usr/local/apache2/conf/extra/
 RUN echo 'Include conf/extra/modules-httpd.conf' >> /usr/local/apache2/conf/httpd.conf && \
