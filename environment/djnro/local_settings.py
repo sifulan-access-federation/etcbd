@@ -141,6 +141,10 @@ NRO_COUNTRY_NAME = _(os.getenv('REALM_COUNTRY_NAME', 'My Country'))
 NRO_COUNTRY_CODE = os.getenv('REALM_COUNTRY_CODE', 'tld')
 # main domain url used in right top icon, eg. http://www.grnet.gr
 NRO_DOMAIN_MAIN_URL = "http://www.example.com"
+# NRO institution name
+NRO_INST_NAME = os.getenv('NRO_INST_NAME', "NREN")
+# NRO federation name
+NRO_FEDERATION_NAME = os.getenv('NRO_FEDERATION_NAME', "NREN AAI federation")
 # developer info for footer
 NRO_PROV_BY_DICT = {"name": "GRNET NOC", "url": "//noc.grnet.gr"}
 #provider social media contact (Use: // to preserve https)
