@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-ENV FILEBEAT_VERSION=1.1.1
+ENV FILEBEAT_VERSION=1.2.0
 
 # make debconf use non-interactive mode:
 ENV DEBIAN_FRONTEND=noninteractive
@@ -14,7 +14,7 @@ RUN apt-get update && \
 # install envPlate
 RUN curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases/download/v0.0.8/ep-linux && chmod +x /usr/local/bin/ep
 
-RUN curl -L -O https://download.elastic.co/beats/filebeat/filebeat_${FILEBEAT_VERSION}_amd64.deb && \
+RUN curl -sLO https://download.elastic.co/beats/filebeat/filebeat_${FILEBEAT_VERSION}_amd64.deb && \
     dpkg -i filebeat_${FILEBEAT_VERSION}_amd64.deb && \
     rm -f filebeat_${FILEBEAT_VERSION}_amd64.deb
 
