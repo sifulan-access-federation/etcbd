@@ -27,6 +27,8 @@ services:
     restart: always
     build: ./kibana/
     container_name: kibana
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
     #log_driver: syslog
     env_file:
         - global-env.env
