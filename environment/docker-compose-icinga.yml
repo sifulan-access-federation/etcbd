@@ -21,7 +21,7 @@ services:
         # we need to see the Command Transport file
         - icinga
     links:
-        - "postgres-icinga:postgres-icinga"
+        - "postgres:postgres-icinga"
 
   icinga:
     restart: always
@@ -37,10 +37,10 @@ services:
         - /var/lib/docker/host-volumes/icinga-lib:/var/lib/icinga2
         - /var/lib/docker/host-volumes/icinga-logs:/var/log/icinga2
     links:
-        - "postgres-icinga:postgres-icinga"
+        - "postgres:postgres-icinga"
 
 
-  postgres-icinga:
+  postgres:
     restart: always
     container_name: postgres-icinga
     build: ./postgres/

@@ -42,7 +42,7 @@ done
 SERVICES="admintool elk icinga"
 IMAGES_admintool="apache djnro postgres filebeat"
 IMAGES_elk="elasticsearch logstash kibana"
-IMAGES_icinga="icingaweb icinga postgres-icinga"
+IMAGES_icinga="icingaweb icinga postgres"
 EXTRA_IMAGES="filebeat-radius"
 
 #TAG="$(date +'%F')"
