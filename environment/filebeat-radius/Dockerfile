@@ -5,10 +5,13 @@ ENV FILEBEAT_VERSION=1.2.0
 # make debconf use non-interactive mode:
 ENV DEBIAN_FRONTEND=noninteractive
 
-# install curl & ca-certificates (first install apt-utils)
+# Install curl & ca-certificates (first install apt-utils)
+# Install locales needed to run localedef later
+# Clean up apt temporary files
 RUN apt-get update && \
     apt-get install -y apt-utils && \
     apt-get install -y ca-certificates curl --no-install-recommends && \
+    apt-get -y install --no-install-recommends locales && \
     rm -rf /var/lib/apt/lists/*
 
 # install envPlate
@@ -19,8 +22,10 @@ RUN curl -sLO https://download.elastic.co/beats/filebeat/filebeat_${FILEBEAT_VER
     rm -f filebeat_${FILEBEAT_VERSION}_amd64.deb
 
 COPY filebeat.yml /etc/filebeat/filebeat.yml
+# Copy in startup.d files
+COPY content /
 
 VOLUME /var/lib/filebeat
 
-CMD ["/usr/local/bin/ep", "-v", "/etc/filebeat/filebeat.yml", "--", "/usr/bin/filebeat", "-e", "-v", "-c", "/etc/filebeat/filebeat.yml"]
+CMD ["/startup.sh", "/usr/bin/filebeat", "-e", "-v", "-c", "/etc/filebeat/filebeat.yml"]
 
