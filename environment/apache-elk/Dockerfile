@@ -3,9 +3,17 @@ FROM httpd:2.4
 # make debconf use non-interactive mode:
 ENV DEBIAN_FRONTEND=noninteractive
 
-# install openssl - needed for auto-creating certificates
+# Install openssl - needed for auto-creating certificates
 # (and pull in dependencies needed for configuring packages)
-RUN apt-get update && apt-get -y install apt-utils && apt-get -y install openssl ca-certificates
+# Install locales needed to run localedef later
+# Clean up apt temporary files
+RUN apt-get update && \
+    apt-get -y install apt-utils && \
+    apt-get -y install openssl ca-certificates && \
+    apt-get -y install --no-install-recommends locales && \
+    # temporary: install utils
+    apt-get -y install --no-install-recommends lsof vim less file && \
+    rm -rf /var/lib/apt/lists/*
 
 # temporary: install utils
 RUN apt-get -y install --no-install-recommends lsof vim less file
@@ -16,7 +24,7 @@ COPY httpd-foreground /usr/local/bin/
 COPY envwrap.sh /
 
 RUN mkdir /usr/local/apache2/conf/startup.d
-COPY make-selfsigned-certs-if-none-present.sh create-htauth-file.sh /usr/local/apache2/conf/startup.d/
+COPY make-selfsigned-certs-if-none-present.sh localedef.sh create-htauth-file.sh /usr/local/apache2/conf/startup.d/
 
 COPY ./*-httpd.conf /usr/local/apache2/conf/extra/
 RUN echo 'Include conf/extra/modules-httpd.conf' >> /usr/local/apache2/conf/httpd.conf && \
