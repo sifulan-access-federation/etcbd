@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# Run only a selection of startup scripts - we do not want to run the Django
+# 1.8 migrate script from within the djnro-scheduler container
+
+# So run only the localedef script:
+STARTUP_DIR=/etc/startup.d
+if [ -d "$STARTUP_DIR" ] ; then
+    for STARTUP_FILE in $STARTUP_DIR/10*.sh ; do
+        if [ -x "$STARTUP_FILE" ]; then
+            $STARTUP_FILE
+        fi
+    done
+fi
+
 # Shell script to run in a standalone container to trigger refresh of global KML file
 # Expects: KML_REFRESH_INTERVAL to set the period (in seconds) in between refreshes
 
