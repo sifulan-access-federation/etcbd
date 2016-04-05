@@ -1,12 +1,8 @@
 #!/bin/bash
 
 HTAUTH_FILE=/usr/local/apache2/conf/external/users
-# use bcrypt (-B); read from stdin (-i)
-HTPASSWD_ARGS="-B -i"
-if [ ! -e $HTAUTH_FILE ] ; then
-  # Create file if not exists (-c)
-  HTPASSWD_ARGS="$HTPASSWD_ARGS -c"
-fi
+# use bcrypt (-B); read from stdin (-i); create (always) (-c)
+HTPASSWD_ARGS="-B -i -c"
 
 if [ -n "$ADMIN_USERNAME" -a -n "$ADMIN_PASSWORD" ] ; then
     htpasswd $HTPASSWD_ARGS $HTAUTH_FILE "$ADMIN_USERNAME" <<-EOF
