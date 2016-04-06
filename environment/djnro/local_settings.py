@@ -15,6 +15,11 @@ KML_FILE = os.path.join(DATA_DIR, 'all.kml')
 DEBUG = os.getenv('ADMINTOOL_DEBUG', 'False').upper() == 'TRUE'
 TEMPLATE_DEBUG = DEBUG
 
+# Override LANGUAGES (already set in settings.py) - English only
+LANGUAGES = (
+    ('en', _('English')),
+)
+
 # Set EMAIL_* settings if provided in the environment.
 # Note: EMAIL_HOST_USER and EMAIL_HOST_PASSWORD default to empty string, having
 # blank values in env file works well here.
