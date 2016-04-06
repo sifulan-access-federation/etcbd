@@ -69,6 +69,8 @@ RUN mkdir /run/icinga2 && chown nagios.nagios /run/icinga2 && \
     #chown nagios.nagios /etc/icinga2/features-available/ido-pgsql.conf && \
     icinga2 feature enable ido-pgsql && \
     icinga2 feature enable command && \
+    # Make ping set-uid to work under non-root nagios user account
+    chmod u+s /bin/ping && \
     # fix location of eapol_test in rad_eap_test - only available after copying in content/
     sed --in-place -e 's/^EAPOL_PROG.*$/EAPOL_PROG=eapol_test/' /usr/local/bin/rad_eap_test
 
