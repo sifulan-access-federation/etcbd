@@ -19,6 +19,8 @@ TEMPLATE_DEBUG = DEBUG
 LANGUAGES = (
     ('en', _('English')),
 )
+# and apply the same setting to languages available for URLs and names
+URL_NAME_LANGS = LANGUAGES
 
 # Set EMAIL_* settings if provided in the environment.
 # Note: EMAIL_HOST_USER and EMAIL_HOST_PASSWORD default to empty string, having
