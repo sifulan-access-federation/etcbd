@@ -184,7 +184,7 @@ for s in os.getenv('NRO_SERVERS','').split():
         'name': s,
         'host': os.getenv("NRO_SERVER_HOSTNAME_%s" % (s),''),
         'secret': os.getenv("NRO_SERVER_SECRET_%s" % (s),''),
-        'port': os.getenv("NRO_SERVER_PORT_%s" % (s),'1812'),
+        'auth_port': os.getenv("NRO_SERVER_PORT_%s" % (s),'1812'),
         'status_server': not os.getenv("NRO_SERVER_STATUS_%s" % (s),'False').upper() in ("FALSE", ""),
         }])
 
