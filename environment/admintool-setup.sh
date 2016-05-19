@@ -79,9 +79,9 @@ exec_func "" djnro /envwrap.sh ./manage.py fetch_kml
 exec_func -i djnro /envwrap.sh ./manage.py shell <<-EOF
 	from edumanage.models import Realm, Name_i18n
 	r=Realm(country="$REALM_COUNTRY_CODE")
-        r.save()
-        rn=Name_i18n(content_object=r,name="$NRO_INST_NAME",lang="en")
-        rn.save()
+	r.save()
+	rn=Name_i18n(content_object=r,name="$NRO_INST_NAME",lang="en")
+	rn.save()
 	exit()
 EOF
 
