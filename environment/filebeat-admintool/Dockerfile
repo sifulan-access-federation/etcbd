@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-ENV FILEBEAT_VERSION=1.2.0
+ENV FILEBEAT_VERSION=1.2.3
 
 # make debconf use non-interactive mode:
 ENV DEBIAN_FRONTEND=noninteractive
