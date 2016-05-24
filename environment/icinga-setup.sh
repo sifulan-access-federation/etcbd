@@ -58,23 +58,23 @@ eval $( cat "$@" | sed 's/=\(.*\)/="\1"/' )
 
 # Icinga2 database
 
-exec_func "" $ICINGA_DB_HOST gosu postgres psql --command="create role $ICINGA_DB_USER with login encrypted password '$ICINGA_DB_PASSWORD' ;"
-exec_func "" $ICINGA_DB_HOST gosu postgres psql --command="create database $ICINGA_DB_NAME with owner $ICINGA_DB_USER;"
+exec_func "" postgres-icinga gosu postgres psql --command="create role $ICINGA_DB_USER with login encrypted password '$ICINGA_DB_PASSWORD' ;"
+exec_func "" postgres-icinga gosu postgres psql --command="create database $ICINGA_DB_NAME with owner $ICINGA_DB_USER;"
 
 # Populate structure - invoke psql on postgres host directly
-{ echo "set role $ICINGA_DB_USER;" ; exec_func "" icinga cat /usr/share/icinga2-ido-pgsql/schema/pgsql.sql ; } | exec_func "-i" $ICINGA_DB_HOST gosu postgres psql icinga
+{ echo "set role $ICINGA_DB_USER;" ; exec_func "" icinga cat /usr/share/icinga2-ido-pgsql/schema/pgsql.sql ; } | exec_func "-i" postgres-icinga gosu postgres psql icinga
 
 # Icingaweb2 database
 
-exec_func "" $ICINGAWEB2_DB_HOST gosu postgres psql --command="create role $ICINGAWEB2_DB_USER with login encrypted password '$ICINGAWEB2_DB_PASSWORD' ;"
-exec_func "" $ICINGAWEB2_DB_HOST gosu postgres psql --command="create database $ICINGAWEB2_DB_NAME with owner $ICINGAWEB2_DB_USER;"
+exec_func "" postgres-icinga gosu postgres psql --command="create role $ICINGAWEB2_DB_USER with login encrypted password '$ICINGAWEB2_DB_PASSWORD' ;"
+exec_func "" postgres-icinga gosu postgres psql --command="create database $ICINGAWEB2_DB_NAME with owner $ICINGAWEB2_DB_USER;"
 
 # Populate structure - invoke psql on postgres host directly
-{ echo "set role $ICINGAWEB2_DB_USER;" ; exec_func "" icingaweb cat /usr/share/icingaweb2/etc/schema/pgsql.schema.sql ; } | exec_func "-i" $ICINGA_DB_HOST gosu postgres psql icingaweb2
+{ echo "set role $ICINGAWEB2_DB_USER;" ; exec_func "" icingaweb cat /usr/share/icingaweb2/etc/schema/pgsql.schema.sql ; } | exec_func "-i" postgres-icinga gosu postgres psql icingaweb2
 
 # Create the admin user
 ICINGAWEB2_ADMIN_PASSWORD_HASH=$( openssl passwd -1 "$ICINGAWEB2_ADMIN_PASSWORD" )
-exec_func "-i" $ICINGAWEB2_DB_HOST gosu postgres psql icingaweb2 <<-EOF
+exec_func "-i" postgres-icinga gosu postgres psql icingaweb2 <<-EOF
 	INSERT INTO icingaweb_user (name, active, password_hash) VALUES ('$ICINGAWEB2_ADMIN_USER', 1, DECODE('$ICINGAWEB2_ADMIN_PASSWORD_HASH', 'escape'));
 	INSERT INTO icingaweb_group (name) VALUES ('Administrators');
 	INSERT INTO icingaweb_group_membership (group_id, username) VALUES (1, '$ICINGAWEB2_ADMIN_USER');

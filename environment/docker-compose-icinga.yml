@@ -8,6 +8,8 @@ services:
     #log_driver: syslog
     environment:
         HTTPS_PORT: 443
+        ICINGA_DB_HOST: postgres-icinga
+        ICINGAWEB2_DB_HOST: postgres-icinga
     env_file:
         - localdev_icinga.env
         - global-env.env
@@ -30,6 +32,8 @@ services:
     build: ./icinga/
     container_name: icinga
     #log_driver: syslog
+    environment:
+        ICINGA_DB_HOST: postgres-icinga
     env_file:
         - localdev_icinga.env
         - global-env.env
