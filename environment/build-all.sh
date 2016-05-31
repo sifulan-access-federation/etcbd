@@ -7,6 +7,13 @@ PULL=""
 NOCACHE=""
 SKIPBUILD=""
 
+# Services we support
+SERVICES="admintool elk icinga"
+IMAGES_admintool="apache djnro postgres filebeat"
+IMAGES_elk="elasticsearch logstash kibana apache"
+IMAGES_icinga="icingaweb icinga postgres"
+EXTRA_IMAGES="filebeat-radius"
+
 # parse arguments
 
 
@@ -26,6 +33,10 @@ while [ $# -gt 0 ] ; do
     elif [ "$1" == "--skip-build" ] ; then
         SKIPBUILD="$1"
         shift
+    elif [ "$1" == "--services" ] ; then
+        SERVICES="$2"
+        EXTRA_IMAGES=""
+        shift ; shift
     else
         echo "Invalid argument $1"
         echo "Usage: $0 [options...]"
@@ -34,16 +45,11 @@ while [ $# -gt 0 ] ; do
         echo "    --pull: pass --pull to docker-compose build to refresh base images"
         echo "    --no-cache: pass --no-cache to docker-compose build to do a fresh build"
         echo "    --skip-build: skip docker-compose build - only tag and push current build"
+        echo "    --services \"list of services\": only build listed services,"
+        echo "          skip other services and extra images"
         exit 1
     fi
 done
-
-# Services we support
-SERVICES="admintool elk icinga"
-IMAGES_admintool="apache djnro postgres filebeat"
-IMAGES_elk="elasticsearch logstash kibana apache"
-IMAGES_icinga="icingaweb icinga postgres"
-EXTRA_IMAGES="filebeat-radius"
 
 #TAG="$(date +'%F')"
 
