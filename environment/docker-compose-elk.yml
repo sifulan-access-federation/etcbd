@@ -17,6 +17,7 @@ services:
     container_name: logstash
     #log_driver: syslog
     env_file:
+        - localdev_elk.env
         - global-env.env
     ports:
         - "5043:5043"
