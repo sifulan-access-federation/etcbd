@@ -8,7 +8,7 @@
 
 # The default value of the variable. Initialize your own variables here
 ELASTICSEARCH=http://localhost:9200
-CURL=curl
+CURL="curl -sS"
 KIBANA_INDEX=".kibana"
 DIR=.
 BEAT_CONFIG=".beatconfig"
@@ -72,7 +72,7 @@ case $1 in
             print_usage
             exit 1
         fi
-        CURL="curl --user ${USER}"
+        CURL="curl -sS --user ${USER}"
         ;;
 
     -i | -index )
