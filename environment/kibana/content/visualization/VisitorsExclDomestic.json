@@ -5,6 +5,6 @@
       "description": "",
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[{\"meta\":{\"index\":\"logstash-*\",\"negate\":true,\"key\":\"realm_country.raw\",\"value\":\"${LOCAL_COUNTRY}\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"realm_country.raw\":{\"query\":\"${LOCAL_COUNTRY}\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[{\"meta\":{\"index\":\"logstash-*\",\"negate\":true,\"key\":\"realm_country.raw\",\"value\":\"${LOCAL_COUNTRY:-nz}\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"realm_country.raw\":{\"query\":\"${LOCAL_COUNTRY:-nz}\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
       }
 }
