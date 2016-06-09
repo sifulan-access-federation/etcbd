@@ -8,6 +8,9 @@ RUN apt-get update && \
     apt-get install -y ca-certificates curl --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
 
+# install envPlate
+RUN curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases/download/v0.0.8/ep-linux && chmod +x /usr/local/bin/ep
+
 COPY content /
 COPY kibana.yml /opt/kibana/config/kibana.yml
-CMD ["kibana"]
+CMD ["/usr/local/bin/ep", "-v","/opt/kibana/config/kibana.yml","--","/opt/kibana/bin/kibana"]
