@@ -32,6 +32,7 @@ services:
       ELASTICSEARCH_URL: http://elasticsearch:9200
     #log_driver: syslog
     env_file:
+        - localdev_elk.env
         - global-env.env
     links:
         - "elasticsearch:elasticsearch"

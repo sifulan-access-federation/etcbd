@@ -1,0 +1,180 @@
+[
+  {
+    "_id": "IdP-Trend-Aggregate",
+    "_type": "visualization",
+    "_source": {
+      "title": "IdP-Trend-Aggregate",
+      "visState": "{
+	\"title\":\"SP-Trend-Aggregate\",
+	\"type\":\"histogram\",
+	\"params\":{
+		\"shareYAxis\":true,
+		\"addTooltip\":true,
+		\"addLegend\":true,
+		\"scale\":\"linear\",
+		\"mode\":\"stacked\",
+		\"times\":[],
+		\"addTimeMarker\":false,
+		\"defaultYExtents\":false,
+		\"setYExtents\":false,
+		\"yAxis\":{}},
+	\"aggs\":[{
+		\"id\":\"1\",
+		\"type\":\"count\",
+		\"schema\":\"metric\",
+		\"params\":{}
+		},{
+		\"id\":\"2\",
+		\"type\":\"date_histogram\",
+		\"schema\":\"segment\",
+		\"params\":{
+			\"field\":\"@timestamp\",
+			\"interval\":\"d\",
+			\"customInterval\":\"2h\",
+			\"min_doc_count\":1,
+			\"extended_bounds\":{}
+		}
+	},{
+		\"id\":\"3\",
+		\"type\":\"filters\",
+		\"schema\":\"group\",
+		\"params\":{
+			\"filters\":[{
+				\"input\":{
+					\"query\":{
+						\"query\":{
+							\"bool\":{
+								\"must\":[
+									{\"term\":{\"realm_country_is_local.raw\":\"1\"}},
+									{\"term\":{\"site_country_is_local.raw\":\"1\"}}
+									]
+								}
+							}
+						}
+					},
+				\"label\":\"Domestic-Domestic auths\"
+				},{
+				\"input\":{
+					\"query\":{
+						\"query\":{
+							\"bool\":{
+								\"must\":[
+									{\"term\":{\"realm_country_is_local.raw\":\"0\"}},
+									{\"term\":{\"site_country_is_local.raw\":\"1\"}}
+									]
+								}
+							}
+						}
+					},
+				\"label\":\"Int-Domestic auths\"
+				}]
+		}
+	}],
+	\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"colors\":{\"Domestic-Domestic visits\":\"#0A50A1\",\"Int-Domestic visits\":\"#BF1B00\",\"Domestic-Domestic auths\":\"#0A50A1\",\"Int-Domestic auths\":\"#BF1B00\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "SP-Trend-Aggregate",
+    "_type": "visualization",
+    "_source": {
+      "title": "SP-Trend-Aggregate",
+      "visState": "{\"title\":\"New Visualization\",\"type\":\"histogram\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"scale\":\"linear\",\"mode\":\"stacked\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false,\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"d\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"type\":\"filters\",\"schema\":\"group\",\"params\":{\"filters\":[{\"input\":{\"query\":{\"query\":{\"bool\":{\"must\":[{\"term\":{\"site_country_is_local.raw\":\"1\"}},{\"term\":{\"realm_country_is_local.raw\":\"1\"}}]}}}},\"label\":\"Domestic-Domestic visits\"},{\"input\":{\"query\":{\"query\":{\"bool\":{\"must\":[{\"term\":{\"site_country_is_local.raw\":\"0\"}},{\"term\":{\"realm_country_is_local.raw\":\"1\"}}]}}}},\"label\":\"Int-Domestic visits\"}]}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"colors\":{\"Domestic-Domestic visits\":\"#0A50A1\",\"Int-Domestic visits\":\"#BF1B00\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "VisitorsExclDomestic",
+    "_type": "visualization",
+    "_source": {
+      "title": "VisitorsExclDomestic",
+      "visState": "{\"title\":\"PieExclDomestic\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"realm_country.raw\",\"size\":0,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[{\"meta\":{\"index\":\"logstash-*\",\"negate\":true,\"key\":\"realm_country.raw\",\"value\":\"Australia\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"realm_country.raw\":{\"query\":\"Australia\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "VisitorsInclDomestic",
+    "_type": "visualization",
+    "_source": {
+      "title": "VisitorsInclDomestic",
+      "visState": "{\"title\":\"PieInclDomestic\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"realm_country.raw\",\"size\":0,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "IdP-Activity-Institution_aarnet.edu.au",
+    "_type": "visualization",
+    "_source": {
+      "title": "IdP-Activity-Institution_aarnet.edu.au",
+      "visState": "{\"aggs\":[{\"id\":\"1\",\"params\":{},\"schema\":\"metric\",\"type\":\"count\"},{\"id\":\"2\",\"params\":{\"customInterval\":\"2h\",\"extended_bounds\":{},\"field\":\"@timestamp\",\"interval\":\"d\",\"min_doc_count\":1},\"schema\":\"segment\",\"type\":\"date_histogram\"},{\"id\":\"3\",\"params\":{\"field\":\"operator_name.raw\",\"order\":\"desc\",\"orderBy\":\"1\",\"size\":0},\"schema\":\"group\",\"type\":\"terms\"},{\"id\":\"4\",\"params\":{\"filters\":[{\"input\":{\"query\":{\"query\":{\"bool\":{\"must\":[{\"term\":{\"realm.raw\":\"aarnet.edu.au\"}}]}}}},\"label\":\"\"}],\"row\":false},\"schema\":\"split\",\"type\":\"filters\"}],\"listeners\":{},\"params\":{\"addLegend\":true,\"addTimeMarker\":false,\"addTooltip\":true,\"defaultYExtents\":false,\"mode\":\"stacked\",\"scale\":\"linear\",\"setYExtents\":false,\"shareYAxis\":true,\"times\":[],\"yAxis\":{}},\"title\":\"IdP-Activity-Institution_aarnet.edu.au\",\"type\":\"histogram\"}",
+      "uiStateJSON": "{\"vis\":{\"colors\":{\"Domestic-Domestic visits\":\"#0A50A1\",\"Domestic-Inst visits\":\"#0A50A1\",\"Inst-Domestic visits\":\"#0A50A1\",\"Inst-Intl visits\":\"#BF1B00\",\"Int-Domestic visits\":\"#BF1B00\",\"Intl-Inst visits\":\"#BF1B00\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "IdP-Trend-Institution",
+    "_type": "visualization",
+    "_source": {
+      "title": "IdP-Trend-Institution",
+      "visState": "{\"title\":\"IdP-Trend-Institution\",\"type\":\"histogram\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"scale\":\"linear\",\"mode\":\"stacked\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false,\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"d\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"type\":\"filters\",\"schema\":\"group\",\"params\":{\"filters\":[{\"input\":{\"query\":{\"query\":{\"bool\":{\"must\":[{\"term\":{\"realm.raw\":\"aarnet.edu.au\"}},{\"term\":{\"site_country_is_local.raw\":\"1\"}}]}}}},\"label\":\"Inst-Domestic visits\"},{\"input\":{\"query\":{\"query\":{\"bool\":{\"must\":[{\"term\":{\"realm.raw\":\"aarnet.edu.au\"}},{\"term\":{\"site_country_is_local.raw\":\"0\"}}]}}}},\"label\":\"Inst-Intl visits\"}]}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"colors\":{\"Domestic-Domestic visits\":\"#0A50A1\",\"Int-Domestic visits\":\"#BF1B00\",\"Domestic-Inst visits\":\"#0A50A1\",\"Intl-Inst visits\":\"#BF1B00\",\"Inst-Domestic visits\":\"#0A50A1\",\"Inst-Intl visits\":\"#BF1B00\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "SP-Trend-Institution",
+    "_type": "visualization",
+    "_source": {
+      "title": "SP-Trend-Institution",
+      "visState": "{\"title\":\"SP-Trend-Aggregate\",\"type\":\"histogram\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"scale\":\"linear\",\"mode\":\"stacked\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false,\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"d\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"type\":\"filters\",\"schema\":\"group\",\"params\":{\"filters\":[{\"input\":{\"query\":{\"query\":{\"bool\":{\"must\":[{\"term\":{\"operator_name.raw\":\"aarnet.edu.au\"}},{\"term\":{\"realm_country_is_local.raw\":\"1\"}}]}}}},\"label\":\"Domestic-Inst visits\"},{\"input\":{\"query\":{\"query\":{\"bool\":{\"must\":[{\"term\":{\"operator_name.raw\":\"aarnet.edu.au\"}},{\"term\":{\"realm_country_is_local.raw\":\"0\"}}]}}}},\"label\":\"Intl-Inst visits\"}]}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"colors\":{\"Domestic-Domestic visits\":\"#0A50A1\",\"Int-Domestic visits\":\"#BF1B00\",\"Domestic-Inst visits\":\"#0A50A1\",\"Intl-Inst visits\":\"#BF1B00\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "SP-Activity-Institution_aarnet.edu.au",
+    "_type": "visualization",
+    "_source": {
+      "title": "SP-Activity-Institution_aarnet.edu.au",
+      "visState": "{\"aggs\":[{\"id\":\"1\",\"params\":{},\"schema\":\"metric\",\"type\":\"count\"},{\"id\":\"2\",\"params\":{\"customInterval\":\"2h\",\"extended_bounds\":{},\"field\":\"@timestamp\",\"interval\":\"d\",\"min_doc_count\":1},\"schema\":\"segment\",\"type\":\"date_histogram\"},{\"id\":\"3\",\"params\":{\"field\":\"realm.raw\",\"order\":\"desc\",\"orderBy\":\"1\",\"size\":0},\"schema\":\"group\",\"type\":\"terms\"},{\"id\":\"4\",\"params\":{\"filters\":[{\"input\":{\"query\":{\"query\":{\"bool\":{\"must\":[{\"term\":{\"operator_name.raw\":\"aarnet.edu.au\"}}]}}}},\"label\":\"\"}],\"row\":false},\"schema\":\"split\",\"type\":\"filters\"}],\"listeners\":{},\"params\":{\"addLegend\":true,\"addTimeMarker\":false,\"addTooltip\":true,\"defaultYExtents\":false,\"mode\":\"stacked\",\"scale\":\"linear\",\"setYExtents\":false,\"shareYAxis\":true,\"times\":[],\"yAxis\":{}},\"title\":\"SP-Activity-Institution_aarnet.edu.au\",\"type\":\"histogram\"}",
+      "uiStateJSON": "{\"vis\":{\"colors\":{\"Domestic-Domestic visits\":\"#0A50A1\",\"Domestic-Inst visits\":\"#0A50A1\",\"Inst-Domestic visits\":\"#0A50A1\",\"Inst-Intl visits\":\"#BF1B00\",\"Int-Domestic visits\":\"#BF1B00\",\"Intl-Inst visits\":\"#BF1B00\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[]}"
+      }
+    }
+  }
+]

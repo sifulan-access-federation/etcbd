@@ -1,0 +1,10 @@
+{
+      "title": "IdP-Trend-Institution",
+      "visState": "{\"title\":\"IdP-Trend-Institution\",\"type\":\"histogram\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"scale\":\"linear\",\"mode\":\"stacked\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false,\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"d\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"type\":\"filters\",\"schema\":\"group\",\"params\":{\"filters\":[{\"input\":{\"query\":{\"query\":{\"bool\":{\"must\":[{\"term\":{\"realm.raw\":\"aarnet.edu.au\"}},{\"term\":{\"site_country_is_local.raw\":\"1\"}}]}}}},\"label\":\"Inst-Domestic visits\"},{\"input\":{\"query\":{\"query\":{\"bool\":{\"must\":[{\"term\":{\"realm.raw\":\"aarnet.edu.au\"}},{\"term\":{\"site_country_is_local.raw\":\"0\"}}]}}}},\"label\":\"Inst-Intl visits\"}]}}],\"listeners\":{}}",
+      "uiStateJSON": "{\"vis\":{\"colors\":{\"Domestic-Domestic visits\":\"#0A50A1\",\"Int-Domestic visits\":\"#BF1B00\",\"Domestic-Inst visits\":\"#0A50A1\",\"Intl-Inst visits\":\"#BF1B00\",\"Inst-Domestic visits\":\"#0A50A1\",\"Inst-Intl visits\":\"#BF1B00\"}}}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+}

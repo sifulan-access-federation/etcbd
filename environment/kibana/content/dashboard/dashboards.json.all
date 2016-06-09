@@ -1,0 +1,53 @@
+[
+  {
+    "_id": "Aggregate-Trends",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Aggregate Trends",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"id\":\"IdP-Trend-Aggregate\",\"type\":\"visualization\",\"panelIndex\":1,\"size_x\":6,\"size_y\":5,\"col\":1,\"row\":1},{\"id\":\"SP-Trend-Aggregate\",\"type\":\"visualization\",\"panelIndex\":2,\"size_x\":6,\"size_y\":5,\"col\":7,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":true}",
+      "uiStateJSON": "{}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Aggregate-Trends-and-Intl-Visitors",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Aggregate Trends and Intl Visitors",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"IdP-Trend-Aggregate\",\"panelIndex\":1,\"row\":1,\"size_x\":6,\"size_y\":5,\"type\":\"visualization\"},{\"col\":7,\"id\":\"SP-Trend-Aggregate\",\"panelIndex\":2,\"row\":1,\"size_x\":6,\"size_y\":5,\"type\":\"visualization\"},{\"id\":\"VisitorsInclDomestic\",\"type\":\"visualization\",\"panelIndex\":3,\"size_x\":6,\"size_y\":5,\"col\":1,\"row\":6},{\"id\":\"VisitorsExclDomestic\",\"type\":\"visualization\",\"panelIndex\":4,\"size_x\":6,\"size_y\":5,\"col\":7,\"row\":6}]",
+      "optionsJSON": "{\"darkTheme\":true}",
+      "uiStateJSON": "{\"P-2\":{\"spy\":{\"mode\":{\"name\":null,\"fill\":false}}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "InstitutionalTrendAndActivity",
+    "_type": "dashboard",
+    "_source": {
+      "title": "InstitutionalTrendAndActivity",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"id\":\"IdP-Activity-Institution_aarnet.edu.au\",\"type\":\"visualization\",\"panelIndex\":1,\"size_x\":6,\"size_y\":4,\"col\":1,\"row\":6},{\"id\":\"SP-Activity-Institution_aarnet.edu.au\",\"type\":\"visualization\",\"panelIndex\":2,\"size_x\":6,\"size_y\":4,\"col\":7,\"row\":6},{\"id\":\"SP-Trend-Institution\",\"type\":\"visualization\",\"panelIndex\":3,\"size_x\":6,\"size_y\":5,\"col\":7,\"row\":1},{\"id\":\"IdP-Trend-Institution\",\"type\":\"visualization\",\"panelIndex\":4,\"size_x\":6,\"size_y\":5,\"col\":1,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":true}",
+      "uiStateJSON": "{}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}]}"
+      }
+    }
+  }
+]
