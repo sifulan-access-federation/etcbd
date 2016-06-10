@@ -27,5 +27,5 @@ COPY content /
 
 VOLUME /var/lib/filebeat
 
-CMD ["/startup.sh", "/usr/bin/filebeat", "-e", "-v", "-c", "/etc/filebeat/filebeat.yml"]
+CMD ["/startup.sh", "/usr/bin/filebeat", "-e", "-c", "/etc/filebeat/filebeat.yml"]
 
