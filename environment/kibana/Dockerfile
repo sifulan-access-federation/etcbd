@@ -13,4 +13,4 @@ RUN curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases
 
 COPY content /
 COPY kibana.yml /opt/kibana/config/kibana.yml
-CMD ["/usr/local/bin/ep", "-v","/visualization/VisitorsExclDomestic.json","--","/docker-entrypoint.sh","kibana"]
+CMD ["/usr/local/bin/ep", "-v","/visualization/VisitorsExclDomestic.json","/visualization/IdP-Activity-Institution_sampleinst.json","/visualization/SP-Activity-Institution_sampleinst.json","--","/docker-entrypoint.sh","kibana"]

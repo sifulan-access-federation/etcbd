@@ -2,7 +2,7 @@
       "title": "InstitutionalTrendAndActivity",
       "hits": 0,
       "description": "",
-      "panelsJSON": "[{\"id\":\"IdP-Activity-Institution_aarnet.edu.au\",\"type\":\"visualization\",\"panelIndex\":1,\"size_x\":6,\"size_y\":4,\"col\":1,\"row\":6},{\"id\":\"SP-Activity-Institution_aarnet.edu.au\",\"type\":\"visualization\",\"panelIndex\":2,\"size_x\":6,\"size_y\":4,\"col\":7,\"row\":6},{\"id\":\"SP-Trend-Institution\",\"type\":\"visualization\",\"panelIndex\":3,\"size_x\":6,\"size_y\":5,\"col\":7,\"row\":1},{\"id\":\"IdP-Trend-Institution\",\"type\":\"visualization\",\"panelIndex\":4,\"size_x\":6,\"size_y\":5,\"col\":1,\"row\":1}]",
+      "panelsJSON": "[{\"id\":\"IdP-Activity-Institution_sampleinst\",\"type\":\"visualization\",\"panelIndex\":1,\"size_x\":6,\"size_y\":4,\"col\":1,\"row\":6},{\"id\":\"SP-Activity-Institution_sampleinst\",\"type\":\"visualization\",\"panelIndex\":2,\"size_x\":6,\"size_y\":4,\"col\":7,\"row\":6},{\"id\":\"SP-Trend-Institution\",\"type\":\"visualization\",\"panelIndex\":3,\"size_x\":6,\"size_y\":5,\"col\":7,\"row\":1},{\"id\":\"IdP-Trend-Institution\",\"type\":\"visualization\",\"panelIndex\":4,\"size_x\":6,\"size_y\":5,\"col\":1,\"row\":1}]",
       "optionsJSON": "{\"darkTheme\":true}",
       "uiStateJSON": "{}",
       "version": 1,
