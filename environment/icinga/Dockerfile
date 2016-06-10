@@ -9,7 +9,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install locales needed to run localedef later
 RUN echo 'deb http://httpredir.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/backports.list && \
     apt-get update && apt-get -y install apt-utils && apt-get -y install wget curl && \
-    apt-get -y install --no-install-recommends locales
+    apt-get -y install --no-install-recommends locales && \
+    # remove the package lists - we will be anyway refetching in the next step
+    rm -rf /var/lib/apt/lists/*
 
 # install Icinga - release build for Jessie
     #add & trust Icinga repository & fetch package lists
@@ -22,6 +24,7 @@ RUN echo "deb http://packages.icinga.org/debian icinga-jessie main" > /etc/apt/s
     apt-get -y install --no-install-recommends icinga2 && \
     apt-get -y install --no-install-recommends monitoring-plugins && \
     apt-get -y install --no-install-recommends icinga2-ido-pgsql postgresql-client
+    # keep the package files here - we are anyway reusing them in a number of subsequent run commands
 
 
 # temporary: install utils

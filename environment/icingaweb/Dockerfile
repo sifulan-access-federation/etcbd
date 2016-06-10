@@ -9,7 +9,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install locales needed to run localedef later
 RUN echo 'deb http://httpredir.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/backports.list && \
     apt-get update && apt-get -y install apt-utils && apt-get -y install wget curl && \
-    apt-get -y install --no-install-recommends locales
+    apt-get -y install --no-install-recommends locales && \
+    # remove the package lists - we will be anyway refetching in the next step
+    rm -rf /var/lib/apt/lists/*
 
 # install Icingaweb - release build for Jessie
 # This will pull in Apache as a dependency
@@ -21,10 +23,11 @@ RUN echo "deb http://packages.icinga.org/debian icinga-jessie main" > /etc/apt/s
     wget -O - -q https://packages.icinga.org/icinga.key | apt-key add - && \
     apt-get update && \
     apt-get -y install --no-install-recommends icingaweb2 icingaweb2-module-monitoring && \
-    apt-get -y install --no-install-recommends php5-pgsql php5-imagick php5-intl
-
-# temporary: install utils
-RUN apt-get -y install --no-install-recommends lsof vim less file
+    apt-get -y install --no-install-recommends php5-pgsql php5-imagick php5-intl && \
+    # temporary: install utils
+    apt-get -y install --no-install-recommends lsof vim less file && \
+    # remove the package lists
+    rm -rf /var/lib/apt/lists/*
 
 # Enable SSL in Apache
 RUN a2enmod ssl && a2ensite default-ssl
