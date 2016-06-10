@@ -16,6 +16,9 @@ services:
     build: ./logstash/
     container_name: logstash
     #log_driver: syslog
+    environment:
+        # set to blank to enable debug - dump all events on logstash console
+        LOGSTASH_DEBUG_DISABLE: "#"
     env_file:
         - localdev_elk.env
         - global-env.env

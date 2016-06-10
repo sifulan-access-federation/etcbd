@@ -6,4 +6,4 @@ RUN curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases
 
 COPY logstash-conf-* /etc/logstash/conf.d/
 
-CMD ["/usr/local/bin/ep", "-v", "/etc/logstash/conf.d/logstash-conf-20-grok-filter.conf", "--", "/opt/logstash/bin/logstash", "agent", "-f", "/etc/logstash/conf.d/"]
+CMD ["/usr/local/bin/ep", "-v", "/etc/logstash/conf.d/logstash-conf-20-grok-filter.conf", "/etc/logstash/conf.d/logstash-conf-30-elasticsearch-output.conf", "--", "/opt/logstash/bin/logstash", "agent", "-f", "/etc/logstash/conf.d/"]
