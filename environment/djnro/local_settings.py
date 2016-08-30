@@ -49,6 +49,10 @@ ALLOWED_HOSTS = [os.getenv('SITE_PUBLIC_HOSTNAME','*')]
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = os.getenv('ADMINTOOL_SECRET_KEY', '<put something really random here, eg. %$#%@#$^2312351345#$%3452345@#$%@#$234#@$hhzdavfsdcFDGVFSDGhn>')
 
+# Google Maps API key, see https://developers.google.com/maps/documentation/javascript/get-api-key#key
+# Make this default to None if not set
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY', None)
+
 # Check for headers indicating the request was received on a secure SSL connection
 # Uncomment this if you are running DjNRO behind an HTTP proxy that sets this
 # header for SSL connections (and protects it for non-SSL connections).
