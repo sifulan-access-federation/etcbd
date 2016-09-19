@@ -18,15 +18,15 @@ def send_notification_email(to, subject, body):
     :type body: str
 
     ENV variables:
-    EMAIL_HOST=smtp.reannz.co.nz
+    EMAIL_HOST=smtp.example.org
     EMAIL_PORT=25
     EMAIL_USER=
     EMAIL_PASSWORD=
     EMAIL_USE_TLS=
-    EMAIL_FROM=donotreply@reannz.co.nz
+    EMAIL_FROM=donotreply@example.org
     """
 
-    sender = os.getenv('EMAIL_FROM','donotreply@reannz.co.nz')
+    sender = os.getenv('EMAIL_FROM','donotreply@example.org')
     msg = email.mime.text.MIMEText(body)
     msg['Subject'] = subject
     msg['From'] = sender
@@ -35,7 +35,7 @@ def send_notification_email(to, subject, body):
     print("sending email to {} with subject {}".format(to, subject))
 
     try:
-        server = smtplib.SMTP(os.getenv('EMAIL_HOST', 'smtp.reannz.co.nz'), os.getenv('EMAIL_PORT', 25) )
+        server = smtplib.SMTP(os.getenv('EMAIL_HOST', 'smtp.example.org'), os.getenv('EMAIL_PORT', 25) )
         #server.set_debuglevel(1)
         if os.getenv('EMAIL_USE_TLS', 'False').upper() == 'TRUE':
             server.starttls()
