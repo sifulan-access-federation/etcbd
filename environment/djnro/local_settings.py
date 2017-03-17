@@ -159,8 +159,7 @@ NRO_DOMAIN_MAIN_URL = "http://www.example.com"
 # NRO federation name
 NRO_FEDERATION_NAME = os.getenv('NRO_FEDERATION_NAME', "NREN AAI federation")
 # "provided by" info for footer
-# TODO: populate for target operator
-NRO_PROV_BY_DICT = {"name": "EXAMPLE NRO TEAM", "url": "http://noc.example.com"}
+NRO_PROV_BY_DICT = {"name": os.getenv('NRO_INST_NAME', "EXAMPLE NRO TEAM"), "url": os.getenv('NRO_INST_URL', "http://noc.example.com")}
 # social media contact (Use: // to preserve https)
 # TODO-LATER: customize with target operator social media contacts
 NRO_PROV_SOCIAL_MEDIA_CONTACT = [
