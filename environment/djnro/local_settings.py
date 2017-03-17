@@ -161,12 +161,12 @@ NRO_FEDERATION_NAME = os.getenv('NRO_FEDERATION_NAME', "NREN AAI federation")
 # "provided by" info for footer
 NRO_PROV_BY_DICT = {"name": os.getenv('NRO_INST_NAME', "EXAMPLE NRO TEAM"), "url": os.getenv('NRO_INST_URL', "http://noc.example.com")}
 # social media contact (Use: // to preserve https)
-# TODO-LATER: customize with target operator social media contacts
-NRO_PROV_SOCIAL_MEDIA_CONTACT = [
-    # Intentionally blank for now.
-    #{"url": "//facebook.com/example.com", "fa_style":"fa-facebook", "name":"Facebook"},
-    #{"url": "//twitter.com/example_com", "fa_style":"fa-twitter", "name":"Twitter"},
-]
+# Add Facebook and Twitter if set in env vars
+NRO_PROV_SOCIAL_MEDIA_CONTACT = [ ] + (
+    [ {"url": "//facebook.com/" + os.getenv('NRO_INST_FACEBOOK'), "fa_style":"fa-facebook", "name":"Facebook"} ] if os.getenv('NRO_INST_FACEBOOK') else [] 
+    ) + (
+    [ {"url": "//twitter.com/" + os.getenv('NRO_INST_TWITTER'), "fa_style":"fa-twitter", "name":"Twitter"} ] if os.getenv('NRO_INST_TWITTER') else [] 
+    )
 
 # Helpdesk, used in base.html:
 NRO_DOMAIN_HELPDESK_DICT = {"name": _("Domain Helpdesk"), 'email':'helpdesk@example.com', 'phone': '12324567890', 'uri': 'helpdesk.example.com'}
