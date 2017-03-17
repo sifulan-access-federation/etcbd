@@ -162,10 +162,11 @@ NRO_FEDERATION_NAME = os.getenv('NRO_FEDERATION_NAME', "NREN AAI federation")
 # TODO: populate for target operator
 NRO_PROV_BY_DICT = {"name": "EXAMPLE NRO TEAM", "url": "http://noc.example.com"}
 # social media contact (Use: // to preserve https)
-# TODO: customize with target operator social media contacts
+# TODO-LATER: customize with target operator social media contacts
 NRO_PROV_SOCIAL_MEDIA_CONTACT = [
-    {"url": "//facebook.com/example.com", "fa_style":"fa-facebook", "name":"Facebook"},
-    {"url": "//twitter.com/example_com", "fa_style":"fa-twitter", "name":"Twitter"},
+    # Intentionally blank for now.
+    #{"url": "//facebook.com/example.com", "fa_style":"fa-facebook", "name":"Facebook"},
+    #{"url": "//twitter.com/example_com", "fa_style":"fa-twitter", "name":"Twitter"},
 ]
 
 # Helpdesk, used in base.html:
