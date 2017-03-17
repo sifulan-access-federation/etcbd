@@ -51,7 +51,7 @@ SECRET_KEY = os.getenv('ADMINTOOL_SECRET_KEY', '<put something really random her
 
 # Google Maps API key, see https://developers.google.com/maps/documentation/javascript/get-api-key#key
 # Make this default to None if not set
-GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY', None)
+GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_API_KEY', None)
 
 # Check for headers indicating the request was received on a secure SSL connection
 # Uncomment this if you are running DjNRO behind an HTTP proxy that sets this
@@ -136,6 +136,12 @@ CACHES = {
 #     }
 # }
 
+#### SITES FRAMEWORK ####
+# You must configure (e.g. via Django admin) your canonical public
+# hostname for the site object that matches the SITE_ID configured in
+# settings.py or you can add a different object and override it here:
+# SITE_ID = 1
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -152,15 +158,17 @@ NRO_COUNTRY_CODE = os.getenv('REALM_COUNTRY_CODE', 'tld')
 NRO_DOMAIN_MAIN_URL = "http://www.example.com"
 # NRO federation name
 NRO_FEDERATION_NAME = os.getenv('NRO_FEDERATION_NAME', "NREN AAI federation")
-# developer info for footer
-NRO_PROV_BY_DICT = {"name": "GRNET NOC", "url": "//noc.grnet.gr"}
-#provider social media contact (Use: // to preserve https)
+# "provided by" info for footer
+# TODO: populate for target operator
+NRO_PROV_BY_DICT = {"name": "EXAMPLE NRO TEAM", "url": "http://noc.example.com"}
+# social media contact (Use: // to preserve https)
+# TODO: customize with target operator social media contacts
 NRO_PROV_SOCIAL_MEDIA_CONTACT = [
-    {"url": "//facebook.com/noc.grnet.gr", "icon":"/static/img/facebook_img.png", "name":"Facebook"},
-    {"url": "//twitter.com/grnetnoc", "icon":"/static/img/twitter_img.png", "name":"Twitter"},
+    {"url": "//facebook.com/example.com", "fa_style":"fa-facebook", "name":"Facebook"},
+    {"url": "//twitter.com/example_com", "fa_style":"fa-twitter", "name":"Twitter"},
 ]
 
-#Helpdesk, used in base.html:
+# Helpdesk, used in base.html:
 NRO_DOMAIN_HELPDESK_DICT = {"name": _("Domain Helpdesk"), 'email':'helpdesk@example.com', 'phone': '12324567890', 'uri': 'helpdesk.example.com'}
 
 #Countries for Realm model:
@@ -253,7 +261,7 @@ if selected_login_methods:
 EXTRA_AUTHENTICATION_BACKENDS += tuple([ m['class'] for m in  MANAGE_LOGIN_METHODS if m['enabled'] and m['class'] ])
 
 
-#Shibboleth attribute map
+# Shibboleth attribute map
 SHIB_USERNAME = ['HTTP_EPPN']
 SHIB_MAIL = ['mail', 'HTTP_MAIL', 'HTTP_SHIB_INETORGPERSON_MAIL']
 SHIB_FIRSTNAME = ['HTTP_SHIB_INETORGPERSON_GIVENNAME']
@@ -318,12 +326,17 @@ for var in os.environ:
 #         "CAT_API_KEY": "<provided API key>",
 #         "CAT_API_URL": "https://cat.eduroam.org/admin/API.php",
 #         "CAT_PROFILES_URL": "https://cat.eduroam.org/",
-#         "CAT_IDPMGMT_URL": "https://cat.eduroam.org/admin/overview_federation.php"
+#         "CAT_IDPMGMT_URL": "https://cat.eduroam.org/admin/overview_idp.php"
 #     },
 #     'testing': {
 #         "CAT_API_KEY": "<provided API key>",
 #         "CAT_API_URL": "https://cat-test.eduroam.org/test/admin/API.php",
 #         "CAT_PROFILES_URL": "https://cat-test.eduroam.org/test",
-#         "CAT_IDPMGMT_URL": "https://cat-test.eduroam.org/test/admin/overview_federation.php"
+#         "CAT_IDPMGMT_URL": "https://cat-test.eduroam.org/test/admin/overview_idp.php"
 #     },
 # }
+
+SENTRY = {
+    'activate': False,
+    'sentry_dsn': ''
+}
