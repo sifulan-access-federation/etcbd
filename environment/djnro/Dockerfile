@@ -22,10 +22,7 @@ RUN pip install -r requirements.txt -r requirements-optional.txt -r requirements
     # pre-compile PYC files
     && python -m compileall -q /djnro \
     # leaner image: remove wheels cached by pip
-    && rm -rf /root/.cache/pip \
-    # Workaround: remove Greek language from list of languages included in generated migration script
-    # to avoid warnings about model changes (since removing Greek as a language to use in names and URIs)
-    && sed -e "s/, (b'el', b'[^')]*')//" -i edumanage/migrations/0001_initial.py
+    && rm -rf /root/.cache/pip
 COPY local_settings.py djnro/
 # populate STATIC_DIR with static files from all modules
 # Needs to be a separate RUN - after local_settings.py are copied in
