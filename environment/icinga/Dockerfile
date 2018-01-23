@@ -40,11 +40,11 @@ RUN apt-get -y install --no-install-recommends lsof vim less file
 #  * Clean up: remove compile dependencies
 #  * Clean up: remove build directories
 ENV RAD_EAP_TEST_VERSION=0.26 WPA_SUPPLICANT_VERSION=2.5
-RUN apt-get install -y --no-install-recommends dnsutils bzip2 && \
+RUN apt-get install -y --no-install-recommends dnsutils bzip2 \
+        freeradius-utils && \
 #    wget --quiet -O - http://www.eduroam.cz/rad_eap_test/rad_eap_test-${RAD_EAP_TEST_VERSION}.tar.bz2 | \
 #        tar xjf - --strip-components=1 -C /usr/local/bin/ rad_eap_test-${RAD_EAP_TEST_VERSION}/rad_eap_test && \
-    apt-get install -y --no-install-recommends make gcc libc-dev libssl-dev \
-        freeradius-utils && \
+    apt-get install -y --no-install-recommends make gcc libc-dev libssl-dev && \
     ( cd /tmp && \
       wget --quiet -O - http://w1.fi/releases/wpa_supplicant-${WPA_SUPPLICANT_VERSION}.tar.gz | tar xzf - && \
       cd wpa_supplicant-${WPA_SUPPLICANT_VERSION}/wpa_supplicant/ && \
