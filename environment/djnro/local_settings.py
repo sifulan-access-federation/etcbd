@@ -1,5 +1,17 @@
+# -*- coding: utf-8 -*- vim:fileencoding=utf-8:
+# vim: tabstop=4:shiftwidth=4:softtabstop=4:expandtab
 import os
 import warnings
+# Marking local settings for translation is not practical, as in
+# principle such strings should not be committed to the source file
+# (locale/en/LC_MESSAGES/django.po).
+# As a workaround translations may be provided in place through a
+# dictionary keyed by language. This is applicable only for settings
+# to be rendered with 'tolocale' in templates (for example
+# NRO_DOMAIN_HELPDESK_DICT). Wrapping such a dictionary with
+# djnro.lldict.LazyLangDict ensures that an (arbitrary) string value
+# will be returned where a dict is not expected.
+from djnro.lldict import LazyLangDict as _ld
 from django.utils.translation import ugettext_lazy as _
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_DIR = os.path.join(BASE_DIR, 'djnro')
@@ -111,6 +123,7 @@ EXTRA_AUTHENTICATION_BACKENDS = (
 
 
 SHIB_AUTH_ENTITLEMENT = 'urn:mace:example.com:pki:user'
+FEDERATION_DOC_URL = os.getenv('FEDERATION_DOC_URL', '')
 SHIB_LOGOUT_URL = 'https://' + os.getenv('SITE_PUBLIC_HOSTNAME','example.com') + '/Shibboleth.sso/Logout'
 
 SERVER_EMAIL = os.getenv('SERVER_EMAIL',"Example domain eduroam Service <noreply@example.com>")
@@ -169,7 +182,7 @@ NRO_PROV_SOCIAL_MEDIA_CONTACT = [ ] + (
     )
 
 # Helpdesk, used in base.html:
-NRO_DOMAIN_HELPDESK_DICT = {"name": _("Domain Helpdesk"), 'email':'helpdesk@example.com', 'phone': '12324567890', 'uri': 'helpdesk.example.com'}
+NRO_DOMAIN_HELPDESK_DICT = {"name": _ld({'en':"Domain Helpdesk"}), 'email':'helpdesk@example.com', 'phone': '12324567890', 'uri': 'helpdesk.example.com'}
 
 #Countries for Realm model:
 REALM_COUNTRIES = (
@@ -306,13 +319,20 @@ for var in os.environ:
             # (And lazy translations are not really suitable for exceptions)
             warnings.warn("Could not import environment variable %s as setting %s with value %s" % ( var, name, val ) )
 
+# SENTRY = {
+#     'activate': False,
+#     'sentry_dsn': ''
+# }
+
 ###### eduroam CAT integration ###########
 # In order to enable provisioning to CAT, you must list at least one instance and the
 # corresponding description in CAT_INSTANCES. Beware that pages accessible by end users
 # currently only show CAT information for the instance named 'production'.
 # You must also set the following parameters for each CAT instance in CAT_AUTH:
-# CAT_API_KEY: API key for authentication to CAT
-# CAT_API_URL: API endpoint URL
+# CAT_API_KEY: Admin API key for authentication to CAT
+# CAT_API_URL: Admin API endpoint URL
+# CAT_USER_API_URL: User API endpoint URL
+# CAT_USER_API_LOCAL_DOWNLOADS: Base URL for local app downloads (e.g. Android)
 # CAT_PROFILES_URL: Base URL for Intitution Download Area pages
 # CAT_IDPMGMT_URL: URL For IdP Overview page
 
@@ -325,18 +345,75 @@ for var in os.environ:
 #     'production': {
 #         "CAT_API_KEY": "<provided API key>",
 #         "CAT_API_URL": "https://cat.eduroam.org/admin/API.php",
+#         "CAT_USER_API_URL": "https://cat.eduroam.org/user/API.php",
+#         "CAT_USER_API_LOCAL_DOWNLOADS": "https://cat.eduroam.org/",
 #         "CAT_PROFILES_URL": "https://cat.eduroam.org/",
 #         "CAT_IDPMGMT_URL": "https://cat.eduroam.org/admin/overview_idp.php"
 #     },
 #     'testing': {
 #         "CAT_API_KEY": "<provided API key>",
 #         "CAT_API_URL": "https://cat-test.eduroam.org/test/admin/API.php",
+#         "CAT_USER_API_URL": "https://cat-test.eduroam.org/test/user/API.php",
+#         "CAT_USER_API_LOCAL_DOWNLOADS": "https://cat-test.eduroam.org/test/",
 #         "CAT_PROFILES_URL": "https://cat-test.eduroam.org/test",
 #         "CAT_IDPMGMT_URL": "https://cat-test.eduroam.org/test/admin/overview_idp.php"
 #     },
 # }
 
-SENTRY = {
-    'activate': False,
-    'sentry_dsn': ''
-}
+# CAT User API proxy can optionally cache responses using a Django
+# cache backend. By default only expensive API actions (where responses
+# are not expected to change frequently) are cached for 10 minutes,
+# but a precise cache timeout (in seconds) can be configured for each
+# API action, through CAT_USER_API_CACHE_TIMEOUT, per CAT instance.
+# Note: For any API call to be cached, if the API response specifies a
+# non-zero expiry time, it will be honored by the proxy instead of the
+# configured timeout.
+# _5m = 5 * 60
+# _15m = 15 * 60
+# CAT_USER_API_CACHE_TIMEOUT = {
+#     'production': {
+#         'listAllIdentityProviders': _15m,
+#         'listIdentityProviders':    _15m,
+#         'orderIdentityProviders':   _15m,
+#         'listLanguages':            _15m,
+#         'listCountries':            _15m,
+#         'listProfiles':              _5m,
+#         'listDevices':               _5m,
+#         'generateInstaller':        _15m,
+#         'profileAttributes':         _5m,
+#         'sendLogo':                 _15m,
+#         'deviceInfo':                _5m,
+#     }
+# }
+
+# Parameters for CAT User API proxy, per instance:
+# redirect_downloads: Whether download requests should be redirected
+#   (this is the default) or proxied to CAT
+# allow_cross_origin: Whether CORS headers should be added to
+#   responses, so the API proxy may be used by other sites (not by
+#   default); can be set to True/False or 'origin'; this setting
+#   affects caching, so the cache should be flushed if it is changed
+# cache: A specific cache to use (a key from the CACHES setting)
+#   rather than the default; set to None to disable caching
+# cache_prefix: The key_prefix (see Django @cache_page) that will be
+#   used for deriving the cache key (no prefix by default)
+# CAT_USER_API_PROXY_OPTIONS = {
+#     'production': {
+#         'redirect_downloads': True,
+#         'allow_cross_origin': False,
+#         'cache':              'default',
+#         'cache_prefix':       '',
+#     }
+# }
+
+# Override the template for /connect in order to customize (among other
+# things) references specific to cat.eduroam.org for a different CAT
+# (production) instance: cat_mailing_list, cat_attribution,
+# cat_signed_by etc.
+# If this template is stored in djnro/templates/front/cat_connect it
+# will already be git-ignored.
+# Such a template needs to extend 'front/connect.html' and define blocks
+# to be overridden.
+# CAT_CONNECT_TEMPLATE = {
+#     'production': 'front/cat_connect/connect2.html',
+# }
