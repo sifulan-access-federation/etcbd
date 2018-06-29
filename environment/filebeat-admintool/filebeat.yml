@@ -19,6 +19,46 @@ filebeat.inputs:
 # Below are the input specific configurations.
 
 - type: log
+  paths:
+    - /usr/local/apache2/logs/ssl_request_log
+  fields:
+    system: admintool
+    server: apache
+    protocol: https
+    logtype: ssl
+
+# Prospector for Admintool Apache non-SSL logs
+- type: log
+  paths:
+    - /usr/local/apache2/logs/access_log
+  fields:
+    system: admintool
+    server: apache
+    protocol: http
+    logtype: combined
+
+# Prospector for Admintool Apache non-SSL error logs
+- type: log
+  paths:
+    - /usr/local/apache2/logs/error_log
+  fields:
+    system: admintool
+    server: apache
+    protocol: http
+    logtype: errorlog
+
+# Prospector for Admintool Apache SSL error logs
+- type: log
+  paths:
+    - /usr/local/apache2/logs/ssl_error_log
+  fields:
+    system: admintool
+    server: apache
+    protocol: https
+    logtype: errorlog
+
+
+- type: log
 
   # Change to true to enable this input configuration.
   enabled: false
@@ -65,12 +105,12 @@ filebeat.inputs:
 
 #============================= Filebeat modules ===============================
 
-filebeat.config.modules:
+#filebeat.config.modules:
   # Glob pattern for configuration loading
-  path: ${path.config}/modules.d/*.yml
+  #path: $ { path.config }/modules.d/*.yml
 
   # Set to true to enable config reloading
-  reload.enabled: false
+  #reload.enabled: false
 
   # Period on which files under path should be checked for changes
   #reload.period: 10s
@@ -140,9 +180,9 @@ setup.kibana:
 # Configure what output to use when sending the data collected by the beat.
 
 #-------------------------- Elasticsearch output ------------------------------
-output.elasticsearch:
+#output.elasticsearch:
   # Array of hosts to connect to.
-  hosts: ["localhost:9200"]
+  #hosts: ["localhost:9200"]
 
   # Optional protocol and basic auth credentials.
   #protocol: "https"
@@ -150,9 +190,9 @@ output.elasticsearch:
   #password: "changeme"
 
 #----------------------------- Logstash output --------------------------------
-#output.logstash:
+${LOGSTASH_DISABLE:- }output.logstash:
   # The Logstash hosts
-  #hosts: ["localhost:5044"]
+  ${LOGSTASH_DISABLE:- }hosts: ["${LOGSTASH_HOST}:5043"]
 
   # Optional SSL. By default is off.
   # List of root certificates for HTTPS server verifications
