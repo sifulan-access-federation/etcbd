@@ -8,8 +8,9 @@
 
 # The default value of the variable. Initialize your own variables here
 ELASTICSEARCH=http://localhost:9200
-CURL="curl -sS -HContent-Type:application/json"
+CURL="curl -sS"
 KIBANA_INDEX=".kibana"
+KIBANA=http://localhost:5601
 DIR=.
 BEAT_CONFIG=".beatconfig"
 
@@ -72,7 +73,7 @@ case $1 in
             print_usage
             exit 1
         fi
-        CURL="curl -sS -HContent-Type:application/json --user ${USER}"
+        CURL="curl -sS --user ${USER}"
         ;;
 
     -i | -index )
@@ -151,8 +152,8 @@ if [ -d "${DIR}/visualization" ]; then
     do
         NAME=`basename ${file} .json`
         echo "Import visualization ${NAME}:"
-        ${CURL} -XPUT ${ELASTICSEARCH}/${KIBANA_INDEX}/doc/${NAME} \
-            -d @${file} || exit 1
+        ${CURL} -H kbn-xsrf:true -XPOST ${KIBANA}/api/saved_objects/visualization/${NAME} \
+            -d "attributes=$( cat ${file})" || exit 1
         echo
     done
 fi
@@ -162,8 +163,8 @@ if [ -d "${DIR}/dashboard" ]; then
     do
         NAME=`basename ${file} .json`
         echo "Import dashboard ${NAME}:"
-        ${CURL} -XPUT ${ELASTICSEARCH}/${KIBANA_INDEX}/doc/${NAME} \
-            -d @${file} || exit 1
+        ${CURL} -H kbn-xsrf:true -XPOST ${KIBANA}/api/saved_objects/dashboard/${NAME} \
+            -d "attributes=$( cat ${file})" || exit 1
         echo
     done
 fi
@@ -174,8 +175,8 @@ if [ -d "${DIR}/index-pattern" ]; then
         NAME=`awk '$1 == "\"title\":" {gsub(/[",]/, "", $2); print $2}' ${file}`
         echo "Import index pattern ${NAME}:"
 
-        ${CURL} -XPUT ${ELASTICSEARCH}/${KIBANA_INDEX}/doc/${NAME} \
-            -d @${file} || exit 1
+        ${CURL} -H kbn-xsrf:true -XPOST ${KIBANA}/api/saved_objects/index-pattern/${NAME} \
+            -d "attributes=$( cat ${file})" || exit 1
         echo
     done
 fi

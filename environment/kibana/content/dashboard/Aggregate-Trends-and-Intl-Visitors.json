@@ -1,6 +1,4 @@
 {
-    "type": "dashboard",
-    "dashboard": {
       "title": "Aggregate Trends and Intl Visitors",
       "hits": 0,
       "description": "",
@@ -12,5 +10,4 @@
       "kibanaSavedObjectMeta": {
         "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
       }
-    }
 }
