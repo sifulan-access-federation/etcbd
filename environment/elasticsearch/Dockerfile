@@ -1,3 +1,2 @@
-FROM elasticsearch:2.3
-ENV ES_JAVA_OPTS="-Des.network.host=_non_loopback:ipv4_"
+FROM docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.0
 COPY elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
