@@ -1,8 +1,11 @@
 #!/bin/bash
 
+BASE_DIR=/
+
+# render templates
 for INST in $INST_NAMES ; do
   # Create visualizations and dashboard for each institution
-  for SRC_FILE in {visualization,dashboard}/*.template ; do
+  for SRC_FILE in $BASE_DIR/{visualization,dashboard}/*.template ; do
      # strip .template from the filename}
      DST_FILE="${SRC_FILE%_sampleinst.json.template}_${INST}.json"
 
@@ -14,5 +17,5 @@ for INST in $INST_NAMES ; do
 done
 
 # Now invole /import_dashboards
-/import_dashboards.sh -l http://elasticsearch:9200
+$BASE_DIR/import_dashboards.sh -d $BASE_DIR -l http://elasticsearch:9200
 
