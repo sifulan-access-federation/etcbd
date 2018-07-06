@@ -1,4 +1,6 @@
 {
+    "type": "visualization",
+    "visualization": {
       "title": "VisitorsExclDomestic",
       "visState": "{\"title\":\"PieExclDomestic\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"realm_country.raw\",\"size\":0,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
       "uiStateJSON": "{}",
@@ -7,4 +9,5 @@
       "kibanaSavedObjectMeta": {
         "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[{\"meta\":{\"index\":\"logstash-*\",\"negate\":true,\"key\":\"realm_country.raw\",\"value\":\"${LOCAL_COUNTRY:-nz}\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"realm_country.raw\":{\"query\":\"${LOCAL_COUNTRY:-nz}\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
       }
+    }
 }

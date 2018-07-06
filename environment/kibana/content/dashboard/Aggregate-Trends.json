@@ -1,4 +1,6 @@
 {
+    "type": "dashboard",
+    "dashboard": {
       "title": "Aggregate Trends",
       "hits": 0,
       "description": "",
@@ -10,4 +12,5 @@
       "kibanaSavedObjectMeta": {
         "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}]}"
       }
+    }
 }

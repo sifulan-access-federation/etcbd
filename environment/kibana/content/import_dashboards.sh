@@ -137,7 +137,7 @@ if [ -d "${DIR}/search" ]; then
         NAME=`basename ${file} .json`
         echo "Import search ${NAME}:"
         sed ${SED_STRING} ${file} > ${TMP_SED_FILE}
-        ${CURL} -XPUT ${ELASTICSEARCH}/${KIBANA_INDEX}/search/${NAME} \
+        ${CURL} -XPUT ${ELASTICSEARCH}/${KIBANA_INDEX}/doc/${NAME} \
             -d @${TMP_SED_FILE} || exit 1
         echo
     done
@@ -151,7 +151,7 @@ if [ -d "${DIR}/visualization" ]; then
     do
         NAME=`basename ${file} .json`
         echo "Import visualization ${NAME}:"
-        ${CURL} -XPUT ${ELASTICSEARCH}/${KIBANA_INDEX}/visualization/${NAME} \
+        ${CURL} -XPUT ${ELASTICSEARCH}/${KIBANA_INDEX}/doc/${NAME} \
             -d @${file} || exit 1
         echo
     done
@@ -162,7 +162,7 @@ if [ -d "${DIR}/dashboard" ]; then
     do
         NAME=`basename ${file} .json`
         echo "Import dashboard ${NAME}:"
-        ${CURL} -XPUT ${ELASTICSEARCH}/${KIBANA_INDEX}/dashboard/${NAME} \
+        ${CURL} -XPUT ${ELASTICSEARCH}/${KIBANA_INDEX}/doc/${NAME} \
             -d @${file} || exit 1
         echo
     done
@@ -174,7 +174,7 @@ if [ -d "${DIR}/index-pattern" ]; then
         NAME=`awk '$1 == "\"title\":" {gsub(/[",]/, "", $2); print $2}' ${file}`
         echo "Import index pattern ${NAME}:"
 
-        ${CURL} -XPUT ${ELASTICSEARCH}/${KIBANA_INDEX}/index-pattern/${NAME} \
+        ${CURL} -XPUT ${ELASTICSEARCH}/${KIBANA_INDEX}/doc/${NAME} \
             -d @${file} || exit 1
         echo
     done
