@@ -18,6 +18,7 @@ filebeat.inputs:
 # you can use different inputs for various configurations.
 # Below are the input specific configurations.
 
+# Input for Admintool Apache SSL logs
 - type: log
   paths:
     - /usr/local/apache2/logs/ssl_request_log
@@ -27,7 +28,7 @@ filebeat.inputs:
     protocol: https
     logtype: ssl
 
-# Prospector for Admintool Apache non-SSL logs
+# Input for Admintool Apache non-SSL logs
 - type: log
   paths:
     - /usr/local/apache2/logs/access_log
@@ -37,7 +38,7 @@ filebeat.inputs:
     protocol: http
     logtype: combined
 
-# Prospector for Admintool Apache non-SSL error logs
+# Input for Admintool Apache non-SSL error logs
 - type: log
   paths:
     - /usr/local/apache2/logs/error_log
@@ -47,7 +48,7 @@ filebeat.inputs:
     protocol: http
     logtype: errorlog
 
-# Prospector for Admintool Apache SSL error logs
+# Input for Admintool Apache SSL error logs
 - type: log
   paths:
     - /usr/local/apache2/logs/ssl_error_log

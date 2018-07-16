@@ -18,7 +18,7 @@ filebeat.inputs:
 # you can use different inputs for various configurations.
 # Below are the input specific configurations.
 
-# Prospector for Radius linelog
+# Input for Radius linelog
 -
   paths:
     - /var/log/radius/linelog
