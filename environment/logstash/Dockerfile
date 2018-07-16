@@ -1,4 +1,4 @@
-FROM docker.elastic.co/logstash/logstash-oss:6.3.0
+FROM docker.elastic.co/logstash/logstash-oss:6.3.1
 EXPOSE 5043
 
 # install envPlate

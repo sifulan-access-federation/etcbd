@@ -1,4 +1,4 @@
-FROM docker.elastic.co/kibana/kibana-oss:6.3.0
+FROM docker.elastic.co/kibana/kibana-oss:6.3.1
 
 # install envPlate
 RUN curl -sLo /usr/share/kibana/bin/ep https://github.com/kreuzwerker/envplate/releases/download/v0.0.8/ep-linux && chmod +x /usr/share/kibana/bin/ep
