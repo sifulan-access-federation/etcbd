@@ -206,6 +206,13 @@ ${LOGSTASH_DISABLE:- }output.logstash:
 
 #================================ Logging =====================================
 
+# Disable metrics logging
+logging.metrics.enabled: false
+
+# Disable file and syslog logging
+logging.to_syslog: false
+logging.to_files: false
+
 # Sets log level. The default log level is info.
 # Available log levels are: error, warning, info, debug
 #logging.level: debug
