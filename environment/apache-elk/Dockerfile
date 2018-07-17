@@ -15,9 +15,6 @@ RUN apt-get update && \
     apt-get -y install --no-install-recommends lsof vim less file && \
     rm -rf /var/lib/apt/lists/*
 
-# temporary: install utils
-RUN apt-get -y install --no-install-recommends lsof vim less file
-
 # override httpd-foreground with our version looking into /usr/local/apache2/conf/startup.d
 COPY httpd-foreground /usr/local/bin/
 
