@@ -14,6 +14,7 @@ RUN apt-get update && apt-get -y install apt-utils && apt-get -y install wget cu
 
 # install Icingaweb - release build for Stretch
 # This will pull in Apache as a dependency
+# - but somewhat incomplete (core binary only), so also explicitly install apache2.
 # Therefore, we are building from Stretch, not from httpd:2.4
     #add & trust Icinga repository & fetch packages
     # install incingaweb2 and the monitoring module communicating with icinga
@@ -21,8 +22,8 @@ RUN apt-get update && apt-get -y install apt-utils && apt-get -y install wget cu
 RUN echo "deb http://packages.icinga.org/debian icinga-stretch main" > /etc/apt/sources.list.d/icinga.list && \
     wget -O - -q https://packages.icinga.org/icinga.key | apt-key add - && \
     apt-get update && \
-    apt-get -y install --no-install-recommends icingaweb2 icingaweb2-module-monitoring && \
-    apt-get -y install --no-install-recommends php5-pgsql php5-imagick php5-intl && \
+    apt-get -y install --no-install-recommends icingaweb2 icingaweb2-module-monitoring apache2 && \
+    apt-get -y install --no-install-recommends php-pgsql php-imagick php-intl && \
     # temporary: install utils
     apt-get -y install --no-install-recommends lsof vim less file && \
     # remove the package lists
@@ -44,8 +45,8 @@ COPY content /
 #  fix permissions on files just copied in
 #  create logs directory with the right permission
 #  enable additional Apache configuration
-RUN sed -i -e "s:;date.timezone =:date.timezone = '\${TZ}':" /etc/php5/apache2/php.ini && \
-    sed -i -e 's:\${foo}:<dollar>{foo}:' /etc/php5/apache2/php.ini && \
+RUN sed -i -e "s:;date.timezone =:date.timezone = '\${TZ}':" /etc/php/7.0/apache2/php.ini && \
+    sed -i -e 's:\${foo}:<dollar>{foo}:' /etc/php/7.0/apache2/php.ini && \
     chgrp -R icingaweb2 /etc/icingaweb2 && \
     chmod -R g+rwxs /etc/icingaweb2 && \
     #chmod -R a+r /etc/icingaweb2 && \
