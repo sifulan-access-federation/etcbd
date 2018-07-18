@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install wget as dependency - pulls in openssl + ca-certificates
 # Install also curl - used by some install commands
 # Install locales needed to run localedef later
-RUN echo 'deb http://httpredir.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/backports.list && \
+RUN echo 'deb http://ftp.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/backports.list && \
     apt-get update && apt-get -y install apt-utils && apt-get -y install wget curl && \
     apt-get -y install --no-install-recommends locales && \
     # remove the package lists - we will be anyway refetching in the next step
