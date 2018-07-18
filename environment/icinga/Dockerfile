@@ -3,12 +3,10 @@ FROM debian:jessie
 # make debconf use non-interactive mode:
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Add backports (as later requested by Icinga instructions)
 # Install wget as dependency - pulls in openssl + ca-certificates
 # Install also curl - used by some install commands
 # Install locales needed to run localedef later
-RUN echo 'deb http://ftp.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/backports.list && \
-    apt-get update && apt-get -y install apt-utils && apt-get -y install wget curl && \
+RUN apt-get update && apt-get -y install apt-utils && apt-get -y install wget curl && \
     apt-get -y install --no-install-recommends locales && \
     # remove the package lists - we will be anyway refetching in the next step
     rm -rf /var/lib/apt/lists/*
