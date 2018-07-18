@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 
 # make debconf use non-interactive mode:
 ENV DEBIAN_FRONTEND=noninteractive
@@ -11,12 +11,12 @@ RUN apt-get update && apt-get -y install apt-utils && apt-get -y install wget cu
     # remove the package lists - we will be anyway refetching in the next step
     rm -rf /var/lib/apt/lists/*
 
-# install Icinga - release build for Jessie
+# install Icinga - release build for Stretch
     #add & trust Icinga repository & fetch package lists
     # install icinga itself
     # and monitoring plugins (formerly nagios plugins)
     # and ido-psql + psql client
-RUN echo "deb http://packages.icinga.org/debian icinga-jessie main" > /etc/apt/sources.list.d/icinga.list && \
+RUN echo "deb http://packages.icinga.org/debian icinga-stretch main" > /etc/apt/sources.list.d/icinga.list && \
     wget -O - -q https://packages.icinga.org/icinga.key | apt-key add - && \
     apt-get update && \
     apt-get -y install --no-install-recommends icinga2 && \

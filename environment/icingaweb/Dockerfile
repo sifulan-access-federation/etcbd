@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 
 # make debconf use non-interactive mode:
 ENV DEBIAN_FRONTEND=noninteractive
@@ -11,13 +11,13 @@ RUN apt-get update && apt-get -y install apt-utils && apt-get -y install wget cu
     # remove the package lists - we will be anyway refetching in the next step
     rm -rf /var/lib/apt/lists/*
 
-# install Icingaweb - release build for Jessie
+# install Icingaweb - release build for Stretch
 # This will pull in Apache as a dependency
-# Therefore, we are building from Jessie, not from httpd:2.4
+# Therefore, we are building from Stretch, not from httpd:2.4
     #add & trust Icinga repository & fetch packages
     # install incingaweb2 and the monitoring module communicating with icinga
     # install PHP modules (DB, Intl)
-RUN echo "deb http://packages.icinga.org/debian icinga-jessie main" > /etc/apt/sources.list.d/icinga.list && \
+RUN echo "deb http://packages.icinga.org/debian icinga-stretch main" > /etc/apt/sources.list.d/icinga.list && \
     wget -O - -q https://packages.icinga.org/icinga.key | apt-key add - && \
     apt-get update && \
     apt-get -y install --no-install-recommends icingaweb2 icingaweb2-module-monitoring && \
