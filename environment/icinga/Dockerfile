@@ -18,14 +18,13 @@ RUN apt-get update && apt-get -y install apt-utils && apt-get -y install wget cu
     # install icinga itself
     # and monitoring plugins (formerly nagios plugins)
     # and ido-psql + psql client
-RUN echo "deb http://packages.icinga.org/debian icinga-stretch main" > /etc/apt/sources.list.d/icinga.list && \
-    wget -O - -q https://packages.icinga.org/icinga.key | apt-key add - && \
+RUN echo "deb http://packages.icinga.com/debian icinga-stretch main" > /etc/apt/sources.list.d/icinga.list && \
+    wget --no-check-certificate -O - -q https://packages.icinga.com/icinga.key | apt-key add - && \
     apt-get update && \
     apt-get -y install --no-install-recommends icinga2 && \
     apt-get -y install --no-install-recommends monitoring-plugins && \
     apt-get -y install --no-install-recommends icinga2-ido-pgsql postgresql-client
     # keep the package files here - we are anyway reusing them in a number of subsequent run commands
-
 
 # temporary: install utils
 RUN apt-get -y install --no-install-recommends lsof vim less file

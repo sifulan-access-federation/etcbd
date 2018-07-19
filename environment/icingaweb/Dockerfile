@@ -19,8 +19,8 @@ RUN apt-get update && apt-get -y install apt-utils && apt-get -y install wget cu
     #add & trust Icinga repository & fetch packages
     # install incingaweb2 and the monitoring module communicating with icinga
     # install PHP modules (DB, Intl)
-RUN echo "deb http://packages.icinga.org/debian icinga-stretch main" > /etc/apt/sources.list.d/icinga.list && \
-    wget -O - -q https://packages.icinga.org/icinga.key | apt-key add - && \
+RUN echo "deb http://packages.icinga.com/debian icinga-stretch main" > /etc/apt/sources.list.d/icinga.list && \
+    wget --no-check-certificate -O - -q https://packages.icinga.com/icinga.key | apt-key add - && \
     apt-get update && \
     apt-get -y install --no-install-recommends icingaweb2 icingaweb2-module-monitoring apache2 && \
     apt-get -y install --no-install-recommends php-pgsql php-imagick php-intl && \
