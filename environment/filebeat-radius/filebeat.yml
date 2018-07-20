@@ -32,14 +32,14 @@ filebeat.inputs:
     logtype: linelog
     timezone: "${TZ}"
 
-- type: log
+#- type: log
 
   # Change to true to enable this input configuration.
-  enabled: false
+  #enabled: false
 
   # Paths that should be crawled and fetched. Glob based paths.
-  paths:
-    - /var/log/*.log
+  #paths:
+  #  - /var/log/*.log
     #- c:\programdata\elasticsearch\logs\*
 
   # Exclude lines. A list of regular expressions to match. It drops the lines that are
