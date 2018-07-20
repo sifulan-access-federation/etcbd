@@ -195,9 +195,9 @@ setup.kibana:
   #password: "changeme"
 
 #----------------------------- Logstash output --------------------------------
-${LOGSTASH_DISABLE:- }output.logstash:
+${LOGSTASH_DISABLE:-}output.logstash:
   # The Logstash hosts
-  ${LOGSTASH_DISABLE:- }hosts: ["${LOGSTASH_HOST}:5043"]
+  ${LOGSTASH_DISABLE:-}hosts: ["${LOGSTASH_HOST}:5043"]
 
   # Optional SSL. By default is off.
   # List of root certificates for HTTPS server verifications
