@@ -52,7 +52,9 @@ RUN apt-get install -y --no-install-recommends dnsutils bzip2 \
       make eapol_test && \
       cp eapol_test /usr/local/bin/ \
     ) && \
-    apt-get remove -y make gcc libc6-dev libssl-dev && \
+    apt-get remove -y gcc libc6-dev libssl-dev && \
+    # NOTE: do not remove make, it is a dependency for freeradius-utils
+    # NOTE: libc6-dev is the real library, libc-dev is alias
     apt-get autoremove -y && \
     rm -rf /tmp/wpa_supplicant-${WPA_SUPPLICANT_VERSION}
 
