@@ -78,5 +78,5 @@ RUN mkdir /run/icinga2 && chown nagios.nagios /run/icinga2 && \
 
 VOLUME ["/var/run/icinga2", "/var/lib/icinga2", "/var/log/icinga2", "/etc/icinga2/externalconf"]
 
-CMD ["/startup.sh", "/run-icinga.sh", "/usr/sbin/icinga2", "daemon", "-d"]
+CMD ["/startup.sh", "/run-icinga.sh", "/usr/sbin/icinga2", "daemon", "--daemonize", "--log-level", "warning"]
 
