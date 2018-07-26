@@ -21,20 +21,6 @@ class Command(BaseCommand):
     )
     args = ''
     help = "Export monitoring configuration"
-    nro_servers = ( 
-        { 'name': "nro1",
-          'host': "nro1.host",
-          'port': "1812",
-          'secret': "s3cr3t",
-          'status_server': True,
-        },
-        { 'name': "nro2",
-          'host': "nro2.host",
-          'port': "1812",
-          'secret': "s3cr3t",
-          'status_server': True,
-        },
-        ) 
     def handle(self, *args, **options):
         self.stdout.write(
             re.sub("\n\n\n*","\n\n",
