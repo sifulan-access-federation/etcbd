@@ -23,6 +23,17 @@ if [ $STATUS -ne 0 ] ; then
     exit 0
 fi
 
+echo "Workaround: updating DB migrations for python-social-auth social-auth-core conversion"
+./manage.py shell <<-EOF
+	from django.db.migrations.recorder import MigrationRecorder
+	for m in MigrationRecorder.Migration.objects.filter(app='default'):
+            if not MigrationRecorder.Migration.objects.filter(app='social_auth', name=m.name):
+                print("Recording migration default:%s as social_auth:%s" % (m.name, m.name))
+                m_social=MigrationRecorder.Migration(app='social_auth', name=m.name)
+                m_social.save()
+	exit()
+EOF
+
 echo "Applying migrations"
 
 ./manage.py migrate
