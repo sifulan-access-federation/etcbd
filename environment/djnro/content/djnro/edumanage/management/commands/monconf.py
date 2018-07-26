@@ -11,16 +11,16 @@ from edumanage.viewsextra import all_monitoring_contacts
 from django.template.loader import render_to_string
 
 class Command(BaseCommand):
-    option_list = BaseCommand.option_list + (
-        make_option(
+    help = "Export monitoring configuration"
+
+    def add_arguments(self, parser):
+        parser.add_argument(
             '--output',
             dest='output',
             default="yaml",
             help="Output type: json, yaml"
-        ),
-    )
-    args = ''
-    help = "Export monitoring configuration"
+        )
+
     def handle(self, *args, **options):
         self.stdout.write(
             re.sub("\n\n\n*","\n\n",
