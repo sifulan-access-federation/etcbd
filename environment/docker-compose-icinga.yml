@@ -5,7 +5,6 @@ services:
     restart: always
     build: ./icingaweb/
     container_name: icingaweb
-    #log_driver: syslog
     environment:
         HTTPS_PORT: 443
         ICINGA_DB_HOST: postgres-icinga
@@ -30,7 +29,6 @@ services:
     restart: always
     build: ./icinga/
     container_name: icinga
-    #log_driver: syslog
     environment:
         ICINGA_DB_HOST: postgres-icinga
     env_file:
@@ -49,7 +47,6 @@ services:
     restart: always
     container_name: postgres-icinga
     build: ./postgres/
-    #log_driver: syslog
     env_file:
         - localdev_icinga.env
         - global-env.env

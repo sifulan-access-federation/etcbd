@@ -5,7 +5,6 @@ services:
     restart: always
     build: ./elasticsearch/
     container_name: elasticsearch
-    #log_driver: syslog
     env_file:
         - global-env.env
     volumes:
@@ -15,7 +14,6 @@ services:
     restart: always
     build: ./logstash/
     container_name: logstash
-    #log_driver: syslog
     environment:
         # set to blank to enable debug - dump all events on logstash console
         LOGSTASH_DEBUG_DISABLE: "#"
@@ -36,7 +34,6 @@ services:
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       LOGGING_QUIET: "true"
-    #log_driver: syslog
     env_file:
         - localdev_elk.env
         - global-env.env
@@ -48,7 +45,6 @@ services:
     restart: always
     build: ./apache-elk/
     container_name: apache-elk
-    #log_driver: syslog
     environment:
         KIBANA_URL: http://kibana:5601/
         HTTPS_PORT: 443

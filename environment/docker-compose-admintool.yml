@@ -6,7 +6,6 @@ services:
     restart: always
     build: ./apache/
     container_name: apache
-    #log_driver: syslog
     environment:
         DJNRO_HOST: djnro
         HTTPS_PORT: 443
@@ -30,7 +29,6 @@ services:
     restart: always
     build: ./djnro/
     container_name: djnro
-    #log_driver: syslog
     environment:
         DB_HOST: postgres
     env_file:
@@ -46,7 +44,6 @@ services:
     restart: always
     image: admintool_djnro:latest
     container_name: djnro-scheduler
-    #log_driver: syslog
     environment:
         DB_HOST: postgres
         KML_REFRESH_INTERVAL: 3600
@@ -62,7 +59,6 @@ services:
     restart: always
     container_name: postgres
     build: ./postgres/
-    #log_driver: syslog
     env_file:
         - localdev_admintool.env
         - global-env.env
