@@ -44,7 +44,7 @@ services:
   # djnro-cron periodically fetching upstream all.kml
   djnro-scheduler:
     restart: always
-    build: ./djnro/
+    image: admintool_djnro:latest
     container_name: djnro-scheduler
     #log_driver: syslog
     environment:
