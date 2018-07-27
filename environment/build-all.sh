@@ -12,7 +12,7 @@ SERVICES="admintool elk icinga"
 IMAGES_admintool="apache djnro postgres filebeat"
 IMAGES_elk="elasticsearch logstash kibana apache"
 IMAGES_icinga="icingaweb icinga postgres"
-EXTRA_IMAGES="filebeat-radius"
+EXTRA_IMAGES="filebeat-radius filebeat-radsecproxy"
 
 # parse arguments
 
