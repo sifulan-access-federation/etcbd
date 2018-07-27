@@ -18,14 +18,28 @@ filebeat.inputs:
 # you can use different inputs for various configurations.
 # Below are the input specific configurations.
 
-- type: log
+# Input for Radius linelog
+-
+  paths:
+    - /var/log/radsecproxy/radsecproxy.log
+  type: log
+  tail_files: true
+  fields:
+    host: "${RADIUS_SERVER_HOSTNAME}"
+    system: radius
+    server: radsecproxy
+    protocol: radius
+    logtype: radsecproxy
+    timezone: "${TZ}"
+
+#- type: log
 
   # Change to true to enable this input configuration.
-  enabled: false
+  #enabled: false
 
   # Paths that should be crawled and fetched. Glob based paths.
-  paths:
-    - /var/log/*.log
+  #paths:
+  #  - /var/log/*.log
     #- c:\programdata\elasticsearch\logs\*
 
   # Exclude lines. A list of regular expressions to match. It drops the lines that are
@@ -65,12 +79,12 @@ filebeat.inputs:
 
 #============================= Filebeat modules ===============================
 
-filebeat.config.modules:
+#filebeat.config.modules:
   # Glob pattern for configuration loading
-  path: ${path.config}/modules.d/*.yml
+  #path: $ { path.config }/modules.d/*.yml
 
   # Set to true to enable config reloading
-  reload.enabled: false
+  #reload.enabled: false
 
   # Period on which files under path should be checked for changes
   #reload.period: 10s
@@ -140,9 +154,9 @@ setup.kibana:
 # Configure what output to use when sending the data collected by the beat.
 
 #-------------------------- Elasticsearch output ------------------------------
-output.elasticsearch:
+#output.elasticsearch:
   # Array of hosts to connect to.
-  hosts: ["localhost:9200"]
+  #hosts: ["localhost:9200"]
 
   # Optional protocol and basic auth credentials.
   #protocol: "https"
@@ -150,9 +164,9 @@ output.elasticsearch:
   #password: "changeme"
 
 #----------------------------- Logstash output --------------------------------
-#output.logstash:
+${LOGSTASH_DISABLE:-}output.logstash:
   # The Logstash hosts
-  #hosts: ["localhost:5044"]
+  ${LOGSTASH_DISABLE:-}hosts: ["${LOGSTASH_HOST}:5043"]
 
   # Optional SSL. By default is off.
   # List of root certificates for HTTPS server verifications
@@ -165,6 +179,13 @@ output.elasticsearch:
   #ssl.key: "/etc/pki/client/cert.key"
 
 #================================ Logging =====================================
+
+# Disable metrics logging
+logging.metrics.enabled: false
+
+# Disable file and syslog logging
+logging.to_syslog: false
+logging.to_files: false
 
 # Sets log level. The default log level is info.
 # Available log levels are: error, warning, info, debug
