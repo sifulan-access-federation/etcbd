@@ -4,7 +4,7 @@ INST_NAMES="reannz.co.nz standstone.ac.nz sandstone.edu.au limestone.ac.nz limes
 
 for IDP_INST in $INST_NAMES ; do
   for SP_INST in $INST_NAMES ; do
-    echo "\"$( date +'%F %T' )\",\"Access-Accept\",\"$( echo $IDP_INST | shasum | cut -f 1 -d ' ' )\",\"$SP_INST\",\"127.0.0.1\",\"127.0.0.1\",\"testing-client\",\"user@$IDP_INST\""
+    echo "\"$( date +'%F %T' )\",\"Access-Accept\",\"$( echo $IDP_INST | shasum | cut -f 1 -d ' ' )\",\"1$SP_INST\",\"127.0.0.1\",\"127.0.0.1\",\"testing-client\",\"user@$IDP_INST\""
   done
 done
 
