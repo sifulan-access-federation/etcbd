@@ -41,6 +41,9 @@ while [ $# -gt 0 ] ; do
         SERVICES="$2"
         EXTRA_IMAGES=""
         shift ; shift
+    elif [ "$1" == "--extra-only" ] ; then
+        SERVICES=""
+        shift
     else
         echo "Invalid argument $1"
         echo "Usage: $0 [options...]"
@@ -52,6 +55,7 @@ while [ $# -gt 0 ] ; do
         echo "    --skip-push: skip docker push, only build and tag services locally"
         echo "    --services \"list of services\": only build listed services,"
         echo "          skip other services and extra images"
+        echo "    --extra-only: skip composed services and only build extra images"
         exit 1
     fi
 done
