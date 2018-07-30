@@ -1,6 +1,6 @@
 FROM debian:stretch
 
-ENV FILEBEAT_VERSION=6.3.1
+ENV FILEBEAT_VERSION=6.3.2
 
 # make debconf use non-interactive mode:
 ENV DEBIAN_FRONTEND=noninteractive
