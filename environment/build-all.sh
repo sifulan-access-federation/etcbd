@@ -6,6 +6,7 @@ REPOBASE="reannz"
 PULL=""
 NOCACHE=""
 SKIPBUILD=""
+SKIPPUSH=""
 
 # Services we support
 SERVICES="admintool elk icinga"
@@ -33,6 +34,9 @@ while [ $# -gt 0 ] ; do
     elif [ "$1" == "--skip-build" ] ; then
         SKIPBUILD="$1"
         shift
+    elif [ "$1" == "--skip-push" ] ; then
+        SKIPPUSH="$1"
+        shift
     elif [ "$1" == "--services" ] ; then
         SERVICES="$2"
         EXTRA_IMAGES=""
@@ -45,6 +49,7 @@ while [ $# -gt 0 ] ; do
         echo "    --pull: pass --pull to docker-compose build to refresh base images"
         echo "    --no-cache: pass --no-cache to docker-compose build to do a fresh build"
         echo "    --skip-build: skip docker-compose build - only tag and push current build"
+        echo "    --skip-push: skip docker push, only build and tag services locally"
         echo "    --services \"list of services\": only build listed services,"
         echo "          skip other services and extra images"
         exit 1
@@ -60,7 +65,9 @@ for SERVICE in $SERVICES ; do
     fi
     for IMAGE in $( eval "echo \${IMAGES_${SERVICE}}" ) ; do
         docker tag ${SERVICE}_${IMAGE} ${REPOBASE}/${SERVICE}_${IMAGE}:${TAG}
-        docker push $REPOBASE/${SERVICE}_${IMAGE}:${TAG}
+        if [ -z "$SKIPPUSH" ] ; then
+            docker push $REPOBASE/${SERVICE}_${IMAGE}:${TAG}
+        fi
     done
 done
 
@@ -69,6 +76,8 @@ for IMAGE in $EXTRA_IMAGES ; do
         docker build $PULL $NOCACHE -t ${IMAGE} ${IMAGE}/
     fi
     docker tag $IMAGE $REPOBASE/${IMAGE}:${TAG}
-    docker push $REPOBASE/${IMAGE}:${TAG}
+    if [ -z "$SKIPPUSH" ] ; then
+        docker push $REPOBASE/${IMAGE}:${TAG}
+    fi
 done
 
