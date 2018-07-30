@@ -23,6 +23,7 @@ filebeat.inputs:
   paths:
     - /usr/local/apache2/logs/ssl_request_log
   tail_files: true
+  close_inactive: 60m
   fields:
     system: admintool
     server: apache
@@ -34,6 +35,7 @@ filebeat.inputs:
   paths:
     - /usr/local/apache2/logs/access_log
   tail_files: true
+  close_inactive: 60m
   fields:
     system: admintool
     server: apache
@@ -45,6 +47,7 @@ filebeat.inputs:
   paths:
     - /usr/local/apache2/logs/error_log
   tail_files: true
+  close_inactive: 60m
   fields:
     system: admintool
     server: apache
@@ -56,6 +59,7 @@ filebeat.inputs:
   paths:
     - /usr/local/apache2/logs/ssl_error_log
   tail_files: true
+  close_inactive: 60m
   fields:
     system: admintool
     server: apache

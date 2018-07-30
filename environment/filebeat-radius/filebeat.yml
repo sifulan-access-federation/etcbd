@@ -24,6 +24,7 @@ filebeat.inputs:
     - /var/log/radius/linelog
   type: log
   tail_files: true
+  close_inactive: 60m
   fields:
     host: "${RADIUS_SERVER_HOSTNAME}"
     system: radius
