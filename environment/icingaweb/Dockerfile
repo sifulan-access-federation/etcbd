@@ -24,6 +24,8 @@ RUN echo "deb http://packages.icinga.com/debian icinga-stretch main" > /etc/apt/
     apt-get update && \
     apt-get -y install --no-install-recommends icingaweb2 icingaweb2-module-monitoring apache2 && \
     apt-get -y install --no-install-recommends php-pgsql php-imagick php-intl && \
+    # install postgresql-client - needed for DB schema maintenance
+    apt-get -y install --no-install-recommends postgresql-client && \
     # temporary: install utils
     apt-get -y install --no-install-recommends lsof vim less file && \
     # remove the package lists
