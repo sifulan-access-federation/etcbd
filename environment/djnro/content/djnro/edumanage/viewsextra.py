@@ -1,5 +1,6 @@
 import re
 from sets import Set
+import socket
 
 from django.shortcuts import render_to_response, redirect, render
 from django.http import (
@@ -59,6 +60,38 @@ def all_monitoring_contacts():
 
     return contacts
 
+def server_addresses():
+    """Return a hash of IPv4 and IPv6 lookups for radius servers rendered in Icinga configuration.
+
+    This list covers all NRO servers, plus institutional servers if included in the configuration.
+    """
+    server_addr = {}
+    server_names = [s['host'] for s in settings.NRO_SERVERS]
+    if settings.ICINGA_CONF_PARAMS['generate_instserver_checks']:
+        server_names += [s.host for s in InstServer.objects.all()]
+    for s in server_names:
+        s_addr = {}
+        # try IPv4 lookup
+        s_ipv4_addr = socket.gethostbyname(s)
+        try:
+            if s_ipv4_addr:
+                s_addr['ipv4'] = s_ipv4_addr
+        except socket.gaierror:
+            # No IPV4 address - pass
+            pass
+        # try IPv6 lookup
+        try:
+            ipv6_addr_info = socket.getaddrinfo(s, None, socket.AF_INET6)
+            if len(ipv6_addr_info)>0:
+                # take 1st response, 5th element in 5-tupple is sockaddr, 1st element there is address
+                s_addr['ipv6'] = ipv6_addr_info[0][4][0]
+        except socket.gaierror:
+            # No IPV6 address - pass
+            pass
+
+        server_addr[s] = s_addr
+    return server_addr
+
 @require_ssl
 @has_perm_or_basicauth('edumanage.change_monlocalauthnparam',realm='eduroam management tools')
 def icingaconf(request):
@@ -68,6 +101,7 @@ def icingaconf(request):
                      'allinstrealmmons': InstRealmMon.objects.all(),
                      'nroservers': settings.NRO_SERVERS,
                      'instservers': InstServer.objects.all(),
+                     'server_addr': server_addresses(),
                      'confparams': settings.ICINGA_CONF_PARAMS,
                      'allcontacts': all_monitoring_contacts(),
                     }
