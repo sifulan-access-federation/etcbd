@@ -218,6 +218,9 @@ ICINGA_CONF_PARAMS = {
     'request_cui': not os.getenv("ICINGA_CONF_REQUEST_CUI",'False').upper() in ("FALSE", ""),
     'operator_name': os.getenv("ICINGA_CONF_OPERATOR_NAME",None),
     'verbosity': os.getenv("ICINGA_CONF_VERBOSITY", "1"),
+    # Should attempt to look up IPv6 addresses for radius servers (and include this in Icinga checks)
+    # Set to True if yes, set to False or leave unset if not supported.
+    'ipv6': not os.getenv("ICINGA_CONF_IPV6", 'False').upper() in ("FALSE", ""),
     # Should generated icinga configuration include direct checks against the institutional servers?
     # Set to True if yes, set to False or blank if not desired
     'generate_instserver_checks': not os.getenv("ICINGA_CONF_GENERATE_INSTSERVER_CHECKS",'True').upper() in ("FALSE", ""),

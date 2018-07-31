@@ -79,15 +79,16 @@ def server_addresses():
         except socket.gaierror:
             # No IPV4 address - pass
             pass
-        # try IPv6 lookup
-        try:
-            ipv6_addr_info = socket.getaddrinfo(s, None, socket.AF_INET6)
-            if len(ipv6_addr_info)>0:
-                # take 1st response, 5th element in 5-tupple is sockaddr, 1st element there is address
-                s_addr['ipv6'] = ipv6_addr_info[0][4][0]
-        except socket.gaierror:
-            # No IPV6 address - pass
-            pass
+        if settings.ICINGA_CONF_PARAMS['ipv6']:
+            # try IPv6 lookup
+            try:
+                ipv6_addr_info = socket.getaddrinfo(s, None, socket.AF_INET6)
+                if len(ipv6_addr_info)>0:
+                    # take 1st response, 5th element in 5-tupple is sockaddr, 1st element there is address
+                    s_addr['ipv6'] = ipv6_addr_info[0][4][0]
+            except socket.gaierror:
+                # No IPV6 address - pass
+                pass
 
         server_addr[s] = s_addr
     return server_addr
