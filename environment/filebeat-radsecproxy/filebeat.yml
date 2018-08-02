@@ -24,6 +24,7 @@ filebeat.inputs:
     - /var/log/radsecproxy/radsecproxy.log
   type: log
   tail_files: true
+  include_lines: [' for user ']
   close_inactive: 60m
   fields:
     host: "${RADIUS_SERVER_HOSTNAME}"
