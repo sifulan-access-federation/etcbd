@@ -72,8 +72,8 @@ def server_addresses():
     for s in server_names:
         s_addr = {}
         # try IPv4 lookup
-        s_ipv4_addr = socket.gethostbyname(s)
         try:
+            s_ipv4_addr = socket.gethostbyname(s)
             if s_ipv4_addr:
                 s_addr['ipv4'] = s_ipv4_addr
         except socket.gaierror:
