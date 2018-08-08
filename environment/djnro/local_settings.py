@@ -229,6 +229,36 @@ ICINGA_CONF_PARAMS = {
     'notify_inst_contacts': not os.getenv("ICINGA_CONF_NOTIFY_INST_CONTACTS",'True').upper() in ("FALSE", ""),
 }
 
+RADSECPROXY_CONF_PARAMS = {
+    # Top-level domain (to check forwarding)
+    'tld': os.getenv("RADSECPROXY_CONF_TLD",None),
+}
+
+#TLR servers (for Icinga configuration)
+# In configuration file, use:
+# TLR_SERVERS=server1 server2 ...
+# mandatory for each server in TLR_SERVERS:
+# TLR_SERVER_HOSTNAME_server1=eduroam1.tlr
+# TLR_SERVER_HOSTNAME_server2=eduroam2.tlr
+# TLR_SERVER_SECRET_server1=secret
+# TLR_SERVER_SECRET_server2=secret
+# optionally also:
+# TLR_SERVER_PORT_server1=1812
+# TLR_SERVER_PORT_server2=1812
+# Is status server enabled?  Set to True if yes, set to False or leave unset if not supported.
+# TLR_SERVER_STATUS_server1=True
+# TLR_SERVER_STATUS_server2=True
+
+TLR_SERVERS = ()
+for s in os.getenv('TLR_SERVERS','').split():
+    TLR_SERVERS += tuple([ {
+        'name': s,
+        'host': os.getenv("TLR_SERVER_HOSTNAME_%s" % (s),''),
+        'secret': os.getenv("TLR_SERVER_SECRET_%s" % (s),''),
+        'auth_port': os.getenv("TLR_SERVER_PORT_%s" % (s),'1812'),
+        'status_server': not os.getenv("TLR_SERVER_STATUS_%s" % (s),'False').upper() in ("FALSE", ""),
+        }])
+
 # List the login methods to be offered to users here.
 # The fields to list for each method are:
 #   backend: backend name.  This has to match the backend name in the
