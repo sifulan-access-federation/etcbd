@@ -193,7 +193,7 @@ REALM_COUNTRIES = (
 # NRO_SERVERS=server1 server2 ...
 # mandatory for each server in NRO_SERVERS:
 # NRO_SERVER_HOSTNAME_server1=eduroam1.nren.cc
-# NRO_SERVER_HOSTNAME_server2=eduroam1.nren.cc
+# NRO_SERVER_HOSTNAME_server2=eduroam2.nren.cc
 # NRO_SERVER_SECRET_server1=secret
 # NRO_SERVER_SECRET_server2=secret
 # optionally also:
