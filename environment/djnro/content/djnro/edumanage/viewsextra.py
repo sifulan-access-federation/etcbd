@@ -122,3 +122,41 @@ def icingaconf(request):
                         content_type=resp_content_type)
 
 
+
+@require_ssl
+@has_perm_or_basicauth('edumanage.change_instserver',realm='eduroam management tools')
+def radsecproxyconf(request):
+
+    ERTYPES_IDP = [1, 3]
+    ERTYPES_SP = [2, 3]
+
+    # client servers: all servers that are affiliated with an institution (and are an SP)
+    client_servers = [s for s in InstServer.objects.all() if s.ertype in ERTYPES_SP and s.instid.all()]
+
+    # proxy servers (to be linked with realms): all servers that have a realm (and are an IdP)
+    proxy_servers = [s for s in InstServer.objects.all() if s.ertype in ERTYPES_IDP and s.instrealm_set.all()]
+
+
+    resp_body = render_to_string('exports/radsecproxy.conf',
+                    {
+                     'institutions': Institution.objects.all(),
+                     'client_servers': client_servers,
+                     'proxy_servers': proxy_servers,
+                     'server_addr': server_addresses([s.host for s in InstServer.objects.all()] +
+                                       [s['host'] for s in settings.TLR_SERVERS]),
+                     'confparams': settings.RADSECPROXY_CONF_PARAMS,
+                     'tlrservers': settings.TLR_SERVERS,
+                     'ERTYPES_IDP': ERTYPES_IDP,
+                     'ERTYPES_SP': ERTYPES_SP,
+                    }
+                )
+    resp_body = re.sub("\n\n\n*","\n\n",
+            re.sub(" *$","", resp_body, flags=re.MULTILINE),
+            flags=re.MULTILINE)
+
+    resp_content_type = "text/plain"
+
+    return HttpResponse(resp_body,
+                        content_type=resp_content_type)
+
+
