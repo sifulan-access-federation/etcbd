@@ -60,15 +60,10 @@ def all_monitoring_contacts():
 
     return contacts
 
-def server_addresses():
-    """Return a hash of IPv4 and IPv6 lookups for radius servers rendered in Icinga configuration.
-
-    This list covers all NRO servers, plus institutional servers if included in the configuration.
+def server_addresses(server_names):
+    """Return a hash of IPv4 and IPv6 lookups for the given server names.
     """
     server_addr = {}
-    server_names = [s['host'] for s in settings.NRO_SERVERS]
-    if settings.ICINGA_CONF_PARAMS['generate_instserver_checks']:
-        server_names += [s.host for s in InstServer.objects.all()]
     for s in server_names:
         s_addr = {}
         # try IPv4 lookup
@@ -93,6 +88,16 @@ def server_addresses():
         server_addr[s] = s_addr
     return server_addr
 
+def icinga_server_addresses():
+    """Return a hash of IPv4 and IPv6 lookups for radius servers rendered in Icinga configuration.
+
+    This list covers all NRO servers, plus institutional servers if included in the configuration.
+    """
+    server_names = [s['host'] for s in settings.NRO_SERVERS]
+    if settings.ICINGA_CONF_PARAMS['generate_instserver_checks']:
+        server_names += [s.host for s in InstServer.objects.all()]
+    return server_addresses(server_names)
+
 @require_ssl
 @has_perm_or_basicauth('edumanage.change_monlocalauthnparam',realm='eduroam management tools')
 def icingaconf(request):
@@ -102,7 +107,7 @@ def icingaconf(request):
                      'allinstrealmmons': InstRealmMon.objects.all(),
                      'nroservers': settings.NRO_SERVERS,
                      'instservers': InstServer.objects.all(),
-                     'server_addr': server_addresses(),
+                     'server_addr': icinga_server_addresses(),
                      'confparams': settings.ICINGA_CONF_PARAMS,
                      'allcontacts': all_monitoring_contacts(),
                     }
