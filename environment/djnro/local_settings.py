@@ -121,7 +121,7 @@ EXTRA_AUTHENTICATION_BACKENDS = (
 # }
 
 
-SHIB_AUTH_ENTITLEMENT = 'urn:mace:example.com:pki:user'
+SHIB_AUTH_ENTITLEMENT = ''
 FEDERATION_DOC_URL = os.getenv('FEDERATION_DOC_URL', '')
 SHIB_LOGOUT_URL = 'https://' + os.getenv('SITE_PUBLIC_HOSTNAME','example.com') + '/Shibboleth.sso/Logout'
 
