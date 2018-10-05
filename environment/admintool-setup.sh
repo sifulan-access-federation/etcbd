@@ -56,7 +56,7 @@ eval $( cat "$@" | grep -v '^ *#' | sed -e "s/'/'\"'\"'/g" -e "s/=\\(.*\\)/='\\1
 #   create role djnrodev with login encrypted password 'djnrodev';
 #   create database djnrodev with owner djnrodev;
 
-exec_func "" postgres gosu postgres psql --command="create role $DB_USER with login encrypted password '$DB_PASSWORD' ;"
+exec_func "" postgres gosu postgres psql --command="create role $DB_USER with login encrypted password '${DB_PASSWORD//\'/\'\'}' ;"
 exec_func "" postgres gosu postgres psql --command="create database $DB_NAME with owner $DB_USER;"
 
 # Initialize database on the Django side - and create super user
