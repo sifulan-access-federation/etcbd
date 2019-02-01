@@ -4,7 +4,7 @@
 # Except of function urlencode which is Copyright (C) by Brian White (brian@aljex.com) used under MIT license
 
 PROG="`basename $0`"
-ICINGA2HOST="`hostname`"
+ICINGA2HOST="${ICINGA2HOST:-`hostname`}"
 MAILBIN="mail"
 
 if [ -z "`which $MAILBIN`" ] ; then
@@ -63,7 +63,7 @@ urlencode() {
 }
 
 ## Main
-while getopts 4:6:b:c:d:e:f:hi:l:n:o:r:s:t:u:v: opt
+while getopts 4:6:b:c:d:e:f:hi:I:l:n:o:r:s:t:u:v: opt
 do
   case "$opt" in
     4) HOSTADDRESS=$OPTARG ;;
@@ -75,6 +75,7 @@ do
     f) MAILFROM=$OPTARG ;;
     h) Usage ;;
     i) ICINGAWEB2URL=$OPTARG ;;
+    I) ICINGA2HOST=$OPTARG ;;
     l) HOSTNAME=$OPTARG ;; # required
     n) HOSTDISPLAYNAME=$OPTARG ;; # required
     o) SERVICEOUTPUT=$OPTARG ;; # required
