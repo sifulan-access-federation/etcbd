@@ -280,7 +280,6 @@ MANAGE_LOGIN_METHODS = (
   { 'backend': 'locallogin', 'enabled': False, 'class': None, 'name': 'Local login', 'local_image': 'img/right_logo_small.png' },
   # ModelBackend class 'django.contrib.auth.backends.ModelBackend' intentionally omitted as it is always included in AUTHENTICATION_BACKENDS
   { 'backend': 'google-oauth2', 'enabled': True, 'class': 'social_core.backends.google.GoogleOAuth2', 'name': 'Google', 'fa_style': 'fa fa-google fa-2x' },
-  { 'backend': 'google-plus', 'enabled': False, 'class': 'social_core.backends.google.GooglePlusAuth', 'name': 'Google Plus', 'fa_style': 'fa fa-google fa-2x' },
   { 'backend': 'yahoo', 'enabled': True, 'name': 'Yahoo', 'class': 'social_core.backends.yahoo.YahooOpenId', 'local_image': 'img/yahoo_img.png' },
   { 'backend': 'amazon', 'enabled': False, 'class': 'social_core.backends.amazon.AmazonOAuth2', 'name': 'Amazon', 'fa_style': 'fa fa-amazon fa-2x' },
   { 'backend': 'docker', 'enabled': False, 'class': 'social_core.backends.docker.DockerOAuth2', 'name': 'Docker', 'image_url': 'https://hub.docker.com/hub-static/img/nav/docker-logo-loggedin.png' },
@@ -325,12 +324,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = []
 SOCIAL_AUTH_GOOGLE_OPENIDCONNECT_KEY = os.getenv('GOOGLE_KEY','')
 SOCIAL_AUTH_GOOGLE_OPENIDCONNECT_SECRET = os.getenv('GOOGLE_SECRET','')
 SOCIAL_AUTH_GOOGLE_OPENIDCONNECT_SCOPE = []
-
-# and duplicate this again for GooglePlus:
-SOCIAL_AUTH_GOOGLE_PLUS_KEY = os.getenv('GOOGLE_KEY','')
-SOCIAL_AUTH_GOOGLE_PLUS_SECRET = os.getenv('GOOGLE_SECRET','')
-SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = ['https://www.googleapis.com/auth/userinfo.email']
-SOCIAL_AUTH_GOOGLE_PLUS_IGNORE_DEFAULT_SCOPE = True
 
 for var in os.environ:
     if var.startswith('ADMINTOOL_EXTRA_SETTINGS_'):
