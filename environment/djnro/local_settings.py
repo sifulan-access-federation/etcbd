@@ -352,6 +352,7 @@ for var in os.environ:
 # CAT_API_KEY: Admin API key for authentication to CAT
 # CAT_API_URL: Admin API endpoint URL
 # CAT_USER_API_URL: User API endpoint URL
+# CAT_USER_API_VERSION: User API version
 # CAT_USER_API_LOCAL_DOWNLOADS: Base URL for local app downloads (e.g. Android)
 # CAT_PROFILES_URL: Base URL for Intitution Download Area pages
 # CAT_IDPMGMT_URL: URL For IdP Overview page
@@ -366,6 +367,7 @@ for var in os.environ:
 #         "CAT_API_KEY": "<provided API key>",
 #         "CAT_API_URL": "https://cat.eduroam.org/admin/API.php",
 #         "CAT_USER_API_URL": "https://cat.eduroam.org/user/API.php",
+#         "CAT_USER_API_VERSION": 2,
 #         "CAT_USER_API_LOCAL_DOWNLOADS": "https://cat.eduroam.org/",
 #         "CAT_PROFILES_URL": "https://cat.eduroam.org/",
 #         "CAT_IDPMGMT_URL": "https://cat.eduroam.org/admin/overview_idp.php"
@@ -374,6 +376,7 @@ for var in os.environ:
 #         "CAT_API_KEY": "<provided API key>",
 #         "CAT_API_URL": "https://cat-test.eduroam.org/test/admin/API.php",
 #         "CAT_USER_API_URL": "https://cat-test.eduroam.org/test/user/API.php",
+#         "CAT_USER_API_VERSION": 2,
 #         "CAT_USER_API_LOCAL_DOWNLOADS": "https://cat-test.eduroam.org/test/",
 #         "CAT_PROFILES_URL": "https://cat-test.eduroam.org/test",
 #         "CAT_IDPMGMT_URL": "https://cat-test.eduroam.org/test/admin/overview_idp.php"
@@ -403,6 +406,7 @@ for var in os.environ:
 #         'profileAttributes':         _5m,
 #         'sendLogo':                 _15m,
 #         'deviceInfo':                _5m,
+#         'detectOS':                 _15m,
 #     }
 # }
 
