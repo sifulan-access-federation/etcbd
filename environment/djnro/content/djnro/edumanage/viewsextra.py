@@ -1,5 +1,4 @@
 import re
-from sets import Set
 import socket
 
 from django.shortcuts import render_to_response, redirect, render
@@ -38,7 +37,7 @@ def all_monitoring_contacts():
         * Have a server associated with the institution
     """
 
-    contacts = Set()
+    contacts = set()
     for irm in InstRealmMon.objects.all():
       try:
         for c in irm.realm.instid.institutiondetails.contact.all():

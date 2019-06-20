@@ -1,5 +1,4 @@
 from django import template
-from sets import Set
 
 register = template.Library()
 
@@ -9,7 +8,7 @@ def instserver2contacts(s):
        of contacts used in all institutions associated with this server.
 
     """
-    contacts = Set()
+    contacts = set()
 
     for inst in s.instid.all():
       try:
