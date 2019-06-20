@@ -26,6 +26,6 @@ RUN pip install -r requirements.txt -r requirements-optional.txt -r requirements
 COPY local_settings.py djnro/
 # populate STATIC_DIR with static files from all modules
 # Needs to be a separate RUN - after local_settings.py are copied in
-RUN ./manage.py collectstatic --noinput
+RUN ./manage.py collectstatic --noinput --verbosity 0
 EXPOSE 3031
 CMD ["/envwrap.sh", "/startup.sh", "uwsgi", "/djnro/uwsgi.ini"]
