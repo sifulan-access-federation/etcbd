@@ -8,5 +8,5 @@ def server2ipv4addr(s, server_addr):
     """Convert a hostname to an IPv4 address using existing lookups.
     """
 
-    return server_addr[s]['ipv4'] if server_addr.has_key(s) and server_addr[s].has_key('ipv4') else None
+    return server_addr[s]['ipv4'] if s in server_addr and 'ipv4' in server_addr[s] else None
 
