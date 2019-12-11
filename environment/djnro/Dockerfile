@@ -14,7 +14,7 @@ RUN mkdir /djnro
 WORKDIR /djnro
 
 #pull in the djnro code, install it's dependencies
-RUN git clone https://github.com/REANNZ/djnro.git ./ \
+RUN git clone --depth 1 https://github.com/REANNZ/djnro.git ./ \
  && git checkout master
 COPY requirements-additional.txt run-kml-refresh.sh uwsgi.ini ./
 COPY content /
