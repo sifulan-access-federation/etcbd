@@ -167,6 +167,8 @@ MAP_CENTER = (os.getenv('MAP_CENTER_LAT', 0.00), os.getenv('MAP_CENTER_LONG', 0.
 # Variable used to determine the active Realm object (in views and context processor)
 NRO_COUNTRY_CODE = os.getenv('REALM_COUNTRY_CODE', 'tld')
 # main domain url used in right top icon, eg. http://www.grnet.gr
+# ROID for the active Realm (assigned by eduroam OT)
+NRO_ROID = os.getenv('NRO_ROID', NRO_COUNTRY_CODE + '01')
 NRO_DOMAIN_MAIN_URL = "http://www.example.com"
 # NRO federation name
 NRO_FEDERATION_NAME = os.getenv('NRO_FEDERATION_NAME', "NREN AAI federation")
