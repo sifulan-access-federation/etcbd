@@ -234,6 +234,7 @@ ICINGA_CONF_PARAMS = {
 RADSECPROXY_CONF_PARAMS = {
     # Top-level domain (to check forwarding)
     'tld': os.getenv("RADSECPROXY_CONF_TLD",None),
+    'ftickskey': os.getenv('FTICKSKEY',None),
 }
 
 #TLR servers (for Icinga configuration)
