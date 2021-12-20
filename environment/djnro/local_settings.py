@@ -237,6 +237,15 @@ RADSECPROXY_CONF_PARAMS = {
     'ftickskey': os.getenv('FTICKSKEY',None),
 }
 
+MONITORING_CONF_PARAMS = {
+    'sa-5-incoming-secret': os.getenv("MONITORING_CONF_SA_5_INCOMING_SECRET",None),
+    'sa-5-incoming-host': os.getenv("MONITORING_CONF_SA_5_INCOMING_HOST",None),
+    'sa-5-outgoing-secret': os.getenv("MONITORING_CONF_SA_5_OUTGOING_SECRET",None),
+    'sa-5-outgoing-host': os.getenv("MONITORING_CONF_SA_5_OUTGOING_HOST",None),
+    'mon-secret': os.getenv("MONITORING_CONF_MON_SECRET",None),
+    'mon-host': os.getenv("MONITORING_CONF_MON_HOST",None),
+}
+
 #TLR servers (for Icinga configuration)
 # In configuration file, use:
 # TLR_SERVERS=server1 server2 ...
