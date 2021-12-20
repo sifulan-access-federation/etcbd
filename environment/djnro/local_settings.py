@@ -238,12 +238,12 @@ RADSECPROXY_CONF_PARAMS = {
 }
 
 MONITORING_CONF_PARAMS = {
-    'sa-5-incoming-secret': os.getenv("MONITORING_CONF_SA_5_INCOMING_SECRET",None),
-    'sa-5-incoming-host': os.getenv("MONITORING_CONF_SA_5_INCOMING_HOST",None),
-    'sa-5-outgoing-secret': os.getenv("MONITORING_CONF_SA_5_OUTGOING_SECRET",None),
-    'sa-5-outgoing-host': os.getenv("MONITORING_CONF_SA_5_OUTGOING_HOST",None),
-    'mon-secret': os.getenv("MONITORING_CONF_MON_SECRET",None),
-    'mon-host': os.getenv("MONITORING_CONF_MON_HOST",None),
+    'sa_5_incoming_secret': os.getenv("MONITORING_CONF_SA_5_INCOMING_SECRET",None),
+    'sa_5_incoming_host': os.getenv("MONITORING_CONF_SA_5_INCOMING_HOST",None),
+    'sa_5_outgoing_secret': os.getenv("MONITORING_CONF_SA_5_OUTGOING_SECRET",None),
+    'sa_5_outgoing_host': os.getenv("MONITORING_CONF_SA_5_OUTGOING_HOST",None),
+    'mon_secret': os.getenv("MONITORING_CONF_MON_SECRET",None),
+    'mon_host': os.getenv("MONITORING_CONF_MON_HOST",None),
 }
 
 #TLR servers (for Icinga configuration)
