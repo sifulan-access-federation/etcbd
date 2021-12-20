@@ -235,9 +235,6 @@ RADSECPROXY_CONF_PARAMS = {
     # Top-level domain (to check forwarding)
     'tld': os.getenv("RADSECPROXY_CONF_TLD",None),
     'ftickskey': os.getenv('FTICKSKEY',None),
-}
-
-MONITORING_CONF_PARAMS = {
     'sa_5_incoming_secret': os.getenv("MONITORING_CONF_SA_5_INCOMING_SECRET",None),
     'sa_5_incoming_host': os.getenv("MONITORING_CONF_SA_5_INCOMING_HOST",None),
     'sa_5_outgoing_secret': os.getenv("MONITORING_CONF_SA_5_OUTGOING_SECRET",None),

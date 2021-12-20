@@ -147,7 +147,6 @@ def radsecproxyconf(request):
                      'tlrservers': settings.TLR_SERVERS,
                      'ERTYPES_IDP': ERTYPES_IDP,
                      'ERTYPES_SP': ERTYPES_SP,
-                     'monparams': settings.MONITORING_CONF_PARAMS,
                     }
                 )
     resp_body = re.sub("\n\n\n*","\n\n",
