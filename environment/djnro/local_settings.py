@@ -158,7 +158,7 @@ CACHES = {
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = os.getenv('TIME_ZONE', 'Pacific/Auckland')
+TIME_ZONE = os.getenv('TIME_ZONE', 'Etc/UTC')
 
 
 # map center (lat, lng)
@@ -183,7 +183,7 @@ NRO_PROV_SOCIAL_MEDIA_CONTACT = [ ] + (
     )
 
 # Helpdesk, used in base.html:
-NRO_DOMAIN_HELPDESK_DICT = {"name": _ld({'en':"Domain Helpdesk"}), 'email':'helpdesk@example.com', 'phone': '12324567890', 'uri': 'helpdesk.example.com'}
+NRO_DOMAIN_HELPDESK_DICT = {"name": _ld({'en':"eduroam MY Support"}), 'email':'support@eduroam.my', 'phone': '+603-50351074', 'uri': 'support@eduroam.my'}
 
 #Countries for Realm model:
 REALM_COUNTRIES = (
@@ -266,6 +266,7 @@ for s in os.getenv('TLR_SERVERS','').split():
         'secret': os.getenv("TLR_SERVER_SECRET_%s" % (s),''),
         'auth_port': os.getenv("TLR_SERVER_PORT_%s" % (s),'1812'),
         'status_server': not os.getenv("TLR_SERVER_STATUS_%s" % (s),'False').upper() in ("FALSE", ""),
+        'server_enabled': not os.getenv("TLR_SERVER_ENABLED_%s" % (s),'False').upper() in ("FALSE", ""),
         }])
 
 # List the login methods to be offered to users here.
@@ -366,31 +367,31 @@ for var in os.environ:
 # CAT_PROFILES_URL: Base URL for Intitution Download Area pages
 # CAT_IDPMGMT_URL: URL For IdP Overview page
 
-# CAT_INSTANCES = (
-#     ('production', 'cat.eduroam.org'),
-#     ('testing', 'cat-test.eduroam.org'),
-# )
+CAT_INSTANCES = (
+    ('production', 'cat.eduroam.org'),
+    ('testing', 'cat-test.eduroam.org'),
+)
 
-# CAT_AUTH = {
-#     'production': {
-#         "CAT_API_KEY": "<provided API key>",
-#         "CAT_API_URL": "https://cat.eduroam.org/admin/API.php",
-#         "CAT_USER_API_URL": "https://cat.eduroam.org/user/API.php",
-#         "CAT_USER_API_VERSION": 2,
-#         "CAT_USER_API_LOCAL_DOWNLOADS": "https://cat.eduroam.org/",
-#         "CAT_PROFILES_URL": "https://cat.eduroam.org/",
-#         "CAT_IDPMGMT_URL": "https://cat.eduroam.org/admin/overview_idp.php"
-#     },
-#     'testing': {
-#         "CAT_API_KEY": "<provided API key>",
-#         "CAT_API_URL": "https://cat-test.eduroam.org/test/admin/API.php",
-#         "CAT_USER_API_URL": "https://cat-test.eduroam.org/test/user/API.php",
-#         "CAT_USER_API_VERSION": 2,
-#         "CAT_USER_API_LOCAL_DOWNLOADS": "https://cat-test.eduroam.org/test/",
-#         "CAT_PROFILES_URL": "https://cat-test.eduroam.org/test",
-#         "CAT_IDPMGMT_URL": "https://cat-test.eduroam.org/test/admin/overview_idp.php"
-#     },
-# }
+CAT_AUTH = {
+    'production': {
+        "CAT_API_KEY": os.getenv('CAT_API_KEY',''),
+        "CAT_API_URL": "https://cat.eduroam.org/admin/API.php",
+        "CAT_USER_API_URL": "https://cat.eduroam.org/user/API.php",
+        "CAT_USER_API_VERSION": 2,
+        "CAT_USER_API_LOCAL_DOWNLOADS": "https://cat.eduroam.org/",
+        "CAT_PROFILES_URL": "https://cat.eduroam.org/",
+        "CAT_IDPMGMT_URL": "https://cat.eduroam.org/admin/overview_idp.php"
+    },
+    'testing': {
+        "CAT_API_KEY": os.getenv('CAT_API_KEY',''),
+        "CAT_API_URL": "https://cat-test.eduroam.org/test/admin/API.php",
+        "CAT_USER_API_URL": "https://cat-test.eduroam.org/test/user/API.php",
+        "CAT_USER_API_VERSION": 2,
+        "CAT_USER_API_LOCAL_DOWNLOADS": "https://cat-test.eduroam.org/test/",
+        "CAT_PROFILES_URL": "https://cat-test.eduroam.org/test",
+        "CAT_IDPMGMT_URL": "https://cat-test.eduroam.org/test/admin/overview_idp.php"
+    },
+}
 
 # CAT User API proxy can optionally cache responses using a Django
 # cache backend. By default only expensive API actions (where responses
